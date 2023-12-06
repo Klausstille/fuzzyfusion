@@ -18,8 +18,9 @@ const config: Config = {
             white: "#ffffff",
             black: "#303030",
             "real-black": "#000000",
-            gray: "#B6B9C2",
-            "light-gray": "#F9F9F9",
+            gray: "#e4e4e4",
+            "dark-gray": "#b4b4b4",
+            "light-gray": "#F8F8F8",
             accent: "tomato",
             lime: "lime",
             yellow: "#FFD15D",
@@ -97,8 +98,8 @@ const config: Config = {
                 { letterSpacing: "0", lineHeight: "1.5rem", fontWeight: 400 },
             ], // 16px, 24px
             xs: [
-                "0.875rem",
-                { letterSpacing: "0", lineHeight: "1.25rem", fontWeight: 300 },
+                "0.775rem",
+                { letterSpacing: "0", lineHeight: "1.15rem", fontWeight: 300 },
             ], // 14px, 20px
             "html-default": "16px",
             "html-xs": "12px",
@@ -106,19 +107,24 @@ const config: Config = {
             "html-m": "14px",
             "html-l": "15px",
         },
-        padding: {
-            "100%": "100%",
-            "125%": "125%",
-            "50%": "50%", // used for 1:2 aspect ratio
-            "56%": "56%", // used for 1:1.8 aspect ratio
-            "26px": "1.625rem",
-            header: "1rem",
-            "header-desktop": "6rem",
-            "button-x": "2.5rem", // 40px
-            "content-x": "1rem", // 48px
-            "content-x-desktop": "12.5rem", // 200px
-            "content-y": "1.75rem", // 60px
-            "content-y-desktop": "5rem", // 80px
+        extend: {
+            aspectRatio: {
+                "16/9": "16 / 9",
+            },
+            padding: {
+                "100%": "100%",
+                "125%": "125%",
+                "50%": "50%", // used for 1:2 aspect ratio
+                "56%": "56%", // used for 1:1.8 aspect ratio
+                "26px": "1.625rem",
+                header: "1rem",
+                "header-desktop": "6rem",
+                "button-x": "2.5rem", // 40px
+                "content-x": ".75rem", // 48px
+                "content-x-desktop": "12.5rem", // 200px
+                "content-y": "1.75rem", // 60px
+                "content-y-desktop": "5rem", // 80px
+            },
         },
     },
     plugins: [],

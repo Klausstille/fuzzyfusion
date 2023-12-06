@@ -6,13 +6,13 @@ import { useWidthContext } from "@/context/WidthContext";
 export default function Header() {
     const { onWidthChange } = useWidthContext();
     return (
-        <header className="grid grid-cols-[250px,1fr,1fr] py-1 px-4 fixed bottom-0 w-full z-30 items-center bg-[#e8e8e8] h-10 max-tablet:grid-cols-2">
+        <header className="grid grid-cols-10 fixed left-0 bottom-0 w-full z-30 items-center px-4 py-2 text-m ">
             <Logo />
             <Nav />
-            <div className="scaleProjects px-4 z-50 flex gap-3 max-tablet:hidden">
+            <div className="scaleProjects z-50 gap-3 max-desktop:hidden flex justify-self-end col-span-5">
                 IMAGE SIZE 200px
                 <input
-                    className="w-[150px]"
+                    className="w-[300px]"
                     onChange={(e) => onWidthChange(e)}
                     type="range"
                     defaultValue={200}

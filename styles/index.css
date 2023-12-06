@@ -37,6 +37,18 @@ input[type="range"]::-webkit-slider-runnable-track {
     width: 0.7rem;
 }
 
+.card__info {
+    display: grid;
+    grid-template-columns: auto 1fr;
+}
+
+.card__info-title {
+    padding-right: 3rem;
+}
+.card__info-description {
+    text-align: left;
+}
+
 /* slider thumb */
 input[type="range"]::-webkit-slider-thumb {
     -webkit-appearance: none; /* Override default look */
