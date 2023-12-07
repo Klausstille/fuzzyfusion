@@ -18,9 +18,7 @@ export default function ProjectListEntry({
                             <ProjectList
                                 active={item.id === projectItem.id}
                                 key={idx}
-                                url={item.url}
-                                title={item.title}
-                                isFavorite={item.isFavorite}
+                                item={item}
                             />
                         </section>
                     );

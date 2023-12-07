@@ -43,7 +43,7 @@ export default function ProjectIcon({
             </div>
             <aside className="flex justify-between w-full items-center h-6">
                 <p>{item.title}</p>
-                <FavoriteButton isFavorite={item.isFavorite} iconEntry />
+                <FavoriteButton id={item.id} iconEntry />
             </aside>
         </article>
     );

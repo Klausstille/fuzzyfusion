@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import formatExifData from "@/helpers/formatExifData";
 import { FilteredExifTags, ExifTags } from "@/types";
 import FavoriteButton from "../FavoriteButton/FavoriteButton";
+import { useFavoritesStore } from "@/stores/favorites";
 import Button from "../Button";
 interface ProjectListItemDetailProps {
     exifData: ExifTags;
@@ -31,7 +32,9 @@ export default function ProjectItemDetail({
             setFilteredExifData(formattedExifData);
         }
     }, [exifData]);
-
+    const isFavorite: boolean = useFavoritesStore((state: any) =>
+        state.isFavorite.includes(projectItem.id)
+    );
     return (
         <section
             className={`${
@@ -48,7 +51,7 @@ export default function ProjectItemDetail({
                     priority
                 />
             )}
-            <h1 className="text-s-bold">DSCF5143.JPG</h1>
+            <h1 className="text-s-bold">{projectItem.title}</h1>
             <h1 className="text-dark-gray pb-4 text-s-bold">JPEG image</h1>
             <h1 className="text-s-bold flex justify-between">
                 Information
@@ -81,8 +84,8 @@ export default function ProjectItemDetail({
                     className="text-xs flex items-center gap-4 text-dark-gray"
                     style={{ whiteSpace: "nowrap" }}
                 >
-                    <p>{projectItem.isFavorite ? "" : "Mark as favorite"}</p>
-                    <FavoriteButton isFavorite={projectItem.isFavorite} />
+                    <p>{isFavorite ? "" : "Mark as favorite"}</p>
+                    <FavoriteButton id={projectItem.id} />
                 </span>
             </div>
         </section>

@@ -1,21 +1,39 @@
+import { useFavoritesStore } from "@/stores/favorites";
+import { useEffect, useState } from "react";
+
 export default function FavoriteButton({
-    isFavorite,
     iconEntry,
+    id,
 }: {
-    isFavorite?: boolean;
     iconEntry?: boolean;
+    id: number;
 }) {
+    const [hasLoaded, setHasLoaded] = useState(false);
+    const setFavorite = useFavoritesStore((state: any) => state.setFavorite);
+    const isFavorite: boolean = useFavoritesStore((state: any) =>
+        state.isFavorite.includes(id)
+    );
+
+    useEffect(() => {
+        setHasLoaded(true);
+    }, [hasLoaded]);
+
     return (
-        <div
-            className={`w-full flex ${
-                iconEntry ? "justify-end" : "justify-center"
-            }`}
-        >
-            <button
-                className={`dot ${
-                    isFavorite ? "bg-lime" : "bg-white border-gray border-[1px]"
+        hasLoaded && (
+            <div
+                className={`w-full flex ${
+                    iconEntry ? "justify-end" : "justify-center"
                 }`}
-            />
-        </div>
+            >
+                <button
+                    onClick={() => setFavorite(id)}
+                    className={`dot ${
+                        isFavorite
+                            ? "bg-lime"
+                            : "bg-white border-gray border-[1px]"
+                    }`}
+                />
+            </div>
+        )
     );
 }
