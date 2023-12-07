@@ -10,7 +10,7 @@ export default function ScaleIcons() {
                 className="w-[200px]"
                 onChange={(e) => onWidthChange(e)}
                 type="range"
-                defaultValue={400}
+                defaultValue={250}
                 min="100"
                 max="800"
             />{" "}

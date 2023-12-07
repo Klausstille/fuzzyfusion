@@ -16,7 +16,13 @@ export default function ProjectList({
     return (
         <ProjectListItem active={active}>
             <aside className="mt-[-3px] h-3 bg-black aspect-16/9 object-cover mr-4">
-                <Image src={url} alt="DSCF5143.JPG" width={500} height={500} />
+                <Image
+                    className="aspect-16/9 object-cover"
+                    src={url}
+                    alt="DSCF5143.JPG"
+                    width={500}
+                    height={500}
+                />
             </aside>
             <p className="min-w-[150px]">{title}</p>
             <FavoriteButton isFavorite={isFavorite} />

@@ -12,12 +12,23 @@ export default function ProjectIconEntry({
     const { width } = useWidthContext();
     const [showImageDetail, setShowImageDetail] = useState<boolean>(false);
 
+    function calculateDynamicGap(width: number) {
+        const minWidth = 100;
+        const maxWidth = 800;
+
+        const dynamicGap =
+            40 - Math.pow((width - minWidth) / (maxWidth - minWidth), 2) * 35;
+
+        return Math.max(5, Math.min(40, dynamicGap));
+    }
+
     return (
         <>
             <section
-                className="px-2 py-2 grid gap-2"
+                className="px-2 py-2 grid"
                 style={{
                     gridTemplateColumns: `repeat(auto-fill, minmax(${width}px,1fr))`,
+                    gap: `${calculateDynamicGap(width)}px`,
                 }}
             >
                 {dummyData.map((item, idx) => {

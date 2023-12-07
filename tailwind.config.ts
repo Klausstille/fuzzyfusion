@@ -110,6 +110,8 @@ const config: Config = {
         extend: {
             aspectRatio: {
                 "16/9": "16 / 9",
+                "6/4": "6 / 4",
+                "3/4": "3 / 4",
             },
             padding: {
                 "100%": "100%",

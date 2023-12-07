@@ -58,13 +58,13 @@ body {
     transition: all 0.3s ease-in-out;
 }
 .hamburger__bar--top {
-    transform: translate(0, -11px);
+    transform: translate(0, -13px);
 }
 .hamburger__bar--mid {
     transform: translate(0, 0);
 }
 .hamburger__bar--bot {
-    transform: translate(0, 11px);
+    transform: translate(0, 13px);
 }
 .is-opened .hamburger__bar--top {
     transform: rotate(45deg) translateY(0) translateX(0);
@@ -76,7 +76,8 @@ body {
     transform: rotate(-45deg) translateY(0em) translateX(0em);
 }
 .filter-projects {
-    transition: height 0.125s ease-out;
+    transition: all 0.125s ease-out;
+    transform: translateX(100%);
     overflow: hidden;
 }
 .filter-projects.closed {
@@ -84,6 +85,7 @@ body {
 }
 .filter-projects.open {
     height: calc(100vh - 30px);
+    transform: translateX(0);
 }
 
 .card__content {

@@ -30,7 +30,7 @@ export default function ProjectIconImageDetail({
                 priority
                 onClick={() => setShowImageDetail(false)}
             />
-            <aside className="col-span-3 pt-2">
+            <aside className="col-span-3">
                 <h1
                     className="text-s-bold fixed top-2 right-2 flex items-center gap-2 cursor-pointer"
                     onClick={() => setShowImageDetail(false)}

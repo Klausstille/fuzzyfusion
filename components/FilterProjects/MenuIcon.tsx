@@ -5,7 +5,10 @@ interface MenuIconProps {
 
 export default function MenuIcon({ handleClick, isOpen }: MenuIconProps) {
     return (
-        <div className="menu-icon absolute top-2 right-2" onClick={handleClick}>
+        <div
+            className="menu-icon fixed top-0 right-0 bg-light-gray py-2 px-2"
+            onClick={handleClick}
+        >
             <div className={isOpen ? "is-opened" : "hamburger"}>
                 <svg className="hamburger">
                     <line

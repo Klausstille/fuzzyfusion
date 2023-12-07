@@ -35,7 +35,7 @@ export default function ProjectItemDetail({
     return (
         <section
             className={`${
-                projectIcon ? "h-screen" : "h-[calc(100vh-30px)]"
+                projectIcon ? "h-screen pt-2" : "h-[calc(100vh-30px)]"
             } overflow-scroll col-span-3 bg-white px-2`}
         >
             {!projectIcon && (

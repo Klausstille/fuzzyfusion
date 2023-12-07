@@ -1,12 +1,14 @@
 import Image from "next/image";
 import { CSSProperties } from "react";
-import { useState } from "react";
 
 export interface AssetImageProps {
+    image?: {
+        url: string;
+        width: number;
+        height: number;
+    };
     imageSrc?: string;
     alt?: string;
-    width?: number;
-    height?: number;
     priority?: boolean;
     className?: string;
     style?: CSSProperties;
@@ -32,9 +34,9 @@ const PreviewBase64Map = {
 };
 
 export function AssetImage({
+    image,
     imageSrc,
     alt,
-    height,
     quality = "cover",
     priority = false,
     className = "",
@@ -43,9 +45,8 @@ export function AssetImage({
     fill,
     sizes,
     onLoad,
-    contentLayout = "classic",
 }: AssetImageProps) {
-    if (imageSrc)
+    if (image && imageSrc)
         throw new Error(
             "AssetImage requires either an image or an imageSrc, not both"
         );
@@ -54,7 +55,12 @@ export function AssetImage({
             "AssetImage requires an alt property when using imageSrc"
         );
 
-    const width = fill ? undefined : WidthQualityMap[quality];
+    const width = 1000;
+    // fill ? undefined : WidthQualityMap[quality];
+    const height = 1000;
+    // width && image
+    // ? Math.round((width / image.width) * image.height)
+    // : undefined;
     const previewBase64 =
         preview === "gray" || preview === "transparent"
             ? PreviewBase64Map[preview]
@@ -66,6 +72,7 @@ export function AssetImage({
 
     return (
         <Image
+            className="aspect-16/9 object-cover"
             onLoad={onLoad}
             priority={priority}
             key={imageSrc}
@@ -73,7 +80,7 @@ export function AssetImage({
             alt={alt as string}
             width={width}
             quality={quality === "high" ? 85 : 75}
-            height={height as number}
+            height={height}
             fill={fill}
             sizes={sizes}
             {...blurProps}
