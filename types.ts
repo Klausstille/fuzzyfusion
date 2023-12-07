@@ -1,5 +1,28 @@
 import { latLongProps } from "./helpers/latLong";
 
+export interface ProjectEntryProps {
+    setProjectItem: React.Dispatch<
+        React.SetStateAction<{
+            id: number;
+            url: string;
+            title: string;
+            isFavorite: boolean;
+        }>
+    >;
+    dummyData: {
+        id: number;
+        url: string;
+        title: string;
+        isFavorite: boolean;
+    }[];
+    exifData: any;
+    projectItem: {
+        id: number;
+        url: string;
+        title: string;
+        isFavorite: boolean;
+    };
+}
 export interface FilteredExifTags {
     Created: string;
     Dimensions: string;
@@ -15,8 +38,12 @@ export interface FilteredExifTags {
     Longitude: number;
 }
 
-export interface ExifTagsEntryProps {
-    exifData: ExifTags;
+export interface ProjectItemProps {
+    projectItem: {
+        id: number;
+        url: string;
+        title: string;
+    };
 }
 
 export interface ExifTags {

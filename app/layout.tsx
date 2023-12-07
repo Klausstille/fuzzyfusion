@@ -4,12 +4,12 @@ import Header from "@/components/Header";
 import { WidthProvider } from "@/context/WidthContext";
 import "../styles/index.css";
 
-const inter = Inter({ subsets: ["latin"] });
-
 export const metadata: Metadata = {
     title: "FUZZYFUSION",
-    description: "",
+    description: "A FUZZY FUSION of art and technology",
 };
+
+const inter = Inter({ subsets: ["latin"] });
 
 export default function RootLayout({
     children,
@@ -17,17 +17,17 @@ export default function RootLayout({
     children: React.ReactNode;
 }) {
     return (
-        <WidthProvider>
-            <html lang="en">
-                <body
-                    className={`flex flex-col h-screen ${inter.className} text-black`}
-                >
+        <html lang="en">
+            <body
+                className={`flex flex-col h-screen ${inter.className} text-black`}
+            >
+                <WidthProvider>
                     <Header />
-                    <main className="flex flex-col flex-grow text-xs">
+                    <main className="flex flex-col flex-grow text-xs bg-light-gray">
                         {children}
                     </main>
-                </body>
-            </html>
-        </WidthProvider>
+                </WidthProvider>
+            </body>
+        </html>
     );
 }

@@ -1,15 +1,12 @@
-import { FunctionComponent } from 'react';
-
 interface ButtonProps {
-    text: string;
+    children: React.ReactNode;
 }
 
-const Button: FunctionComponent<ButtonProps> = ({ text }) => {
+const Button: React.FC<ButtonProps> = ({ children }) => {
     return (
-        <button className='py-2 px-6 my-8 text-black bg-white rounded-3xl hover:bg-gray hover:text-white transition-colors duration-200'>
-            {text}
+        <button className="py-1 px-10 my-2 text-white bg-lime rounded-3xl hover:bg-gray hover:text-black transition-colors duration-200 text-sm-heading font-black">
+            {children}
         </button>
     );
 };
-
 export default Button;

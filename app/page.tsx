@@ -1,15 +1,56 @@
 "use client";
 import { useState, useEffect } from "react";
-import ProjectList from "@/components/ProjectList/ProjectList";
-import ProjectListItemDetail from "@/components/ProjectList/ProjectListItemDetail";
-import ProjectListImageDetail from "@/components/ProjectList/ProjectListImageDetail";
-import { ExifTags } from "@/types";
+import FilterProjects from "@/components/FilterProjects/FilterProjects";
+import ProjectListEntry from "@/components/ProjectList/ProjectListEntry";
+import ProjectIconEntry from "@/components/ProjectIcon/ProjectIconEntry";
+import { useProjectLayoutStore, setLayoutProps } from "@/stores/projectLayout";
 import EXIF from "exif-js";
-
+interface ProjectItem {
+    id: number;
+    url: string;
+    title: string;
+    isFavorite: boolean;
+}
 export default function Index() {
+    const { layout } = useProjectLayoutStore() as setLayoutProps;
+
+    const dummyData = [
+        {
+            id: 1,
+            url: "/DSCF5143.JPG",
+            title: "DSCF5143.JPG",
+            isFavorite: false,
+        },
+        {
+            id: 2,
+            url: "/DSCF4858.JPG",
+            title: "DSCF4858.JPG",
+            isFavorite: true,
+        },
+        {
+            id: 3,
+            url: "/DSCF5143.JPG",
+            title: "DSCF5143.JPG",
+            isFavorite: true,
+        },
+        {
+            id: 4,
+            url: "/DSCF4858.JPG",
+            title: "DSCF4858.JPG",
+            isFavorite: false,
+        },
+    ];
+
     const [exifData, setExifData] = useState([]);
+    const [projectItem, setProjectItem] = useState<ProjectItem>({
+        id: 1,
+        url: "/DSCF5143.JPG",
+        title: "DSCF5143.JPG",
+        isFavorite: false,
+    });
+
     useEffect(() => {
-        const url: string = "./DSCF5143.JPG";
+        const url: string = projectItem.url;
         // "https://images.ctfassets.net/rbwa20kawb52/1PzHTL0qaQcsYGUWRipV9F/a107ee82cc8a523ff3ba6b4cbfa8c8d3/EA932281-3929-4849-86AF-C4475B80DC3B-643-00000019658FFFD4.JPG";
         fetch(url)
             .then((response) => response.blob())
@@ -27,21 +68,26 @@ export default function Index() {
             .catch((error) => {
                 console.error("Error fetching or processing the image:", error);
             });
-    }, [exifData]);
+    }, [projectItem]);
 
     return (
-        <section className="px-2 py-2 grid grid-cols-10 gap-2">
-            <div className="col-span-2 px-2 h-[calc(100vh-30px)]">
-                <ProjectList active />
-                <ProjectList />
-                <ProjectList />
-                <ProjectList />
-                <ProjectList />
-                <ProjectList />
-                <ProjectList />
-            </div>
-            {exifData && <ProjectListItemDetail exifData={exifData as any} />}
-            <ProjectListImageDetail />
-        </section>
+        <>
+            {layout === "LIST" ? (
+                <ProjectListEntry
+                    exifData={exifData}
+                    setProjectItem={setProjectItem}
+                    projectItem={projectItem}
+                    dummyData={dummyData}
+                />
+            ) : (
+                <ProjectIconEntry
+                    exifData={exifData}
+                    setProjectItem={setProjectItem}
+                    projectItem={projectItem}
+                    dummyData={dummyData}
+                />
+            )}
+            <FilterProjects />
+        </>
     );
 }

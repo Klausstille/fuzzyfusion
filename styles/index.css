@@ -1,15 +1,111 @@
-/* purgecss start ignore */
 @tailwind base;
 @tailwind components;
-/* purgecss end ignore */
 @tailwind utilities;
 
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+::selection {
+    background-color: transparent;
+    color: inherit;
+}
+
+::-webkit-scrollbar {
+    display: none;
+    -ms-overflow-style: none;
+}
+
+body::-webkit-scrollbar {
+    width: 0.5rem;
+    display: none;
+}
+
+body::-webkit-scrollbar-thumb {
+    background-color: transparent;
+}
+
+body::-webkit-scrollbar-track {
+    background-color: transparent;
+}
+
 body {
-    /* width: 90vw; */
-    /* max-width: 1400px; */
     margin: auto;
     overflow-x: hidden;
+    cursor: crosshair;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+    scrollbar-width: thin;
+    scrollbar-color: transparent transparent;
+    overflow: -moz-scrollbars-none;
+    -ms-overflow-style: none;
 }
+
+/*********** FILTER MENU ***********/
+.hamburger {
+    width: 30px;
+    height: 30px;
+    stroke: #303030;
+    cursor: pointer;
+}
+.hamburger__bar--top,
+.hamburger__bar--mid,
+.hamburger__bar--bot {
+    transform-origin: initial;
+    stroke-width: 1.2px;
+    transition: all 0.3s ease-in-out;
+}
+.hamburger__bar--top {
+    transform: translate(0, -11px);
+}
+.hamburger__bar--mid {
+    transform: translate(0, 0);
+}
+.hamburger__bar--bot {
+    transform: translate(0, 11px);
+}
+.is-opened .hamburger__bar--top {
+    transform: rotate(45deg) translateY(0) translateX(0);
+}
+.is-opened .hamburger__bar--mid {
+    opacity: 0;
+}
+.is-opened .hamburger__bar--bot {
+    transform: rotate(-45deg) translateY(0em) translateX(0em);
+}
+.filter-projects {
+    transition: height 0.125s ease-out;
+    overflow: hidden;
+}
+.filter-projects.closed {
+    height: 45px;
+}
+.filter-projects.open {
+    height: calc(100vh - 30px);
+}
+
+.card__content {
+    transition: height 0.3s ease;
+}
+
+.card__content.card-content-transition {
+    transition: height 0.3s ease;
+}
+
+.card__info {
+    display: grid;
+    grid-template-columns: auto 1fr;
+}
+
+.card__info-title {
+    width: 100px;
+}
+.card__info-description {
+    text-align: left;
+}
+
 /*********** Baseline, reset styles ***********/
 input[type="range"] {
     -webkit-appearance: none;
@@ -37,16 +133,8 @@ input[type="range"]::-webkit-slider-runnable-track {
     width: 0.7rem;
 }
 
-.card__info {
-    display: grid;
-    grid-template-columns: auto 1fr;
-}
-
-.card__info-title {
-    padding-right: 3rem;
-}
-.card__info-description {
-    text-align: left;
+button:focus {
+    outline: none;
 }
 
 /* slider thumb */

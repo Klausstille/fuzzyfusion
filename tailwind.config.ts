@@ -69,7 +69,7 @@ const config: Config = {
                 {
                     letterSpacing: "1px",
                     lineHeight: "2.125rem",
-                    fontWeight: 400,
+                    fontWeight: 200,
                 },
             ], // 28px, 34px
             "xs-heading": [
@@ -82,24 +82,24 @@ const config: Config = {
             ], // 25px, 31px
 
             m: [
-                "1.125rem",
-                { letterSpacing: "0", lineHeight: "1.625rem", fontWeight: 300 },
+                "1rem",
+                { letterSpacing: "0", lineHeight: "1.325rem", fontWeight: 400 },
             ], // 18px, 26px
             "m-bold": [
                 "1.125rem",
                 { letterSpacing: "0", lineHeight: "1.625rem", fontWeight: 400 },
             ], // 18px, 26px
             s: [
-                "1rem",
-                { letterSpacing: "0", lineHeight: "1.5rem", fontWeight: 300 },
+                "0.85rem",
+                { letterSpacing: "0", lineHeight: "1.1rem", fontWeight: 400 },
             ], // 16px, 24px
             "s-bold": [
-                "1rem",
-                { letterSpacing: "0", lineHeight: "1.5rem", fontWeight: 400 },
+                "0.85rem",
+                { letterSpacing: "0", lineHeight: "1.1rem", fontWeight: 400 },
             ], // 16px, 24px
             xs: [
-                "0.775rem",
-                { letterSpacing: "0", lineHeight: "1.15rem", fontWeight: 300 },
+                "0.7rem",
+                { letterSpacing: "0", lineHeight: "1.15rem", fontWeight: 400 },
             ], // 14px, 20px
             "html-default": "16px",
             "html-xs": "12px",

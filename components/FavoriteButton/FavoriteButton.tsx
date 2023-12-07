@@ -1,7 +1,21 @@
-export default function FavoriteButton() {
+export default function FavoriteButton({
+    isFavorite,
+    iconEntry,
+}: {
+    isFavorite?: boolean;
+    iconEntry?: boolean;
+}) {
     return (
-        <div className="w-full flex justify-center">
-            <button className="dot bg-lime focus:outline-none" />
+        <div
+            className={`w-full flex ${
+                iconEntry ? "justify-end" : "justify-center"
+            }`}
+        >
+            <button
+                className={`dot ${
+                    isFavorite ? "bg-lime" : "bg-white border-gray border-[1px]"
+                }`}
+            />
         </div>
     );
 }

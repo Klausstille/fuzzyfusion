@@ -7,7 +7,7 @@ interface WidthContextProps {
 }
 
 const WidthContext = createContext<WidthContextProps>({
-    width: 300,
+    width: 200,
     onWidthChange: () => {},
 });
 

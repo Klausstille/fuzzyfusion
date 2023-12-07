@@ -1,14 +1,17 @@
 import Image from "next/image";
-
-export default function ProjectListImageDetail() {
+import { ProjectItemProps } from "@/types";
+export default function ProjectListImageDetail({
+    projectItem,
+}: ProjectItemProps) {
     return (
-        <aside className="col-span-5">
+        <aside className="col-span-7">
             <Image
-                src="/DSCF5143.JPG"
-                width={5000}
-                height={5000}
-                alt="/DSCF5143.JPG"
-                className="h-[calc(100vh-60px)] object-cover object-left"
+                src={projectItem.url}
+                width={1000}
+                height={1000}
+                alt={projectItem.title}
+                className="h-[calc(100vh-18px)] w-full object-cover object-left"
+                priority
             />
         </aside>
     );

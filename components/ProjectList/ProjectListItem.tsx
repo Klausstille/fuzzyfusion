@@ -8,8 +8,10 @@ export default function ProjectListItem({
     return (
         <section
             className={`${
-                active && "bg-gray"
-            } flex items-center h-7 pl-6 rounded-sm hover:bg-gray hover:bg-opacity-30 cursor-pointer transition-colors duration-200 ease-in-out `}
+                active
+                    ? "bg-gray hover:bg-gray opacity-100"
+                    : "hover:bg-gray hover:bg-opacity-30 cursor-pointer transition-colors duration-200 ease-in-out"
+            } text-s-bold flex items-center h-6 pl-2 rounded-sm`}
         >
             {children}
         </section>
