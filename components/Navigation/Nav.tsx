@@ -16,8 +16,8 @@ export default function Nav() {
     );
 
     return (
-        <nav className="col-span-3">
-            <ul className="flex gap-6">
+        <nav className="col-span-7">
+            <ul className="flex gap-8">
                 SHOW ITEMS AS
                 {renderNavItem("LIST")}
                 {renderNavItem("ICONS")}

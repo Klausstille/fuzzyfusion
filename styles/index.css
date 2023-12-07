@@ -123,18 +123,7 @@ input[type="range"]:focus {
 /* slider track */
 input[type="range"]::-webkit-slider-runnable-track {
     background-color: #303030;
-    border-radius: 4rem;
     height: 1px;
-}
-
-.dot {
-    border-radius: 2rem;
-    height: 0.7rem;
-    width: 0.7rem;
-}
-
-button:focus {
-    outline: none;
 }
 
 /* slider thumb */
@@ -155,18 +144,19 @@ input[type="range"]:focus::-webkit-slider-thumb {
 /*********** Firefox styles ***********/
 /* slider track */
 input[type="range"]::-moz-range-track {
-    background-color: #9c9c9c;
-    border-radius: 4rem;
-    height: 2.5px;
+    background-color: #303030;
+    height: 1px;
 }
 
 /* slider thumb */
 input[type="range"]::-moz-range-thumb {
-    background-color: #424242;
-    border: none; /*Removes extra border that FF applies*/
+    -webkit-appearance: none; /* Override default look */
+    appearance: none;
+    margin-top: -5px; /* Centers thumb on the track */
+    background-color: #303030;
     border-radius: 2rem;
-    height: 1rem;
-    width: 1rem;
+    height: 0.7rem;
+    width: 0.7rem;
 }
 
 input[type="range"]:focus::-moz-range-thumb {
@@ -180,4 +170,14 @@ input[type="range"]:focus::-moz-range-thumb {
     width: 100vw;
     height: 100vh;
     z-index: -1;
+}
+
+.dot {
+    border-radius: 2rem;
+    height: 0.7rem;
+    width: 0.7rem;
+}
+
+button:focus {
+    outline: none;
 }
