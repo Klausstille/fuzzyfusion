@@ -2,14 +2,10 @@ import Image from "next/image";
 import { ExifTags } from "@/types";
 import ProjectItemDetail from "@/components/ProjectShared/ProjectItemDetail";
 import BackIcon from "./BackIcon";
+import { ImagesCollectionItem } from "@/types";
 
 interface ProjectItemImageDetailProps {
-    projectItem: {
-        id: number;
-        url: string;
-        title: string;
-        isFavorite: boolean;
-    };
+    projectItem: ImagesCollectionItem;
     exifData: ExifTags;
     setShowImageDetail: (item: boolean) => void;
 }

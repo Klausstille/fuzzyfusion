@@ -6,6 +6,6 @@ export interface setLayoutProps {
 }
 
 export const useProjectLayoutStore = create((set) => ({
-    layout: "LIST",
+    layout: "ICONS",
     setLayout: (data: "LIST" | "ICONS") => set({ layout: data }),
 }));

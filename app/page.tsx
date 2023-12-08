@@ -5,120 +5,123 @@ import ProjectListEntry from "@/components/ProjectList/ProjectListEntry";
 import ProjectIconEntry from "@/components/ProjectIcon/ProjectIconEntry";
 import { useProjectLayoutStore, setLayoutProps } from "@/stores/projectLayout";
 import EXIF from "exif-js";
-interface ProjectItem {
-    id: number;
-    url: string;
-    title: string;
-    isFavorite: boolean;
-}
+import { ImagesCollectionItem } from "@/types";
+
 export default function Index() {
     const { layout } = useProjectLayoutStore() as setLayoutProps;
 
     const dummyData = [
         {
-            id: 1,
-            url: "/DSCF5143.JPG",
-            title: "DSCF5143.JPG",
-            isFavorite: false,
-        },
-        {
-            id: 2,
-            url: "/DSCF4966.JPG",
-            title: "DSCF4966.JPG",
-            isFavorite: true,
-        },
-        {
-            id: 3,
-            url: "/DSCF5143.JPG",
-            title: "DSCF5143.JPG",
-            isFavorite: true,
-        },
-        {
-            id: 4,
-            url: "/DSCF4858.JPG",
-            title: "DSCF4858.JPG",
-            isFavorite: false,
-        },
-        {
-            id: 5,
-            url: "/DSCF5143.JPG",
-            title: "DSCF5143.JPG",
-            isFavorite: false,
-        },
-        {
-            id: 6,
-            url: "/DSCF4858.JPG",
-            title: "DSCF4858.JPG",
-            isFavorite: true,
-        },
-        {
-            id: 7,
-            url: "/DSCF5143.JPG",
-            title: "DSCF5143.JPG",
-            isFavorite: true,
-        },
-        {
-            id: 8,
-            url: "/DSCF4966.JPG",
-            title: "DSCF4966.JPG",
-            isFavorite: true,
-        },
-        {
-            id: 9,
-            url: "/DSCF5143.JPG",
-            title: "DSCF5143.JPG",
-            isFavorite: false,
-        },
-        {
-            id: 10,
-            url: "/DSCF4858.JPG",
-            title: "DSCF4858.JPG",
-            isFavorite: true,
-        },
-        {
-            id: 11,
-            url: "/DSCF5143.JPG",
-            title: "DSCF5143.JPG",
-            isFavorite: true,
-        },
-        {
-            id: 12,
-            url: "/DSCF4858.JPG",
-            title: "DSCF4858.JPG",
-            isFavorite: false,
-        },
-        {
             id: 13,
-            url: "/DSCF5143.JPG",
-            title: "DSCF5143.JPG",
+            title: "2023-09-BDX-DOR-TLS",
+            imagesCollection: {
+                items: [
+                    {
+                        id: 1,
+                        title: "DSCF5143.JPG",
+                        url: "/DSCF5143.JPG",
+                        width: 1000,
+                        height: 1000,
+                    },
+                    {
+                        id: 2,
+                        title: "DSCF4966.JPG",
+                        url: "/DSCF4966.JPG",
+                        width: 1000,
+                        height: 1000,
+                    },
+                    {
+                        id: 3,
+                        url: "/DSCF4858.JPG",
+                        title: "DSCF4858.JPG",
+                        width: 1000,
+                        height: 1000,
+                    },
+                    {
+                        id: 4,
+                        title: "DSCF5143.JPG",
+                        url: "/DSCF5143.JPG",
+                        width: 1000,
+                        height: 1000,
+                    },
+                    {
+                        id: 5,
+                        title: "DSCF4966.JPG",
+                        url: "/DSCF4966.JPG",
+                        width: 1000,
+                        height: 1000,
+                    },
+                    {
+                        id: 6,
+                        url: "/DSCF4858.JPG",
+                        title: "DSCF4858.JPG",
+                        width: 1000,
+                        height: 1000,
+                    },
+                ],
+            },
             isFavorite: false,
         },
         {
             id: 14,
-            url: "/DSCF4858.JPG",
-            title: "DSCF4858.JPG",
-            isFavorite: true,
-        },
-        {
-            id: 15,
-            url: "/DSCF4966.JPG",
-            title: "DSCF4966.JPG",
-            isFavorite: true,
-        },
-        {
-            id: 16,
-            url: "/DSCF4858.JPG",
-            title: "DSCF4858.JPG",
+            title: "2022-10-TLS-BCN",
+            imagesCollection: {
+                items: [
+                    {
+                        id: 7,
+                        title: "DSCF5143.JPG",
+                        url: "/DSCF5143.JPG",
+                        width: 1000,
+                        height: 1000,
+                    },
+                    {
+                        id: 8,
+                        title: "DSCF4966.JPG",
+                        url: "/DSCF4966.JPG",
+                        width: 1000,
+                        height: 1000,
+                    },
+                    {
+                        id: 9,
+                        url: "/DSCF4858.JPG",
+                        title: "DSCF4858.JPG",
+                        width: 1000,
+                        height: 1000,
+                    },
+                    {
+                        id: 10,
+                        title: "DSCF5143.JPG",
+                        url: "/DSCF5143.JPG",
+                        width: 1000,
+                        height: 1000,
+                    },
+                    {
+                        id: 11,
+                        title: "DSCF4966.JPG",
+                        url: "/DSCF4966.JPG",
+                        width: 1000,
+                        height: 1000,
+                    },
+                    {
+                        id: 12,
+                        url: "/DSCF4858.JPG",
+                        title: "DSCF4858.JPG",
+                        width: 1000,
+                        height: 1000,
+                    },
+                ],
+            },
             isFavorite: false,
         },
     ];
 
     const [exifData, setExifData] = useState([]);
-    const [projectItem, setProjectItem] = useState<ProjectItem>({
+    const [projectItem, setProjectItem] = useState<ImagesCollectionItem>({
         id: 1,
-        url: "/DSCF5143.JPG",
         title: "DSCF5143.JPG",
-        isFavorite: false,
+        url: "/DSCF5143.JPG",
+        width: 1000,
+        height: 1000,
     });
 
     useEffect(() => {
@@ -131,7 +134,7 @@ export default function Index() {
                     const exifData = EXIF.getAllTags(this);
                     if (exifData && Object.keys(exifData).length > 0) {
                         setExifData(exifData);
-                        console.log("Extracted EXIF data:", exifData);
+                        // console.log("Extracted EXIF data:", exifData);
                     } else {
                         console.warn("No EXIF data found in the image.");
                     }
