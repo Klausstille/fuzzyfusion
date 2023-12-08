@@ -1,9 +1,13 @@
-import { useState, useRef, useEffect } from "react";
+import React, { useState, useRef, useEffect } from "react";
+import { DraggableEvent, DraggableData } from "react-draggable";
 import Draggable from "react-draggable";
 import { ProjectEntryProps } from "@/types";
 import { useWidthContext } from "@/context/WidthContext";
 import ProjectIcon from "./ProjectIcon";
 import ProjectIconImageDetail from "./ProjectIconImageDetail";
+import { handleDrag, handleDragStop } from "@/utils/dragUtils";
+import { calculateDynamicGap } from "@/utils/helper";
+import BackIcon from "./BackIcon";
 import Image from "next/image";
 
 export default function ProjectIconEntry({
@@ -15,15 +19,9 @@ export default function ProjectIconEntry({
     const { width } = useWidthContext();
     const [showImageDetail, setShowImageDetail] = useState<boolean>(false);
     const [isOpen, setIsOpen] = useState<{ [key: number]: boolean }>({});
-    const [position, setPosition] = useState({ x: 0, y: 0 });
-
-    const calculateDynamicGap = (width: number) => {
-        const minWidth = 100;
-        const maxWidth = 800;
-        const dynamicGap =
-            40 - Math.pow((width - minWidth) / (maxWidth - minWidth), 2) * 35;
-        return Math.max(5, Math.min(40, dynamicGap));
-    };
+    const [positions, setPositions] = useState<{ x: number; y: number }[]>(
+        Array(dummyData.length).fill({ x: 0, y: 0 })
+    );
 
     const toggleProject = (idx: number) => {
         setIsOpen((prev) => ({
@@ -32,24 +30,24 @@ export default function ProjectIconEntry({
         }));
     };
 
-    const nodeRef = useRef(null);
+    const nodeRefs = useRef<Array<React.RefObject<HTMLElement>>>(
+        dummyData.map(() => React.createRef())
+    );
 
     useEffect(() => {
-        // Load position from localStorage on component mount
-        const savedPosition = localStorage.getItem("draggablePosition");
-        if (savedPosition) {
-            setPosition(JSON.parse(savedPosition));
+        const savedPositions = JSON.parse(
+            localStorage.getItem("draggablePositions") || "[]"
+        ) as { x: number; y: number }[];
+        if (savedPositions) {
+            setPositions(savedPositions);
         }
     }, []);
 
-    const handleDrag = (e: Event, ui: any) => {
-        // Update position in state during dragging
-        setPosition({ x: ui.x, y: ui.y });
+    const handleDragWrapper = (e: Event, ui: any, idx: number) => {
+        handleDrag(positions, setPositions, ui, idx);
     };
-
-    const handleDragStop = () => {
-        // Save position to localStorage after dragging stops
-        localStorage.setItem("draggablePosition", JSON.stringify(position));
+    const handleDragStopWrapper = () => {
+        handleDragStop(positions);
     };
 
     return (
@@ -67,10 +65,14 @@ export default function ProjectIconEntry({
                 {dummyData.map((item, idx) => (
                     <div key={idx}>
                         <Draggable
-                            nodeRef={nodeRef}
-                            onDrag={handleDrag as any}
-                            onStop={handleDragStop}
-                            position={position}
+                            nodeRef={nodeRefs.current[idx]}
+                            onDrag={(e: any, ui: any) =>
+                                handleDragWrapper(e, ui, idx)
+                            }
+                            onStop={(e: DraggableEvent, ui: DraggableData) =>
+                                handleDragStopWrapper()
+                            }
+                            position={positions[idx]}
                         >
                             <div
                                 className="active:cursor-grabbing hover:cursor-grab"
@@ -82,7 +84,7 @@ export default function ProjectIconEntry({
                                         ? "none"
                                         : "block",
                                 }}
-                                ref={nodeRef}
+                                ref={nodeRefs.current[idx] as any}
                             >
                                 <Image
                                     draggable="false"
@@ -90,6 +92,7 @@ export default function ProjectIconEntry({
                                     alt="folderIcon"
                                     width={1000}
                                     height={1000}
+                                    priority
                                 />
                                 <h1
                                     className="w-[150px]"
@@ -105,31 +108,48 @@ export default function ProjectIconEntry({
                             </div>
                         </Draggable>
                         {isOpen[idx] && (
-                            <div
-                                className="px-2 py-2 grid"
-                                style={{
-                                    gridTemplateColumns: `repeat(auto-fill, minmax(${width}px,1fr))`,
-                                    gap: `${calculateDynamicGap(width)}px`,
-                                }}
-                                key={idx}
-                            >
-                                {item.imagesCollection.items.map(
-                                    (item, idx) => (
-                                        <div
-                                            key={idx}
-                                            onClick={() => setProjectItem(item)}
-                                        >
-                                            <ProjectIcon
-                                                item={item}
-                                                setProjectItem={setProjectItem}
-                                                setShowImageDetail={
-                                                    setShowImageDetail
+                            <>
+                                <div className="fixed top-0 left-0 w-full h-8 pt-2 pl-4 flex items-center gap-6">
+                                    <div
+                                        className="flex gap-2 items-center font-bold cursor-pointer"
+                                        onClick={() => setIsOpen({})}
+                                    >
+                                        <BackIcon /> BACK
+                                    </div>
+                                    <p className="text-dark-gray">
+                                        ../{dummyData[idx].title}
+                                    </p>
+                                </div>
+                                <div
+                                    className="px-2 py-10 grid"
+                                    style={{
+                                        gridTemplateColumns: `repeat(auto-fill, minmax(${width}px,1fr))`,
+                                        gap: `${calculateDynamicGap(width)}px`,
+                                    }}
+                                    key={idx}
+                                >
+                                    {item.imagesCollection.items.map(
+                                        (item, idx) => (
+                                            <div
+                                                key={idx}
+                                                onClick={() =>
+                                                    setProjectItem(item)
                                                 }
-                                            />
-                                        </div>
-                                    )
-                                )}
-                            </div>
+                                            >
+                                                <ProjectIcon
+                                                    item={item}
+                                                    setProjectItem={
+                                                        setProjectItem
+                                                    }
+                                                    setShowImageDetail={
+                                                        setShowImageDetail
+                                                    }
+                                                />
+                                            </div>
+                                        )
+                                    )}
+                                </div>
+                            </>
                         )}
                     </div>
                 ))}
