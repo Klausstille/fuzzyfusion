@@ -5,7 +5,7 @@ import { ProjectEntryProps } from "@/types";
 import { useWidthContext } from "@/context/WidthContext";
 import ProjectIcon from "./ProjectIcon";
 import ProjectIconImageDetail from "./ProjectIconImageDetail";
-import { handleDrag, handleDragStop } from "@/utils/dragutils";
+import { handleDrag, handleDragStop } from "@/utils/dragUtils";
 import { calculateDynamicGap } from "@/utils/helper";
 import BackIcon from "./BackIcon";
 import Image from "next/image";
