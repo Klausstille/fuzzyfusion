@@ -5,14 +5,10 @@ import { FilteredExifTags, ExifTags } from "@/types";
 import FavoriteButton from "../FavoriteButton/FavoriteButton";
 import { useFavoritesStore } from "@/stores/favorites";
 import Button from "../Button";
+import { ImagesCollectionItem } from "@/types";
 interface ProjectListItemDetailProps {
     exifData: ExifTags;
-    projectItem: {
-        id: number;
-        url: string;
-        title: string;
-        isFavorite: boolean;
-    };
+    projectItem: ImagesCollectionItem;
     projectIcon?: boolean;
 }
 
@@ -21,20 +17,27 @@ export default function ProjectItemDetail({
     projectItem,
     projectIcon,
 }: ProjectListItemDetailProps): JSX.Element {
+    const [hasLoaded, setHasLoaded] = useState(false);
     const [isOpen, setIsOpen] = useState(false);
     const handleClick = () => setIsOpen(!isOpen);
     const [filteredExifData, setFilteredExifData] = useState<FilteredExifTags>(
         {} as FilteredExifTags
     );
     useEffect(() => {
+        setHasLoaded(true);
+    }, [hasLoaded]);
+
+    useEffect(() => {
         if (exifData?.DateTime) {
             const formattedExifData = formatExifData(exifData);
             setFilteredExifData(formattedExifData);
         }
     }, [exifData]);
+
     const isFavorite: boolean = useFavoritesStore((state: any) =>
         state.isFavorite.includes(projectItem.id)
     );
+
     return (
         <section
             className={`${
@@ -84,7 +87,7 @@ export default function ProjectItemDetail({
                     className="text-xs flex items-center gap-4 text-dark-gray"
                     style={{ whiteSpace: "nowrap" }}
                 >
-                    <p>{isFavorite ? "" : "Mark as favorite"}</p>
+                    <p>{hasLoaded && isFavorite ? "" : "Mark as favorite"}</p>
                     <FavoriteButton id={projectItem.id} />
                 </span>
             </div>

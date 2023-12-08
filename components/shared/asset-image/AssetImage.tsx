@@ -72,7 +72,7 @@ export function AssetImage({
 
     return (
         <Image
-            className="aspect-16/9 object-cover"
+            draggable="false"
             onLoad={onLoad}
             priority={priority}
             key={imageSrc}

@@ -1,14 +1,10 @@
 import Image from "next/image";
 import FavoriteButton from "../FavoriteButton/FavoriteButton";
+import { ImagesCollectionItem } from "@/types";
 import { AssetImage } from "@/components/shared/asset-image/AssetImage";
 
 interface ProjectIconProps {
-    item: {
-        id: number;
-        url: string;
-        title: string;
-        isFavorite: boolean;
-    };
+    item: ImagesCollectionItem;
     setProjectItem: (item: any) => void;
     setShowImageDetail: (item: boolean) => void;
 }

@@ -1,11 +1,6 @@
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
 
-export interface setLayoutProps {
-    layout: "LIST" | "ICONS";
-    setLayout: (data: "LIST" | "ICONS") => void;
-}
-
 export const useFavoritesStore = create(
     persist(
         (set) => ({
