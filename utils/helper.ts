@@ -10,6 +10,14 @@ export function toSnakeCase(str: string): string {
         .replace(/_+$/, "");
 }
 
+export const calculateDynamicGap = (width: number) => {
+    const minWidth = 100;
+    const maxWidth = 800;
+    const dynamicGap =
+        40 - Math.pow((width - minWidth) / (maxWidth - minWidth), 2) * 35;
+    return Math.max(5, Math.min(40, dynamicGap));
+};
+
 export function removeTrailingSlash(str: string) {
     return str.replace(/\/$/, "");
 }
