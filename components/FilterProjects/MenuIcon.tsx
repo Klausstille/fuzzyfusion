@@ -1,16 +1,26 @@
 interface MenuIconProps {
     handleClick: () => void;
     isOpen: boolean;
+    darkTheme: boolean;
 }
 
-export default function MenuIcon({ handleClick, isOpen }: MenuIconProps) {
+export default function MenuIcon({
+    handleClick,
+    isOpen,
+    darkTheme,
+}: MenuIconProps) {
     return (
         <div
-            className="menu-icon fixed top-0 right-0 bg-light-gray py-2 px-2"
+            className={`menu-icon fixed top-0 right-0 py-2 px-2 ${
+                darkTheme ? "bg-black" : "bg-light-gray"
+            }`}
             onClick={handleClick}
         >
             <div className={isOpen ? "is-opened" : "hamburger"}>
-                <svg className="hamburger">
+                <svg
+                    className="hamburger"
+                    stroke={darkTheme ? "#F8F8F8" : "#303030"}
+                >
                     <line
                         x1="0"
                         y1="50%"

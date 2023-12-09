@@ -45,9 +45,9 @@ body {
 
 /*********** FILTER MENU ***********/
 .hamburger {
-    width: 30px;
-    height: 30px;
-    stroke: #303030;
+    width: 15px;
+    height: 15px;
+    /* stroke: #303030; */
     cursor: pointer;
 }
 .hamburger__bar--top,
@@ -58,13 +58,13 @@ body {
     transition: all 0.3s ease-in-out;
 }
 .hamburger__bar--top {
-    transform: translate(0, -13px);
+    transform: translate(0, -6px);
 }
 .hamburger__bar--mid {
     transform: translate(0, 0);
 }
 .hamburger__bar--bot {
-    transform: translate(0, 13px);
+    transform: translate(0, 6px);
 }
 .is-opened .hamburger__bar--top {
     transform: rotate(45deg) translateY(0) translateX(0);
@@ -124,7 +124,6 @@ input[type="range"]:focus {
 /******** Chrome, Safari, Opera and Edge Chromium styles ********/
 /* slider track */
 input[type="range"]::-webkit-slider-runnable-track {
-    background-color: #303030;
     height: 1px;
 }
 
@@ -133,7 +132,8 @@ input[type="range"]::-webkit-slider-thumb {
     -webkit-appearance: none; /* Override default look */
     appearance: none;
     margin-top: -5px; /* Centers thumb on the track */
-    background-color: #303030;
+    background-color: white;
+    border: solid 1px #303030;
     border-radius: 2rem;
     height: 0.7rem;
     width: 0.7rem;
@@ -146,7 +146,6 @@ input[type="range"]:focus::-webkit-slider-thumb {
 /*********** Firefox styles ***********/
 /* slider track */
 input[type="range"]::-moz-range-track {
-    background-color: #303030;
     height: 1px;
 }
 
@@ -155,7 +154,8 @@ input[type="range"]::-moz-range-thumb {
     -webkit-appearance: none; /* Override default look */
     appearance: none;
     margin-top: -5px; /* Centers thumb on the track */
-    background-color: #303030;
+    background-color: white;
+    border: solid 1px #303030;
     border-radius: 2rem;
     height: 0.7rem;
     width: 0.7rem;

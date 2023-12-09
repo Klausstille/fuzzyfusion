@@ -30,12 +30,6 @@ export default function ProjectIcon({
                     width={1000}
                     height={1000}
                 />
-                {/* <AssetImage
-                    // className="aspect-16/9 object-cover"
-                    style={{ width: "100%" }}
-                    imageSrc={item.url}
-                    alt="DSCF5143.JPG"
-                /> */}
             </div>
             <aside className="flex justify-between w-full items-center h-6">
                 <p>{item.title}</p>
