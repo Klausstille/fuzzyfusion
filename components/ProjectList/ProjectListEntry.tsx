@@ -4,7 +4,8 @@ import ProjectListImageDetail from "@/components/ProjectList/ProjectListImageDet
 import ProjectList from "@/components/ProjectList/ProjectList";
 import { ProjectEntryProps } from "@/types";
 import ToggleIcon from "@/components/ProjectList/ToggleIcon";
-import Image from "next/image";
+import FolderIcon from "@/components/ProjectShared/folderIcon";
+import { useColorThemeStore } from "@/stores/colorTheme";
 
 export default function ProjectListEntry({
     setProjectItem,
@@ -13,6 +14,9 @@ export default function ProjectListEntry({
     exifData,
 }: ProjectEntryProps) {
     const [isOpen, setIsOpen] = useState<{ [key: number]: boolean }>({});
+    const darkTheme = useColorThemeStore(
+        (state: unknown) => (state as any).darkTheme
+    );
     const toggleProject = (idx: number) => {
         setIsOpen((prev) => ({
             ...prev,
@@ -28,13 +32,13 @@ export default function ProjectListEntry({
                             className="text-s-bold top-2 right-2 flex items-center gap-2 cursor-pointer pb-2"
                             onClick={() => toggleProject(idx)}
                         >
-                            <ToggleIcon isOpen={isOpen[idx]} />
-                            <Image
-                                src="/folder.svg"
-                                alt="folderIcon"
-                                width={13}
-                                height={13}
+                            <ToggleIcon
+                                isOpen={isOpen[idx]}
+                                darkTheme={darkTheme}
                             />
+                            <aside className="w-3">
+                                <FolderIcon darkTheme={darkTheme} />
+                            </aside>
                             <h1
                                 className="w-[150px]"
                                 style={{

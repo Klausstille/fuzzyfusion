@@ -6,6 +6,7 @@ import FavoriteButton from "../FavoriteButton/FavoriteButton";
 import { useFavoritesStore } from "@/stores/favorites";
 import Button from "../Button";
 import { ImagesCollectionItem } from "@/types";
+import { useColorThemeStore } from "@/stores/colorTheme";
 interface ProjectListItemDetailProps {
     exifData: ExifTags;
     projectItem: ImagesCollectionItem;
@@ -22,6 +23,9 @@ export default function ProjectItemDetail({
     const handleClick = () => setIsOpen(!isOpen);
     const [filteredExifData, setFilteredExifData] = useState<FilteredExifTags>(
         {} as FilteredExifTags
+    );
+    const darkTheme = useColorThemeStore(
+        (state: unknown) => (state as any).darkTheme
     );
     useEffect(() => {
         setHasLoaded(true);
@@ -42,7 +46,9 @@ export default function ProjectItemDetail({
         <section
             className={`${
                 projectIcon ? "h-screen pt-2" : "h-[calc(100vh-30px)]"
-            } overflow-scroll col-span-3 bg-white px-2`}
+            } overflow-scroll col-span-3 ${
+                darkTheme ? "bg-real-black" : "bg-white"
+            } px-2`}
         >
             {!projectIcon && (
                 <Image
@@ -74,8 +80,8 @@ export default function ProjectItemDetail({
                                 <dd className="card__info-description">
                                     {value}
                                 </dd>
-                                <hr className="border-gray" />
-                                <hr className="border-gray" />
+                                <hr className="border-dark-gray opacity-50" />
+                                <hr className="border-dark-gray opacity-50" />
                             </React.Fragment>
                         ) : null
                     )}

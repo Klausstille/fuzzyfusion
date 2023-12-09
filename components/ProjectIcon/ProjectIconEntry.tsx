@@ -8,7 +8,10 @@ import ProjectIconImageDetail from "./ProjectIconImageDetail";
 import { handleDrag, handleDragStop } from "@/utils/dragUtils";
 import { calculateDynamicGap } from "@/utils/helper";
 import BackIcon from "./BackIcon";
-import Image from "next/image";
+import FolderIcon from "@/components/ProjectShared/folderIcon";
+import { useColorThemeStore } from "@/stores/colorTheme";
+
+// import Image from "next/image";
 
 export default function ProjectIconEntry({
     setProjectItem,
@@ -22,7 +25,9 @@ export default function ProjectIconEntry({
     const [positions, setPositions] = useState<{ x: number; y: number }[]>(
         Array(dummyData.length).fill({ x: 0, y: 0 })
     );
-
+    const darkTheme = useColorThemeStore(
+        (state: unknown) => (state as any).darkTheme
+    );
     const toggleProject = (idx: number) => {
         setIsOpen((prev) => ({
             ...prev,
@@ -53,7 +58,6 @@ export default function ProjectIconEntry({
     return (
         <>
             <section
-                className="px-2 py-2"
                 style={{
                     gridTemplateColumns: `repeat(auto-fill, minmax(${width}px,1fr))`,
                     gap: `${calculateDynamicGap(width)}px`,
@@ -86,14 +90,7 @@ export default function ProjectIconEntry({
                                 }}
                                 ref={nodeRefs.current[idx] as any}
                             >
-                                <Image
-                                    draggable="false"
-                                    src="/folder.svg"
-                                    alt="folderIcon"
-                                    width={1000}
-                                    height={1000}
-                                    priority
-                                />
+                                <FolderIcon darkTheme={darkTheme} />
                                 <h1
                                     className="w-[150px]"
                                     style={{
@@ -109,12 +106,12 @@ export default function ProjectIconEntry({
                         </Draggable>
                         {isOpen[idx] && (
                             <>
-                                <div className="fixed top-0 left-0 w-full h-8 pt-2 pl-4 flex items-center gap-6">
+                                <div className="fixed top-2 left-2 w-full flex items-center gap-6">
                                     <div
                                         className="flex gap-2 items-center font-bold cursor-pointer"
                                         onClick={() => setIsOpen({})}
                                     >
-                                        <BackIcon /> BACK
+                                        <BackIcon darkTheme={darkTheme} /> BACK
                                     </div>
                                     <p className="text-dark-gray">
                                         ../{dummyData[idx].title}

@@ -7,7 +7,7 @@ interface WidthContextProps {
 }
 
 const WidthContext = createContext<WidthContextProps>({
-    width: 250,
+    width: 100,
     onWidthChange: () => {},
 });
 
@@ -16,7 +16,7 @@ export function useWidthContext() {
 }
 
 export function WidthProvider({ children }: { children: React.ReactNode }) {
-    const [width, setWidth] = useState<number>(250);
+    const [width, setWidth] = useState<number>(100);
 
     const onWidthChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
         const newWidth = Number(e.target.value);

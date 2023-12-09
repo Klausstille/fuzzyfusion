@@ -3,6 +3,7 @@ import { ExifTags } from "@/types";
 import ProjectItemDetail from "@/components/ProjectShared/ProjectItemDetail";
 import BackIcon from "./BackIcon";
 import { ImagesCollectionItem } from "@/types";
+import { useColorThemeStore } from "@/stores/colorTheme";
 
 interface ProjectItemImageDetailProps {
     projectItem: ImagesCollectionItem;
@@ -15,6 +16,9 @@ export default function ProjectIconImageDetail({
     setShowImageDetail,
     exifData,
 }: ProjectItemImageDetailProps) {
+    const darkTheme = useColorThemeStore(
+        (state: unknown) => (state as any).darkTheme
+    );
     return (
         <aside className="fixed top-0 left-0 w-screen grid grid-cols-12 z-50">
             <Image
@@ -31,7 +35,7 @@ export default function ProjectIconImageDetail({
                     className="text-s-bold fixed top-2 right-2 flex items-center gap-2 cursor-pointer"
                     onClick={() => setShowImageDetail(false)}
                 >
-                    <BackIcon /> BACK
+                    <BackIcon darkTheme={darkTheme} /> BACK
                 </h1>
                 <ProjectItemDetail
                     projectItem={projectItem}

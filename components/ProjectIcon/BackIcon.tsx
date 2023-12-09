@@ -1,4 +1,4 @@
-export default function BackIcon() {
+export default function BackIcon({ darkTheme }: { darkTheme?: boolean }) {
     return (
         <div>
             <svg
@@ -11,7 +11,7 @@ export default function BackIcon() {
             >
                 <path
                     d="M7.50024 16.6667L3.83357 13.0001L7.50024 9.33341"
-                    stroke="#303030"
+                    stroke={darkTheme ? "#F8F8F8" : "#303030"}
                     strokeWidth="1"
                 />
             </svg>
