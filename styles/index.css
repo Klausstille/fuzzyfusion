@@ -199,3 +199,13 @@ img.fixed-image.portrait {
     width: 100vw;
     height: auto;
 }
+
+.menu-open {
+    opacity: 1;
+    transform: translateX(0);
+}
+.menu-closed {
+    opacity: 0;
+    transform: translateX(100%);
+    transition: opacity 0.2s ease-in-out, transform 0.1s ease-in-out;
+}
