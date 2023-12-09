@@ -9,7 +9,9 @@ interface DarkTheme {
 export const useColorThemeStore = create(
     persist(
         (set) => ({
-            darkTheme: localStorage.getItem("color-theme") === "true",
+            darkTheme:
+                typeof window !== "undefined" &&
+                localStorage.getItem("color-theme") === "true",
             toggleDarkTheme: () =>
                 set((state: DarkTheme) => ({ darkTheme: !state.darkTheme })),
         }),
