@@ -24,12 +24,12 @@ export default function ProjectListEntry({
         }));
     };
     return (
-        <section className="px-2 py-2 grid grid-cols-12">
-            <div className="col-span-2 h-[calc(100vh-30px)] overflow-scroll pb-4">
+        <section className="px-2 py-2 grid grid-cols-12 gap-2">
+            <div className="col-span-2 h-[calc(100vh-3rem)] overflow-scroll pb-4">
                 {dummyData.map((item, idx) => (
-                    <div key={idx} className="pb-2 pr-2">
+                    <div key={idx} className="pb-2">
                         <div
-                            className="text-s-bold top-2 right-2 flex items-center gap-2 cursor-pointer pb-2"
+                            className="text-s-bold top-2 right-2 flex items-center gap-2 cursor-pointer pb-1"
                             onClick={() => toggleProject(idx)}
                         >
                             <ToggleIcon

@@ -1,3 +1,5 @@
+import { useEffect, useState } from "react";
+
 export const getLastName = (name: string) => name.split(" ").pop();
 export const emailRegex = /^\S+@\S+\.\S+$/;
 export const capitalizeFirstLetter = (str: string) =>
@@ -95,3 +97,28 @@ export function getRandomNumbers(nrOfNumbers: number, length: number) {
 }
 
 export const NULL_START_DATE = "1970-01-01";
+
+export function useMouse() {
+    const [mousePosition, setMousePosition] = useState<{
+        x: number | null;
+        y: number | null;
+    }>({
+        x: null,
+        y: null,
+    });
+
+    useEffect(() => {
+        function handle(e: MouseEvent) {
+            const currentX = e.clientX;
+            const currentY = e.clientY;
+            setMousePosition({
+                x: currentX,
+                y: currentY,
+            });
+        }
+        document.addEventListener("mousemove", handle);
+        return () => document.removeEventListener("mousemove", handle);
+    }, []);
+
+    return mousePosition;
+}

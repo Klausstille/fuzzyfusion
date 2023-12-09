@@ -37,11 +37,11 @@ const config: Config = {
                 },
             ], // 88px, 100px
             "xxl-heading": [
-                "7.5rem", // 120px
+                "5.5rem", // 120px
                 {
                     letterSpacing: "1px",
-                    lineHeight: "9.25rem",
-                    fontWeight: 200,
+                    lineHeight: "4rem",
+                    fontWeight: 100,
                 }, // 148px
             ],
             "xl-heading": [

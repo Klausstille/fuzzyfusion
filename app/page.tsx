@@ -176,6 +176,11 @@ export default function Index() {
 
     return (
         <>
+            <div
+                className={`fixed -z-10 text-xxl-heading text-right flex top-4 right-0 text-[black]`}
+            >
+                FUZZYFUSION
+            </div>
             {layout === "LIST" ? (
                 <ProjectListEntry
                     exifData={exifData}

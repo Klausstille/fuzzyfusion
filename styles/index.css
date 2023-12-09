@@ -44,7 +44,7 @@ body {
 }
 
 /*********** FILTER MENU ***********/
-/* .hamburger {
+.hamburger {
     width: 30px;
     height: 30px;
     cursor: pointer;
@@ -73,7 +73,7 @@ body {
 }
 .is-opened .hamburger__bar--bot {
     transform: rotate(-45deg) translateY(0em) translateX(0em);
-} */
+}
 
 .card__content {
     transition: height 0.3s ease;
@@ -173,4 +173,29 @@ input[type="range"]:focus::-moz-range-thumb {
 
 button:focus {
     outline: none;
+}
+
+.img-module {
+    right: 0;
+    bottom: 0;
+    left: 0;
+    top: 0;
+    width: 100vw;
+    height: 100vh;
+    position: fixed;
+    z-index: 41;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+img.fixed-image.landscape {
+    max-width: 500%;
+    width: auto;
+    height: 100vh;
+}
+
+img.fixed-image.portrait {
+    width: 100vw;
+    height: auto;
 }

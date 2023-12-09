@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useColorThemeStore } from "@/stores/colorTheme";
 import FilterEntryComponent from "./FilterEntryComponent";
+import MenuIcon from "./MenuIcon";
 
 export interface FilterProjectsProps {
     onFilterFavorites: () => void;
@@ -23,8 +24,16 @@ export default function FilterProjects({
                     isOpen ? "opacity-100" : "opacity-0"
                 } transition-opacity duration-[.2s] ease-in-out fixed w-1/5 bottom-0 pr-2 right-0 py-2 px-2 ${
                     darkTheme ? "bg-real-black" : "bg-white"
-                } h-full overflow-scroll`}
+                } h-full overflow-scroll z-40`}
+                style={{
+                    transform: isOpen ? "translateX(0)" : "translateX(100%)",
+                }}
             >
+                <MenuIcon
+                    isOpen={isOpen}
+                    handleClick={handleClick}
+                    darkTheme={darkTheme}
+                />
                 <FilterEntryComponent
                     darkTheme={darkTheme}
                     onFilterFavorites={onFilterFavorites}
@@ -32,16 +41,11 @@ export default function FilterProjects({
                 />
             </section>
             <h1
-                className={`fixed bottom-0 right-0 py-2 px-2 z-50 text-m cursor-pointer`}
+                className={`fixed bottom-0 right-0 py-2 px-2 z-40 text-m cursor-pointer`}
                 onClick={handleClick}
             >
-                MENU
+                {isOpen ? "CLOSE" : "MENU"}
             </h1>
-            {/* <MenuIcon
-                isOpen={isOpen}
-                handleClick={handleClick}
-                darkTheme={darkTheme}
-            /> */}
         </>
     );
 }

@@ -45,10 +45,12 @@ export default function ProjectItemDetail({
     return (
         <section
             className={`${
-                projectIcon ? "h-screen pt-2" : "h-[calc(100vh-30px)]"
+                projectIcon
+                    ? "h-screen pt-2"
+                    : "h-[calc(100vh-3rem)] rounded-md"
             } overflow-scroll col-span-3 ${
                 darkTheme ? "bg-real-black" : "bg-white"
-            } px-2`}
+            }`}
         >
             {!projectIcon && (
                 <Image
@@ -60,46 +62,53 @@ export default function ProjectItemDetail({
                     priority
                 />
             )}
-            <h1 className="text-s-bold">{projectItem?.title}</h1>
-            <h1 className="text-dark-gray pb-4 text-s-bold">JPEG image</h1>
-            <h1 className="text-s-bold flex justify-between">
-                Information
-                <span
-                    className="text-xs cursor-pointer text-dark-gray"
-                    onClick={handleClick}
-                >
-                    {isOpen ? "Show Less" : "Show More"}
-                </span>
-            </h1>
-            {!exifData.DateTime && <h1>Loading...</h1>}
-            <div className="card__content h-auto">
-                <dl className="card__info pb-2 my-2">
-                    {Object.entries(filteredExifData).map(([key, value], idx) =>
-                        (isOpen && idx >= 0) || (!isOpen && idx < 3) ? (
-                            <React.Fragment key={idx}>
-                                <dt className="card__info-title text-dark-gray">
-                                    {key}
-                                </dt>
-                                <dd className="card__info-description">
-                                    {value}
-                                </dd>
-                                <hr className="border-dark-gray opacity-50" />
-                                <hr className="border-dark-gray opacity-50" />
-                            </React.Fragment>
-                        ) : null
-                    )}
-                </dl>
-            </div>
-            <div className="text-s-bold flex justify-between">
-                <Button>BUY</Button>
-                <span
-                    className="text-xs flex items-center gap-4 text-dark-gray"
-                    style={{ whiteSpace: "nowrap" }}
-                >
-                    <p>{hasLoaded && isFavorite ? "" : "Mark as favorite"}</p>
-                    <FavoriteButton id={projectItem?.id} />
-                </span>
-            </div>
+            <article className="px-2">
+                <h1 className="text-s-bold">{projectItem?.title}</h1>
+                <h1 className="text-dark-gray pb-4 text-s-bold">JPEG image</h1>
+                <h1 className="text-s-bold flex justify-between">
+                    Information
+                    <span
+                        className="text-xs cursor-pointer text-dark-gray"
+                        onClick={handleClick}
+                    >
+                        {isOpen ? "Show Less" : "Show More"}
+                    </span>
+                </h1>
+                {!exifData.DateTime && <h1>Loading...</h1>}
+                <div className="card__content h-auto">
+                    <dl className="card__info pb-2 my-2">
+                        {Object.entries(filteredExifData).map(
+                            ([key, value], idx) =>
+                                (isOpen && idx >= 0) || (!isOpen && idx < 3) ? (
+                                    <React.Fragment key={idx}>
+                                        <dt className="card__info-title text-dark-gray">
+                                            {key}
+                                        </dt>
+                                        <dd className="card__info-description">
+                                            {value}
+                                        </dd>
+                                        <hr className="border-dark-gray opacity-50" />
+                                        <hr className="border-dark-gray opacity-50" />
+                                    </React.Fragment>
+                                ) : null
+                        )}
+                    </dl>
+                </div>
+                <div className="text-s-bold flex justify-between">
+                    <Button>BUY</Button>
+                    <span
+                        className="text-xs flex items-center gap-4 text-dark-gray"
+                        style={{ whiteSpace: "nowrap" }}
+                    >
+                        <p>
+                            {hasLoaded && isFavorite
+                                ? "Remove from favorites"
+                                : "Mark as favorite"}
+                        </p>
+                        <FavoriteButton id={projectItem?.id} />
+                    </span>
+                </div>
+            </article>
         </section>
     );
 }
