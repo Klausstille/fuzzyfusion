@@ -6,7 +6,7 @@ import FavoriteButton from "../FavoriteButton/FavoriteButton";
 import { useFavoritesStore } from "@/stores/favorites";
 import Button from "../Button";
 import { ImagesCollectionItem } from "@/types";
-import { useColorThemeStore } from "@/stores/colorTheme";
+import { useColorThemeStore, DarkTheme } from "@/stores/colorTheme";
 interface ProjectListItemDetailProps {
     exifData: ExifTags;
     projectItem: ImagesCollectionItem;
@@ -25,7 +25,7 @@ export default function ProjectItemDetail({
         {} as FilteredExifTags
     );
     const darkTheme = useColorThemeStore(
-        (state: unknown) => (state as any).darkTheme
+        (state: unknown) => (state as DarkTheme).darkTheme
     );
     useEffect(() => {
         setHasLoaded(true);

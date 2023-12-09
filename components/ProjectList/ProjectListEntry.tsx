@@ -5,7 +5,7 @@ import ProjectList from "@/components/ProjectList/ProjectList";
 import { ProjectEntryProps } from "@/types";
 import ToggleIcon from "@/components/ProjectList/ToggleIcon";
 import FolderIcon from "@/components/ProjectShared/folderIcon";
-import { useColorThemeStore } from "@/stores/colorTheme";
+import { useColorThemeStore, DarkTheme } from "@/stores/colorTheme";
 
 export default function ProjectListEntry({
     setProjectItem,
@@ -15,7 +15,7 @@ export default function ProjectListEntry({
 }: ProjectEntryProps) {
     const [isOpen, setIsOpen] = useState<{ [key: number]: boolean }>({});
     const darkTheme = useColorThemeStore(
-        (state: unknown) => (state as any).darkTheme
+        (state: unknown) => (state as DarkTheme).darkTheme
     );
     const toggleProject = (idx: number) => {
         setIsOpen((prev) => ({

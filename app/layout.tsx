@@ -4,7 +4,7 @@ import Head from "next/head";
 import { Inter } from "next/font/google";
 import Header from "@/components/Navigation/Header";
 import { WidthProvider } from "@/context/WidthContext";
-import { useColorThemeStore } from "@/stores/colorTheme";
+import { useColorThemeStore, DarkTheme } from "@/stores/colorTheme";
 import "../styles/index.css";
 
 // export const metadata: Metadata = {
@@ -20,7 +20,7 @@ export default function RootLayout({
     children: React.ReactNode;
 }) {
     const darkTheme = useColorThemeStore(
-        (state: unknown) => (state as any).darkTheme
+        (state: unknown) => (state as DarkTheme).darkTheme
     );
     return (
         <html lang="en">

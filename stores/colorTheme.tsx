@@ -1,7 +1,7 @@
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
 
-interface DarkTheme {
+export interface DarkTheme {
     darkTheme: boolean;
     toggleDarkTheme: () => void;
 }
@@ -9,9 +9,7 @@ interface DarkTheme {
 export const useColorThemeStore = create(
     persist(
         (set) => ({
-            darkTheme:
-                typeof window !== "undefined" &&
-                localStorage.getItem("color-theme") === "true",
+            darkTheme: true,
             toggleDarkTheme: () =>
                 set((state: DarkTheme) => ({ darkTheme: !state.darkTheme })),
         }),
