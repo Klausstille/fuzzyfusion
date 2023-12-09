@@ -20,7 +20,7 @@ export default function ProjectList({
                     height={25}
                 />
             </aside>
-            <p className="min-w-[150px]">{item.title}</p>
+            <p className="min-w-[130px]">{item.title}</p>
             <FavoriteButton id={item.id} />
         </ProjectListItem>
     );
