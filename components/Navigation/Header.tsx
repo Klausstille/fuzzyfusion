@@ -3,14 +3,14 @@ import Logo from "./Logo";
 import Nav from "./Nav";
 import ScaleIcons from "./ScaleIcons";
 import { useProjectLayoutStore, setLayoutProps } from "@/stores/projectLayout";
-import { useColorThemeStore } from "@/stores/colorTheme";
+import { useColorThemeStore, DarkTheme } from "@/stores/colorTheme";
 
 export default function Header() {
     const darkTheme = useColorThemeStore(
-        (state: unknown) => (state as any).darkTheme
+        (state: unknown) => (state as DarkTheme).darkTheme
     );
     const setDarkTheme = useColorThemeStore(
-        (state: unknown) => (state as any).toggleDarkTheme
+        (state: unknown) => (state as DarkTheme).toggleDarkTheme
     );
     const { layout } = useProjectLayoutStore() as setLayoutProps;
     return (

@@ -9,9 +9,7 @@ import { handleDrag, handleDragStop } from "@/utils/dragUtils";
 import { calculateDynamicGap } from "@/utils/helper";
 import BackIcon from "./BackIcon";
 import FolderIcon from "@/components/ProjectShared/folderIcon";
-import { useColorThemeStore } from "@/stores/colorTheme";
-
-// import Image from "next/image";
+import { useColorThemeStore, DarkTheme } from "@/stores/colorTheme";
 
 export default function ProjectIconEntry({
     setProjectItem,
@@ -26,7 +24,7 @@ export default function ProjectIconEntry({
         Array(dummyData.length).fill({ x: 0, y: 0 })
     );
     const darkTheme = useColorThemeStore(
-        (state: unknown) => (state as any).darkTheme
+        (state: unknown) => (state as DarkTheme).darkTheme
     );
     const toggleProject = (idx: number) => {
         setIsOpen((prev) => ({

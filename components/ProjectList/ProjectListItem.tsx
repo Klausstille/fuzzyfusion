@@ -1,4 +1,4 @@
-import { useColorThemeStore } from "@/stores/colorTheme";
+import { useColorThemeStore, DarkTheme } from "@/stores/colorTheme";
 
 export default function ProjectListItem({
     children,
@@ -8,7 +8,7 @@ export default function ProjectListItem({
     active?: boolean;
 }) {
     const darkTheme = useColorThemeStore(
-        (state: unknown) => (state as any).darkTheme
+        (state: unknown) => (state as DarkTheme).darkTheme
     );
     return (
         <section
