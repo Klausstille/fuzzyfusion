@@ -116,7 +116,7 @@ export default function ProjectIconEntry({
                                     </p>
                                 </div>
                                 <div
-                                    className="px-2 py-10 grid"
+                                    className="px-2 py-8 grid"
                                     style={{
                                         gridTemplateColumns: `repeat(auto-fill, minmax(${width}px,1fr))`,
                                         gap: `${calculateDynamicGap(width)}px`,

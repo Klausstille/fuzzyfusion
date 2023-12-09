@@ -14,7 +14,7 @@ export default function Logo({ setDarkTheme, darkTheme }: LogoProps) {
                 FUZZYFUSION
             </Link>
             <span
-                className="text-xs"
+                className="text-xs cursor-pointer"
                 onClick={() => setDarkTheme((toggle: boolean) => !toggle)}
             >
                 / {darkTheme ? "LIGHT" : "DARK"}

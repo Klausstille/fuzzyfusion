@@ -9,7 +9,7 @@ export default function ScaleIcons() {
     );
 
     return (
-        <div className="scaleProjects z-50 gap-3 max-desktop:hidden flex absolute right-2 items-center">
+        <div className="scaleProjects z-50 gap-3 max-desktop:hidden flex absolute right-36 items-center">
             <span className="pr-4">IMAGE SIZE</span>200px
             <input
                 className="w-[200px]"

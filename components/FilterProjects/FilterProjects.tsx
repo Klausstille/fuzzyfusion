@@ -13,7 +13,7 @@ export default function FilterProjects() {
             <section
                 className={`filter-projects ${
                     isOpen ? "open" : "closed"
-                } fixed w-1/5 top-0 pt-2 pr-2 right-0 px-2 ${
+                } fixed w-1/5 bottom-2 pb-2 pr-2 right-0 px-2 ${
                     darkTheme ? "bg-black" : "bg-light-gray"
                 }`}
             >
@@ -25,11 +25,17 @@ export default function FilterProjects() {
                     MENU
                 </h1>
             </section>
-            <MenuIcon
+            <h1
+                className={`fixed bottom-0 right-0 py-2 px-2 z-50 text-m cursor-pointer`}
+                onClick={handleClick}
+            >
+                MENU
+            </h1>
+            {/* <MenuIcon
                 isOpen={isOpen}
                 handleClick={handleClick}
                 darkTheme={darkTheme}
-            />
+            /> */}
         </>
     );
 }
