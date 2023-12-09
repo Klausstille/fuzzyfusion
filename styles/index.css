@@ -46,7 +46,7 @@ body {
 /*********** FILTER MENU ***********/
 .hamburger {
     width: 15px;
-    height: 15px;
+    height: 13px;
     /* stroke: #303030; */
     cursor: pointer;
 }
