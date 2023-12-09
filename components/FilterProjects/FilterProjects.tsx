@@ -28,7 +28,6 @@ export default function FilterProjects({
             !clickedElement.classList.contains("menu-button")
         ) {
             setIsOpen(false);
-            console.log("click outside");
         }
     };
 
