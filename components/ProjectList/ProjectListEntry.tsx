@@ -57,7 +57,7 @@ export default function ProjectListEntry({
                                     onClick={() => setProjectItem(item)}
                                 >
                                     <ProjectList
-                                        active={item.id === projectItem.id}
+                                        active={item.id === projectItem?.id}
                                         key={idx}
                                         item={item}
                                     />
@@ -66,13 +66,17 @@ export default function ProjectListEntry({
                     </div>
                 ))}
             </div>
-            {exifData && (
-                <ProjectItemDetail
-                    exifData={exifData as any}
-                    projectItem={projectItem}
-                />
+            {projectItem && (
+                <>
+                    {exifData && (
+                        <ProjectItemDetail
+                            exifData={exifData as any}
+                            projectItem={projectItem}
+                        />
+                    )}
+                    <ProjectListImageDetail projectItem={projectItem} />
+                </>
             )}
-            <ProjectListImageDetail projectItem={projectItem} />
         </section>
     );
 }

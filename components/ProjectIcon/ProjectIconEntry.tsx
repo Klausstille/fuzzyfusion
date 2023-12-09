@@ -56,6 +56,7 @@ export default function ProjectIconEntry({
     return (
         <>
             <section
+                className="px-2 py-2"
                 style={{
                     gridTemplateColumns: `repeat(auto-fill, minmax(${width}px,1fr))`,
                     gap: `${calculateDynamicGap(width)}px`,
@@ -89,17 +90,30 @@ export default function ProjectIconEntry({
                                 ref={nodeRefs.current[idx] as any}
                             >
                                 <FolderIcon darkTheme={darkTheme} />
-                                <h1
-                                    className="w-[150px]"
+                                <div
+                                    className="w-[150px] pt-2"
                                     style={{
-                                        width: `${width}px`,
-                                        textOverflow: "ellipsis",
-                                        whiteSpace: "nowrap",
-                                        overflow: "hidden",
+                                        lineHeight: "1rem",
                                     }}
                                 >
-                                    {item.title}
-                                </h1>
+                                    <h1
+                                        style={{
+                                            width: `${width}px`,
+                                            textOverflow: "ellipsis",
+                                            whiteSpace: "nowrap",
+                                            overflow: "hidden",
+                                        }}
+                                    >
+                                        {item.title}
+                                    </h1>
+                                    <h1 className="text-dark-gray">
+                                        {
+                                            dummyData[idx].imagesCollection
+                                                .items.length
+                                        }{" "}
+                                        items
+                                    </h1>
+                                </div>
                             </div>
                         </Draggable>
                         {isOpen[idx] && (
@@ -116,7 +130,7 @@ export default function ProjectIconEntry({
                                     </p>
                                 </div>
                                 <div
-                                    className="px-2 py-8 grid"
+                                    className="py-8 grid"
                                     style={{
                                         gridTemplateColumns: `repeat(auto-fill, minmax(${width}px,1fr))`,
                                         gap: `${calculateDynamicGap(width)}px`,

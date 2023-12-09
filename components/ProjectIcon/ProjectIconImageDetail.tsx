@@ -6,7 +6,7 @@ import { ImagesCollectionItem } from "@/types";
 import { useColorThemeStore, DarkTheme } from "@/stores/colorTheme";
 
 interface ProjectItemImageDetailProps {
-    projectItem: ImagesCollectionItem;
+    projectItem: ImagesCollectionItem | null;
     exifData: ExifTags;
     setShowImageDetail: (item: boolean) => void;
 }
@@ -21,28 +21,32 @@ export default function ProjectIconImageDetail({
     );
     return (
         <aside className="fixed top-0 left-0 w-screen grid grid-cols-12 z-50">
-            <Image
-                src={projectItem.url}
-                width={1000}
-                height={1000}
-                alt={projectItem.title}
-                className="h-screen w-full object-cover object-left col-span-9"
-                priority
-                onClick={() => setShowImageDetail(false)}
-            />
-            <aside className="col-span-3">
-                <h1
-                    className="text-s-bold fixed top-2 right-2 flex items-center gap-2 cursor-pointer"
-                    onClick={() => setShowImageDetail(false)}
-                >
-                    <BackIcon darkTheme={darkTheme} /> BACK
-                </h1>
-                <ProjectItemDetail
-                    projectItem={projectItem}
-                    exifData={exifData}
-                    projectIcon
-                />
-            </aside>
+            {projectItem && (
+                <>
+                    <Image
+                        src={projectItem.url}
+                        width={1000}
+                        height={1000}
+                        alt={projectItem.title}
+                        className="h-screen w-full object-cover object-left col-span-9"
+                        priority
+                        onClick={() => setShowImageDetail(false)}
+                    />
+                    <aside className="col-span-3">
+                        <h1
+                            className="text-s-bold fixed top-2 right-2 flex items-center gap-2 cursor-pointer"
+                            onClick={() => setShowImageDetail(false)}
+                        >
+                            <BackIcon darkTheme={darkTheme} /> BACK
+                        </h1>
+                        <ProjectItemDetail
+                            projectItem={projectItem}
+                            exifData={exifData}
+                            projectIcon
+                        />
+                    </aside>
+                </>
+            )}
         </aside>
     );
 }

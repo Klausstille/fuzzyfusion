@@ -30,7 +30,6 @@ export default function RootLayout({
                     name="description"
                     content="A FUZZY FUSION of art and technology"
                 />
-                <link rel="icon" href="/SOMEICOOOONN.ico" />
             </Head>
             <body
                 className={`flex flex-col h-screen ${inter.className} ${
@@ -41,9 +40,7 @@ export default function RootLayout({
             >
                 <WidthProvider>
                     <Header />
-                    <main className="flex flex-col flex-grow text-xs">
-                        {children}
-                    </main>
+                    <main className="flex flex-col text-xs">{children}</main>
                 </WidthProvider>
             </body>
         </html>

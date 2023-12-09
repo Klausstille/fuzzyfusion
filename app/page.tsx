@@ -4,13 +4,16 @@ import FilterProjects from "@/components/FilterProjects/FilterProjects";
 import ProjectListEntry from "@/components/ProjectList/ProjectListEntry";
 import ProjectIconEntry from "@/components/ProjectIcon/ProjectIconEntry";
 import { useProjectLayoutStore, setLayoutProps } from "@/stores/projectLayout";
+import { ImagesCollectionItem, ProjectItem } from "@/types";
+import { useFavoritesStore } from "@/stores/favorites";
 import EXIF from "exif-js";
-import { ImagesCollectionItem } from "@/types";
 
 export default function Index() {
     const { layout } = useProjectLayoutStore() as setLayoutProps;
-
-    const dummyData = [
+    const isFavorite = useFavoritesStore(
+        (state: any) => state.isFavorite as number[]
+    );
+    const [dummyData, setDummyData] = useState<ProjectItem[]>([
         {
             id: 13,
             title: "2023-09-BDX-DOR-TLS",
@@ -60,7 +63,6 @@ export default function Index() {
                     },
                 ],
             },
-            isFavorite: false,
         },
         {
             id: 14,
@@ -111,39 +113,66 @@ export default function Index() {
                     },
                 ],
             },
-            isFavorite: false,
         },
-    ];
-
+    ]);
+    const [filteredData, setFilteredData] = useState<ProjectItem[]>([]);
+    const [filterIsActive, setFilterIsActive] = useState(false);
     const [exifData, setExifData] = useState([]);
-    const [projectItem, setProjectItem] = useState<ImagesCollectionItem>({
-        id: 1,
-        title: "DSCF5143.JPG",
-        url: "/DSCF5143.JPG",
-        width: 1000,
-        height: 1000,
-    });
+    const [projectItem, setProjectItem] = useState<ImagesCollectionItem | null>(
+        null
+    );
 
     useEffect(() => {
-        const url: string = projectItem.url;
-        // "https://images.ctfassets.net/rbwa20kawb52/1PzHTL0qaQcsYGUWRipV9F/a107ee82cc8a523ff3ba6b4cbfa8c8d3/EA932281-3929-4849-86AF-C4475B80DC3B-643-00000019658FFFD4.JPG";
-        fetch(url)
-            .then((response) => response.blob())
-            .then((blob: any) => {
-                EXIF.getData(blob, function (this: any) {
-                    const exifData = EXIF.getAllTags(this);
-                    if (exifData && Object.keys(exifData).length > 0) {
-                        setExifData(exifData);
-                        // console.log("Extracted EXIF data:", exifData);
-                    } else {
-                        console.warn("No EXIF data found in the image.");
-                    }
+        if (projectItem) {
+            const url: string = projectItem.url;
+            // "https://images.ctfassets.net/rbwa20kawb52/1PzHTL0qaQcsYGUWRipV9F/a107ee82cc8a523ff3ba6b4cbfa8c8d3/EA932281-3929-4849-86AF-C4475B80DC3B-643-00000019658FFFD4.JPG";
+            fetch(url)
+                .then((response) => response.blob())
+                .then((blob: any) => {
+                    EXIF.getData(blob, function (this: any) {
+                        const exifData = EXIF.getAllTags(this);
+                        if (exifData && Object.keys(exifData).length > 0) {
+                            setExifData(exifData);
+                            // console.log("Extracted EXIF data:", exifData);
+                        } else {
+                            console.warn("No EXIF data found in the image.");
+                        }
+                    });
+                })
+                .catch((error) => {
+                    console.error(
+                        "Error fetching or processing the image:",
+                        error
+                    );
                 });
-            })
-            .catch((error) => {
-                console.error("Error fetching or processing the image:", error);
-            });
-    }, [projectItem]);
+        }
+    }, [projectItem, dummyData]);
+
+    const onFilterFavorites = () => {
+        const filteredFavorites = dummyData.map((project) => {
+            const filteredItems = project.imagesCollection.items.filter(
+                (item) => isFavorite.includes(item.id)
+            );
+
+            return {
+                ...project,
+                imagesCollection: {
+                    items: filteredItems,
+                },
+            };
+        });
+        setFilterIsActive(true);
+        setFilteredData(filteredFavorites);
+    };
+
+    useEffect(() => {
+        if (filterIsActive) {
+            onFilterFavorites();
+        }
+        if (isFavorite.length === 0) {
+            setProjectItem(null);
+        }
+    }, [isFavorite]);
 
     return (
         <>
@@ -152,17 +181,20 @@ export default function Index() {
                     exifData={exifData}
                     setProjectItem={setProjectItem}
                     projectItem={projectItem}
-                    dummyData={dummyData}
+                    dummyData={filterIsActive ? filteredData : dummyData}
                 />
             ) : (
                 <ProjectIconEntry
                     exifData={exifData}
                     setProjectItem={setProjectItem}
                     projectItem={projectItem}
-                    dummyData={dummyData}
+                    dummyData={filterIsActive ? filteredData : dummyData}
                 />
             )}
-            <FilterProjects />
+            <FilterProjects
+                onFilterFavorites={onFilterFavorites}
+                setFilterIsActive={setFilterIsActive}
+            />
         </>
     );
 }

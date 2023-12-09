@@ -19,13 +19,14 @@ export interface ImagesCollection {
 export interface ProjectItem {
     id: number;
     title: string;
-    isFavorite: boolean;
     imagesCollection: ImagesCollection;
 }
 export interface ProjectEntryProps {
-    setProjectItem: React.Dispatch<React.SetStateAction<ImagesCollectionItem>>;
+    setProjectItem: React.Dispatch<
+        React.SetStateAction<ImagesCollectionItem | null>
+    >;
     dummyData: ProjectItem[];
-    projectItem: ImagesCollectionItem;
+    projectItem: ImagesCollectionItem | null;
     exifData: any;
 }
 export interface FilteredExifTags {

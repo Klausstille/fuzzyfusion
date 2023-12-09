@@ -6,10 +6,10 @@ export default function ProjectListImageDetail({
     return (
         <aside className="col-span-7">
             <Image
-                src={projectItem.url}
+                src={projectItem?.url}
                 width={1000}
                 height={1000}
-                alt={projectItem.title}
+                alt={projectItem?.title}
                 className="h-[calc(100vh-18px)] w-full object-cover object-left"
                 priority
             />

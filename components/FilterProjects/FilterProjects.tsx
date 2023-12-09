@@ -1,8 +1,16 @@
 import { useState } from "react";
-import MenuIcon from "./MenuIcon";
 import { useColorThemeStore } from "@/stores/colorTheme";
+import FilterEntryComponent from "./FilterEntryComponent";
 
-export default function FilterProjects() {
+export interface FilterProjectsProps {
+    onFilterFavorites: () => void;
+    setFilterIsActive: React.Dispatch<React.SetStateAction<boolean>>;
+}
+
+export default function FilterProjects({
+    onFilterFavorites,
+    setFilterIsActive,
+}: FilterProjectsProps) {
     const [isOpen, setIsOpen] = useState(false);
     const handleClick = () => setIsOpen(!isOpen);
     const darkTheme = useColorThemeStore(
@@ -11,19 +19,17 @@ export default function FilterProjects() {
     return (
         <>
             <section
-                className={`filter-projects ${
-                    isOpen ? "open" : "closed"
-                } fixed w-1/5 bottom-2 pb-2 pr-2 right-0 px-2 ${
-                    darkTheme ? "bg-black" : "bg-light-gray"
-                }`}
+                className={`${
+                    isOpen ? "opacity-100" : "opacity-0"
+                } transition-opacity duration-[.2s] ease-in-out fixed w-1/5 bottom-0 pr-2 right-0 py-2 px-2 ${
+                    darkTheme ? "bg-real-black" : "bg-white"
+                } h-full overflow-scroll`}
             >
-                <h1
-                    className="text-m"
-                    onClick={handleClick}
-                    style={{ display: isOpen ? "block" : "none" }}
-                >
-                    MENU
-                </h1>
+                <FilterEntryComponent
+                    darkTheme={darkTheme}
+                    onFilterFavorites={onFilterFavorites}
+                    setFilterIsActive={setFilterIsActive}
+                />
             </section>
             <h1
                 className={`fixed bottom-0 right-0 py-2 px-2 z-50 text-m cursor-pointer`}

@@ -39,7 +39,7 @@ export default function ProjectItemDetail({
     }, [exifData]);
 
     const isFavorite: boolean = useFavoritesStore((state: any) =>
-        state.isFavorite.includes(projectItem.id)
+        state.isFavorite.includes(projectItem?.id)
     );
 
     return (
@@ -60,11 +60,14 @@ export default function ProjectItemDetail({
                     priority
                 />
             )}
-            <h1 className="text-s-bold">{projectItem.title}</h1>
+            <h1 className="text-s-bold">{projectItem?.title}</h1>
             <h1 className="text-dark-gray pb-4 text-s-bold">JPEG image</h1>
             <h1 className="text-s-bold flex justify-between">
                 Information
-                <span className="text-xs cursor-pointer" onClick={handleClick}>
+                <span
+                    className="text-xs cursor-pointer text-dark-gray"
+                    onClick={handleClick}
+                >
                     {isOpen ? "Show Less" : "Show More"}
                 </span>
             </h1>
@@ -94,7 +97,7 @@ export default function ProjectItemDetail({
                     style={{ whiteSpace: "nowrap" }}
                 >
                     <p>{hasLoaded && isFavorite ? "" : "Mark as favorite"}</p>
-                    <FavoriteButton id={projectItem.id} />
+                    <FavoriteButton id={projectItem?.id} />
                 </span>
             </div>
         </section>

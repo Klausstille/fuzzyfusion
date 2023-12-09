@@ -1,10 +1,16 @@
 import Link from "next/link";
+import { useEffect, useState } from "react";
 interface LogoProps {
     setDarkTheme: React.Dispatch<React.SetStateAction<boolean>>;
     darkTheme: boolean;
 }
 
 export default function Logo({ setDarkTheme, darkTheme }: LogoProps) {
+    const [hasLoaded, setHasLoaded] = useState(false);
+    useEffect(() => {
+        setHasLoaded(true);
+    }, [hasLoaded]);
+
     return (
         <div className="col-span-2">
             <Link
@@ -17,7 +23,7 @@ export default function Logo({ setDarkTheme, darkTheme }: LogoProps) {
                 className="text-xs cursor-pointer"
                 onClick={() => setDarkTheme((toggle: boolean) => !toggle)}
             >
-                / {darkTheme ? "LIGHT" : "DARK"}
+                / {darkTheme && hasLoaded ? "LIGHT" : "DARK"}
             </span>
         </div>
     );
