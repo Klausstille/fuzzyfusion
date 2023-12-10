@@ -21,12 +21,12 @@ export default function ProjectIconImageDetail({
         (state: unknown) => (state as DarkTheme).darkTheme
     );
     return (
-        <section
-            className={`fixed top-0 left-0 h-screen w-screen ${
-                darkTheme ? "bg-black" : "bg-gray"
-            } z-50`}
-        >
-            {projectItem && (
+        projectItem && (
+            <section
+                className={`fixed top-0 left-0 h-screen w-screen ${
+                    darkTheme ? "bg-black" : "bg-gray"
+                } z-50`}
+            >
                 <aside className="fixed top-2 left-2 h-[calc(100vh-1rem)] w-[calc(100vw-1rem)] rounded-md overflow-hidden grid grid-cols-12">
                     <>
                         <aside
@@ -55,7 +55,7 @@ export default function ProjectIconImageDetail({
                         </aside>
                     </>
                 </aside>
-            )}
-        </section>
+            </section>
+        )
     );
 }
