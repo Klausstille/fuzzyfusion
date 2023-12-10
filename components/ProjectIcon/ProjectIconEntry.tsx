@@ -10,6 +10,7 @@ import { calculateDynamicGap } from "@/utils/helper";
 import BackIcon from "./BackIcon";
 import FolderIcon from "@/components/ProjectShared/folderIcon";
 import { useColorThemeStore, DarkTheme } from "@/stores/colorTheme";
+import Image from "next/image";
 
 export default function ProjectIconEntry({
     setProjectItem,
@@ -56,9 +57,9 @@ export default function ProjectIconEntry({
     return (
         <>
             <section
-                className="px-2 py-2"
+                className="px-2 py-2 grid grid-cols-12 gap-2"
                 style={{
-                    gridTemplateColumns: `repeat(auto-fill, minmax(${width}px,1fr))`,
+                    // gridTemplateColumns: `repeat(auto-fill, minmax(${width}px,1fr))`,
                     gap: `${calculateDynamicGap(width)}px`,
                     display: Object.values(isOpen).some((open) => open)
                         ? "block"
@@ -94,6 +95,9 @@ export default function ProjectIconEntry({
                                     className="w-[150px] pt-2"
                                     style={{
                                         lineHeight: "1rem",
+                                        textShadow: `0.5px 0.5px 1.5px ${
+                                            darkTheme ? "#303030" : "white"
+                                        }`,
                                     }}
                                 >
                                     <h1

@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { useEffect, useState } from "react";
+import Image from "next/image";
 interface LogoProps {
     setDarkTheme: React.Dispatch<React.SetStateAction<boolean>>;
     darkTheme: boolean;
@@ -12,12 +13,17 @@ export default function Logo({ setDarkTheme, darkTheme }: LogoProps) {
     }, [hasLoaded]);
 
     return (
-        <div className="col-span-2">
+        <div className="col-span-2 flex items-center h-6">
             <Link
                 href="/"
                 className="text-sm-heading font-black focus:outline-none pr-2"
             >
-                FUZZYFUSION
+                <Image
+                    src={darkTheme ? "/logo-w.png" : "/logo-b.png"}
+                    alt="logo"
+                    width={150}
+                    height={10}
+                />
             </Link>
             <span
                 className="text-xs cursor-pointer"

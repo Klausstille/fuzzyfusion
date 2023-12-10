@@ -1,11 +1,13 @@
 "use client";
 import { useState, useEffect } from "react";
+import Image from "next/image";
 import FilterProjects from "@/components/FilterProjects/FilterProjects";
 import ProjectListEntry from "@/components/ProjectList/ProjectListEntry";
 import ProjectIconEntry from "@/components/ProjectIcon/ProjectIconEntry";
 import { useProjectLayoutStore, setLayoutProps } from "@/stores/projectLayout";
 import { ImagesCollectionItem, ProjectItem } from "@/types";
 import { useFavoritesStore } from "@/stores/favorites";
+import { useColorThemeStore, DarkTheme } from "@/stores/colorTheme";
 import EXIF from "exif-js";
 
 export default function Index() {
@@ -115,6 +117,9 @@ export default function Index() {
             },
         },
     ]);
+    const darkTheme = useColorThemeStore(
+        (state: unknown) => (state as DarkTheme).darkTheme
+    );
     const [filteredData, setFilteredData] = useState<ProjectItem[]>([]);
     const [filterIsActive, setFilterIsActive] = useState(false);
     const [exifData, setExifData] = useState([]);
@@ -177,9 +182,15 @@ export default function Index() {
     return (
         <>
             <div
-                className={`fixed -z-10 text-xxl-heading text-right flex top-4 right-0 text-[black]`}
+                className={`fixed -z-10 top-0 right-0 h-screen w-screen text-[black]`}
             >
-                FUZZYFUSION
+                <Image
+                    className="h-screen object-contain object-center"
+                    src={darkTheme ? "/logo-w.png" : "/logo-b.png"}
+                    alt="logo"
+                    width={3000}
+                    height={1000}
+                />
             </div>
             {layout === "LIST" ? (
                 <ProjectListEntry
