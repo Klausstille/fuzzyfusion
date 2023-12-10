@@ -93,7 +93,7 @@ export function AssetImage({
                     : iconThumbnails
                     ? "w-full hover:object-contain aspect-6/4 object-cover transition-all duration-500 ease-in-out"
                     : iconThumbnailPreview
-                    ? "h-screen w-full object-cover object-left"
+                    ? "h-full w-full object-cover object-left"
                     : ""
             }
             draggable="false"
