@@ -6,6 +6,10 @@ export interface AssetImageProps {
         url: string;
         width: number;
         height: number;
+        title: string;
+        tags: {
+            [k: string]: string;
+        };
     };
     imageSrc?: string;
     alt?: string;
@@ -14,10 +18,14 @@ export interface AssetImageProps {
     style?: CSSProperties;
     fill?: boolean;
     sizes?: string;
-    quality?: "cover" | "high" | "medium" | "low";
+    quality?: "cover" | "high" | "medium" | "low" | "small";
     preview?: string | "gray" | "transparent";
     onLoad?: () => void;
     contentLayout?: "funky" | "classic" | "preview";
+    thumbnails?: boolean;
+    thumbnailPreview?: boolean;
+    iconThumbnails?: boolean;
+    iconThumbnailPreview?: boolean;
 }
 
 const WidthQualityMap = {
@@ -25,6 +33,7 @@ const WidthQualityMap = {
     high: 800,
     medium: 600,
     low: 400,
+    small: 100,
 };
 
 const PreviewBase64Map = {
@@ -45,6 +54,10 @@ export function AssetImage({
     fill,
     sizes,
     onLoad,
+    thumbnails,
+    thumbnailPreview,
+    iconThumbnails,
+    iconThumbnailPreview,
 }: AssetImageProps) {
     if (image && imageSrc)
         throw new Error(
@@ -55,12 +68,11 @@ export function AssetImage({
             "AssetImage requires an alt property when using imageSrc"
         );
 
-    const width = 1000;
-    // fill ? undefined : WidthQualityMap[quality];
-    const height = 1000;
-    // width && image
-    // ? Math.round((width / image.width) * image.height)
-    // : undefined;
+    const width = fill ? undefined : WidthQualityMap[quality];
+    const height =
+        width && image
+            ? Math.round((width / image.width) * image.height)
+            : undefined;
     const previewBase64 =
         preview === "gray" || preview === "transparent"
             ? PreviewBase64Map[preview]
@@ -69,9 +81,21 @@ export function AssetImage({
         placeholder: previewBase64 ? "blur" : "empty",
         blurDataURL: previewBase64 || "",
     };
+    imageSrc = imageSrc || image?.url;
 
     return (
         <Image
+            className={
+                thumbnails
+                    ? "aspect-16/9 object-cover"
+                    : thumbnailPreview
+                    ? "h-full object-cover rounded-md"
+                    : iconThumbnails
+                    ? "w-full hover:object-contain aspect-6/4 object-cover transition-all duration-500 ease-in-out"
+                    : iconThumbnailPreview
+                    ? "h-screen w-full object-cover object-left"
+                    : ""
+            }
             draggable="false"
             onLoad={onLoad}
             priority={priority}

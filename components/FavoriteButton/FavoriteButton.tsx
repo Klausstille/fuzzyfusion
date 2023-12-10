@@ -6,7 +6,7 @@ export default function FavoriteButton({
     id,
 }: {
     iconEntry?: boolean;
-    id: number;
+    id: string;
 }) {
     const [hasLoaded, setHasLoaded] = useState(false);
     const setFavorite = useFavoritesStore((state: any) => state.setFavorite);

@@ -1,14 +1,21 @@
-import Image from "next/image";
 import { useState } from "react";
-import { ProjectItemProps } from "@/types";
+import { ImagesCollectionItem } from "@/types";
 import { CommonImageModule } from "@/components/ProjectShared/CommonImageModule";
+import { AssetImage } from "../shared/asset-image/AssetImage";
+
 export interface ActiveIndex {
     url: string;
     alt: string;
+    width: number;
+    height: number;
 }
+interface ProjectListItemDetailProps {
+    projectItem: ImagesCollectionItem;
+}
+
 export default function ProjectListImageDetail({
     projectItem,
-}: ProjectItemProps) {
+}: ProjectListItemDetailProps) {
     const [isShown, setIsShown] = useState(false);
     const [activeIndex, setActiveIndex] = useState<ActiveIndex | number>(-1);
 
@@ -33,24 +40,38 @@ export default function ProjectListImageDetail({
                                 ? activeIndex.alt
                                 : ""
                         }
+                        width={
+                            typeof activeIndex === "object"
+                                ? activeIndex.width
+                                : 0
+                        }
+                        height={
+                            typeof activeIndex === "object"
+                                ? activeIndex.height
+                                : 0
+                        }
                     />
                 </section>
             )}
-            <aside className="col-span-7 rounded-md">
-                <Image
-                    src={projectItem?.url}
-                    width={1000}
-                    height={1000}
+            <aside
+                className="col-span-7 h-[calc(100vh-1rem)] w-full object-cover object-left cursor-zoom-in rounded-md"
+                onClick={() => {
+                    setIsShown(true);
+                    setActiveIndex({
+                        url: projectItem.url,
+                        alt: projectItem.title || "",
+                        width: projectItem.width || 0,
+                        height: projectItem.height || 0,
+                    });
+                }}
+            >
+                <AssetImage
+                    image={projectItem}
                     alt={projectItem?.title}
-                    className="h-[calc(100vh-1rem)] w-full object-cover object-left cursor-zoom-in rounded-md"
+                    quality="cover"
+                    className=""
                     priority
-                    onClick={() => {
-                        setIsShown(true);
-                        setActiveIndex({
-                            url: projectItem.url,
-                            alt: projectItem.title || "",
-                        });
-                    }}
+                    thumbnailPreview
                 />
             </aside>
         </>

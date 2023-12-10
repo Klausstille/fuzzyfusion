@@ -7,6 +7,7 @@ import { useFavoritesStore } from "@/stores/favorites";
 import Button from "../Button";
 import { ImagesCollectionItem } from "@/types";
 import { useColorThemeStore, DarkTheme } from "@/stores/colorTheme";
+import { AssetImage } from "../shared/asset-image/AssetImage";
 interface ProjectListItemDetailProps {
     exifData: ExifTags;
     projectItem: ImagesCollectionItem;
@@ -41,7 +42,6 @@ export default function ProjectItemDetail({
     const isFavorite: boolean = useFavoritesStore((state: any) =>
         state.isFavorite.includes(projectItem?.id)
     );
-
     return (
         <section
             className={`${
@@ -53,14 +53,14 @@ export default function ProjectItemDetail({
             }`}
         >
             {!projectIcon && (
-                <Image
-                    className="aspect-16/9 object-cover pb-2"
-                    src={projectItem.url}
-                    alt={projectItem.title}
-                    width={1000}
-                    height={500}
-                    priority
-                />
+                <aside className="pb-2">
+                    <AssetImage
+                        image={projectItem}
+                        alt={projectItem?.title}
+                        quality="cover"
+                        thumbnails
+                    />
+                </aside>
             )}
             <article className="px-2">
                 <h1 className="text-s-bold">{projectItem?.title}</h1>

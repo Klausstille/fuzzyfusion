@@ -11,7 +11,7 @@ import Image from "next/image";
 export default function ProjectListEntry({
     setProjectItem,
     projectItem,
-    dummyData,
+    projects,
     exifData,
 }: ProjectEntryProps) {
     const [isOpen, setIsOpen] = useState<{ [key: number]: boolean }>({});
@@ -31,7 +31,7 @@ export default function ProjectListEntry({
                     darkTheme ? "bg-[#2b2b2b]" : "bg-[#f0f0f0]"
                 } col-span-2 h-[calc(100vh-3rem)] overflow-scroll rounded-md px-2 py-2`}
             >
-                {dummyData.map((item, idx) => (
+                {projects.map((item, idx) => (
                     <div key={idx} className="pb-2">
                         <div
                             className="text-s-bold top-2 right-2 flex items-center gap-2 cursor-pointer pb-1"
