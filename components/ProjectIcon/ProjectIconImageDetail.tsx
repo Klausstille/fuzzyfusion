@@ -4,6 +4,7 @@ import ProjectItemDetail from "@/components/ProjectShared/ProjectItemDetail";
 import BackIcon from "./BackIcon";
 import { ImagesCollectionItem } from "@/types";
 import { useColorThemeStore, DarkTheme } from "@/stores/colorTheme";
+import { AssetImage } from "../shared/asset-image/AssetImage";
 
 interface ProjectItemImageDetailProps {
     projectItem: ImagesCollectionItem | null;
@@ -23,15 +24,17 @@ export default function ProjectIconImageDetail({
         <aside className="fixed top-0 left-0 w-screen grid grid-cols-12 z-50">
             {projectItem && (
                 <>
-                    <Image
-                        src={projectItem.url}
-                        width={1000}
-                        height={1000}
-                        alt={projectItem.title}
-                        className="h-screen w-full object-cover object-left col-span-9"
-                        priority
+                    <aside
                         onClick={() => setShowImageDetail(false)}
-                    />
+                        className="col-span-9"
+                    >
+                        <AssetImage
+                            image={projectItem}
+                            alt={projectItem.title}
+                            iconThumbnailPreview
+                            priority
+                        />
+                    </aside>
                     <aside className="col-span-3">
                         <h1
                             className="text-s-bold fixed top-2 right-2 flex items-center gap-2 cursor-pointer"

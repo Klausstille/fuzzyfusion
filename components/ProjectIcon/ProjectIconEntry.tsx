@@ -15,14 +15,14 @@ import Image from "next/image";
 export default function ProjectIconEntry({
     setProjectItem,
     projectItem,
-    dummyData,
+    projects,
     exifData,
 }: ProjectEntryProps) {
     const { width } = useWidthContext();
     const [showImageDetail, setShowImageDetail] = useState<boolean>(false);
     const [isOpen, setIsOpen] = useState<{ [key: number]: boolean }>({});
     const [positions, setPositions] = useState<{ x: number; y: number }[]>(
-        Array(dummyData.length).fill({ x: 0, y: 0 })
+        Array(projects.length).fill({ x: 0, y: 0 })
     );
     const darkTheme = useColorThemeStore(
         (state: unknown) => (state as DarkTheme).darkTheme
@@ -35,7 +35,7 @@ export default function ProjectIconEntry({
     };
 
     const nodeRefs = useRef<Array<React.RefObject<HTMLElement>>>(
-        dummyData.map(() => React.createRef())
+        projects.map(() => React.createRef())
     );
 
     useEffect(() => {
@@ -59,14 +59,13 @@ export default function ProjectIconEntry({
             <section
                 className="px-2 py-2 grid grid-cols-12 gap-2"
                 style={{
-                    // gridTemplateColumns: `repeat(auto-fill, minmax(${width}px,1fr))`,
                     gap: `${calculateDynamicGap(width)}px`,
                     display: Object.values(isOpen).some((open) => open)
                         ? "block"
                         : "grid",
                 }}
             >
-                {dummyData.map((item, idx) => (
+                {projects.map((item, idx) => (
                     <div key={idx}>
                         <Draggable
                             nodeRef={nodeRefs.current[idx]}
@@ -112,8 +111,8 @@ export default function ProjectIconEntry({
                                     </h1>
                                     <h1 className="text-dark-gray">
                                         {
-                                            dummyData[idx].imagesCollection
-                                                .items.length
+                                            projects[idx].imagesCollection.items
+                                                .length
                                         }{" "}
                                         items
                                     </h1>
@@ -130,7 +129,7 @@ export default function ProjectIconEntry({
                                         <BackIcon darkTheme={darkTheme} /> BACK
                                     </div>
                                     <p className="text-dark-gray">
-                                        ../{dummyData[idx].title}
+                                        ../{projects[idx].title}
                                     </p>
                                 </div>
                                 <div

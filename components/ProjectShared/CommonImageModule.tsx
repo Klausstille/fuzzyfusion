@@ -7,11 +7,15 @@ import Image from "next/image";
 interface CommonImageModuleProps {
     altText: string;
     srcUrl: string;
+    width: number;
+    height: number;
 }
 
 export const CommonImageModule = ({
     altText,
     srcUrl,
+    width,
+    height,
 }: CommonImageModuleProps) => {
     const [isTransitionActive, setIsTransitionActive] = useState(false);
     const { windowWidth, windowHeight } = GetWindowDimensions();
@@ -73,8 +77,8 @@ export const CommonImageModule = ({
                 src={srcUrl}
                 className={`fixed-image ${className}`}
                 style={windowWidth > 768 ? properties : {}}
-                width={5000}
-                height={5000}
+                width={width}
+                height={height}
             />
         </div>
     );

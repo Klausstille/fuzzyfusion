@@ -1,6 +1,6 @@
 import FilterEntryItem from "./FilterEntryItem";
 
-import { useState } from "react";
+import { Fragment, useState } from "react";
 export default function FilterEntryComponent({
     onFilterFavorites,
     setFilterIsActive,
@@ -77,8 +77,8 @@ export default function FilterEntryComponent({
                     </li>
                 </FilterEntryItem>
             </ul>
-            {Object.keys(DummyData.FILTER).map((category) => (
-                <>
+            {Object.keys(DummyData.FILTER).map((category, idx) => (
+                <Fragment key={idx}>
                     <h2 className="text-m flex gap-1">
                         <span>↱</span> {category}
                     </h2>
@@ -86,35 +86,33 @@ export default function FilterEntryComponent({
                     <ul className="pb-4">
                         {DummyData.FILTER[category].map(
                             (subcategory: any, idx: number) => (
-                                <>
-                                    <FilterEntryItem
-                                        active={activeItem === subcategory}
-                                        key={idx}
+                                <FilterEntryItem
+                                    active={activeItem === subcategory}
+                                    key={idx}
+                                >
+                                    <li
+                                        className="flex gap-2 items-center"
+                                        key={subcategory}
+                                        onClick={() =>
+                                            handleItemClick(subcategory)
+                                        }
                                     >
-                                        <li
-                                            className="flex gap-2 items-center"
-                                            key={subcategory}
-                                            onClick={() =>
-                                                handleItemClick(subcategory)
-                                            }
-                                        >
-                                            {activeItem === subcategory && (
-                                                <button
-                                                    className={`dot ${
-                                                        darkTheme
-                                                            ? "bg-gray"
-                                                            : "bg-black"
-                                                    }`}
-                                                />
-                                            )}
-                                            {subcategory}
-                                        </li>
-                                    </FilterEntryItem>
-                                </>
+                                        {activeItem === subcategory && (
+                                            <button
+                                                className={`dot ${
+                                                    darkTheme
+                                                        ? "bg-gray"
+                                                        : "bg-black"
+                                                }`}
+                                            />
+                                        )}
+                                        {subcategory}
+                                    </li>
+                                </FilterEntryItem>
                             )
                         )}
                     </ul>
-                </>
+                </Fragment>
             ))}
         </>
     );

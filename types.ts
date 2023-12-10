@@ -1,31 +1,37 @@
 import { latLongProps } from "./helpers/latLong";
 
 export interface ImagesCollectionItem {
-    id: number;
+    id: string;
     title: string;
     url: string;
     width: number;
     height: number;
+    tags: {
+        [k: string]: string;
+    };
 }
 export interface ImagesCollection {
     items: {
-        id: number;
+        id: string;
         title: string;
         url: string;
         width: number;
         height: number;
+        tags: {
+            [k: string]: string;
+        };
     }[];
 }
 export interface ProjectItem {
-    id: number;
     title: string;
+    id: string;
     imagesCollection: ImagesCollection;
 }
 export interface ProjectEntryProps {
     setProjectItem: React.Dispatch<
         React.SetStateAction<ImagesCollectionItem | null>
     >;
-    dummyData: ProjectItem[];
+    projects: ProjectItem[];
     projectItem: ImagesCollectionItem | null;
     exifData: any;
 }
@@ -46,7 +52,7 @@ export interface FilteredExifTags {
 
 export interface ProjectItemProps {
     projectItem: {
-        id: number;
+        id: string;
         url: string;
         title: string;
     };

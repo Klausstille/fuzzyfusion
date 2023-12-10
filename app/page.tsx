@@ -1,122 +1,28 @@
 "use client";
-import { useState, useEffect } from "react";
+import useSWR from "swr";
 import Image from "next/image";
+import { useState, useEffect } from "react";
 import FilterProjects from "@/components/FilterProjects/FilterProjects";
 import ProjectListEntry from "@/components/ProjectList/ProjectListEntry";
 import ProjectIconEntry from "@/components/ProjectIcon/ProjectIconEntry";
 import { useProjectLayoutStore, setLayoutProps } from "@/stores/projectLayout";
 import { ImagesCollectionItem, ProjectItem } from "@/types";
 import { useFavoritesStore } from "@/stores/favorites";
+import { useProjectStore, ProjectStore } from "@/stores/projects";
 import { useColorThemeStore, DarkTheme } from "@/stores/colorTheme";
+import { getProjects } from "@/contentful/api";
+import RingLoader from "react-spinners/RingLoader";
 import EXIF from "exif-js";
 
 export default function Index() {
+    const { data, isLoading, error } = useSWR("projects", getProjects);
+    const [hasLoaded, setHasLoaded] = useState(false);
     const { layout } = useProjectLayoutStore() as setLayoutProps;
     const isFavorite = useFavoritesStore(
-        (state: any) => state.isFavorite as number[]
+        (state: any) => state.isFavorite as string[]
     );
-    const [dummyData, setDummyData] = useState<ProjectItem[]>([
-        {
-            id: 13,
-            title: "2023-09-BDX-DOR-TLS",
-            imagesCollection: {
-                items: [
-                    {
-                        id: 1,
-                        title: "DSCF5143.JPG",
-                        url: "/DSCF5143.JPG",
-                        width: 1000,
-                        height: 1000,
-                    },
-                    {
-                        id: 2,
-                        title: "DSCF4966.JPG",
-                        url: "/DSCF4966.JPG",
-                        width: 1000,
-                        height: 1000,
-                    },
-                    {
-                        id: 3,
-                        url: "/DSCF4858.JPG",
-                        title: "DSCF4858.JPG",
-                        width: 1000,
-                        height: 1000,
-                    },
-                    {
-                        id: 4,
-                        title: "DSCF5143.JPG",
-                        url: "/DSCF5143.JPG",
-                        width: 1000,
-                        height: 1000,
-                    },
-                    {
-                        id: 5,
-                        title: "DSCF4966.JPG",
-                        url: "/DSCF4966.JPG",
-                        width: 1000,
-                        height: 1000,
-                    },
-                    {
-                        id: 6,
-                        url: "/DSCF4858.JPG",
-                        title: "DSCF4858.JPG",
-                        width: 1000,
-                        height: 1000,
-                    },
-                ],
-            },
-        },
-        {
-            id: 14,
-            title: "2022-10-TLS-BCN",
-            imagesCollection: {
-                items: [
-                    {
-                        id: 7,
-                        title: "DSCF5143.JPG",
-                        url: "/DSCF5143.JPG",
-                        width: 1000,
-                        height: 1000,
-                    },
-                    {
-                        id: 8,
-                        title: "DSCF4966.JPG",
-                        url: "/DSCF4966.JPG",
-                        width: 1000,
-                        height: 1000,
-                    },
-                    {
-                        id: 9,
-                        url: "/DSCF4858.JPG",
-                        title: "DSCF4858.JPG",
-                        width: 1000,
-                        height: 1000,
-                    },
-                    {
-                        id: 10,
-                        title: "DSCF5143.JPG",
-                        url: "/DSCF5143.JPG",
-                        width: 1000,
-                        height: 1000,
-                    },
-                    {
-                        id: 11,
-                        title: "DSCF4966.JPG",
-                        url: "/DSCF4966.JPG",
-                        width: 1000,
-                        height: 1000,
-                    },
-                    {
-                        id: 12,
-                        url: "/DSCF4858.JPG",
-                        title: "DSCF4858.JPG",
-                        width: 1000,
-                        height: 1000,
-                    },
-                ],
-            },
-        },
-    ]);
+
+    const [dummyData, setDummyData] = useState<ProjectItem[]>([]);
     const darkTheme = useColorThemeStore(
         (state: unknown) => (state as DarkTheme).darkTheme
     );
@@ -126,11 +32,22 @@ export default function Index() {
     const [projectItem, setProjectItem] = useState<ImagesCollectionItem | null>(
         null
     );
+    const { setProjects } = useProjectStore() as ProjectStore;
+    const { projects } = useProjectStore() as ProjectStore;
+
+    useEffect(() => {
+        if (data) {
+            setProjects(data.projects);
+        }
+    }, [data]);
+
+    useEffect(() => {
+        setHasLoaded(true);
+    }, [hasLoaded]);
 
     useEffect(() => {
         if (projectItem) {
             const url: string = projectItem.url;
-            // "https://images.ctfassets.net/rbwa20kawb52/1PzHTL0qaQcsYGUWRipV9F/a107ee82cc8a523ff3ba6b4cbfa8c8d3/EA932281-3929-4849-86AF-C4475B80DC3B-643-00000019658FFFD4.JPG";
             fetch(url)
                 .then((response) => response.blob())
                 .then((blob: any) => {
@@ -138,7 +55,6 @@ export default function Index() {
                         const exifData = EXIF.getAllTags(this);
                         if (exifData && Object.keys(exifData).length > 0) {
                             setExifData(exifData);
-                            // console.log("Extracted EXIF data:", exifData);
                         } else {
                             console.warn("No EXIF data found in the image.");
                         }
@@ -179,38 +95,51 @@ export default function Index() {
         }
     }, [isFavorite]);
 
+    if (isLoading || !projects) {
+        setTimeout(() => {
+            return (
+                <div className="spinner">
+                    <RingLoader color="white" />
+                </div>
+            );
+        }, 500);
+    }
+
+    if (error) return <div>Error fetching projects</div>;
     return (
-        <>
-            <div
-                className={`fixed -z-10 top-0 right-0 h-screen w-screen text-[black]`}
-            >
-                <Image
-                    className="h-screen object-contain object-center"
-                    src={darkTheme ? "/logo-w.png" : "/logo-b.png"}
-                    alt="logo"
-                    width={3000}
-                    height={1000}
+        hasLoaded && (
+            <>
+                <div
+                    className={`fixed -z-10 top-0 right-0 h-screen w-screen text-[black]`}
+                >
+                    <Image
+                        className="h-screen object-contain object-center"
+                        src={darkTheme ? "/logo-w.png" : "/logo-b.png"}
+                        alt="logo"
+                        width={3000}
+                        height={1000}
+                    />
+                </div>
+                {layout === "LIST" ? (
+                    <ProjectListEntry
+                        exifData={exifData}
+                        setProjectItem={setProjectItem}
+                        projectItem={projectItem}
+                        projects={filterIsActive ? filteredData : projects}
+                    />
+                ) : (
+                    <ProjectIconEntry
+                        exifData={exifData}
+                        setProjectItem={setProjectItem}
+                        projectItem={projectItem}
+                        projects={filterIsActive ? filteredData : projects}
+                    />
+                )}
+                <FilterProjects
+                    onFilterFavorites={onFilterFavorites}
+                    setFilterIsActive={setFilterIsActive}
                 />
-            </div>
-            {layout === "LIST" ? (
-                <ProjectListEntry
-                    exifData={exifData}
-                    setProjectItem={setProjectItem}
-                    projectItem={projectItem}
-                    dummyData={filterIsActive ? filteredData : dummyData}
-                />
-            ) : (
-                <ProjectIconEntry
-                    exifData={exifData}
-                    setProjectItem={setProjectItem}
-                    projectItem={projectItem}
-                    dummyData={filterIsActive ? filteredData : dummyData}
-                />
-            )}
-            <FilterProjects
-                onFilterFavorites={onFilterFavorites}
-                setFilterIsActive={setFilterIsActive}
-            />
-        </>
+            </>
+        )
     );
 }
