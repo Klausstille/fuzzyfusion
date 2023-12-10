@@ -6,6 +6,7 @@ import Header from "@/components/Navigation/Header";
 import { WidthProvider } from "@/context/WidthContext";
 import { useColorThemeStore, DarkTheme } from "@/stores/colorTheme";
 import "../styles/index.css";
+import { useEffect, useState } from "react";
 
 // export const metadata: Metadata = {
 //     title: "FUZZYFUSION",
@@ -19,9 +20,15 @@ export default function RootLayout({
 }: {
     children: React.ReactNode;
 }) {
+    const [hasLoaded, setHasLoaded] = useState(false);
     const darkTheme = useColorThemeStore(
         (state: unknown) => (state as DarkTheme).darkTheme
     );
+
+    useEffect(() => {
+        setHasLoaded(true);
+    }, [hasLoaded]);
+
     return (
         <html lang="en">
             <Head>
@@ -31,9 +38,10 @@ export default function RootLayout({
                     content="A FUZZY FUSION of art and technology"
                 />
             </Head>
+
             <body
                 className={`flex flex-col h-screen ${inter.className} ${
-                    darkTheme
+                    hasLoaded && darkTheme
                         ? "bg-black text-white "
                         : "bg-light-gray text-black "
                 }`}

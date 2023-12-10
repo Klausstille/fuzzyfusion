@@ -2,11 +2,11 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import Image from "next/image";
 interface LogoProps {
-    setDarkTheme: React.Dispatch<React.SetStateAction<boolean>>;
+    toggleDarkTheme: () => void;
     darkTheme: boolean;
 }
 
-export default function Logo({ setDarkTheme, darkTheme }: LogoProps) {
+export default function Logo({ toggleDarkTheme, darkTheme }: LogoProps) {
     const [hasLoaded, setHasLoaded] = useState(false);
     useEffect(() => {
         setHasLoaded(true);
@@ -19,16 +19,13 @@ export default function Logo({ setDarkTheme, darkTheme }: LogoProps) {
                 className="text-sm-heading font-black focus:outline-none pr-2"
             >
                 <Image
-                    src={darkTheme ? "/logo-w.png" : "/logo-b.png"}
+                    src={darkTheme && hasLoaded ? "/logo-w.png" : "/logo-b.png"}
                     alt="logo"
                     width={150}
                     height={10}
                 />
             </Link>
-            <span
-                className="text-xs cursor-pointer"
-                onClick={() => setDarkTheme((toggle: boolean) => !toggle)}
-            >
+            <span className="text-xs cursor-pointer" onClick={toggleDarkTheme}>
                 / {darkTheme && hasLoaded ? "LIGHT" : "DARK"}
             </span>
         </div>

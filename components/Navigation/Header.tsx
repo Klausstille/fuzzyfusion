@@ -9,7 +9,7 @@ export default function Header() {
     const darkTheme = useColorThemeStore(
         (state: unknown) => (state as DarkTheme).darkTheme
     );
-    const setDarkTheme = useColorThemeStore(
+    const toggleDarkTheme = useColorThemeStore(
         (state: unknown) => (state as DarkTheme).toggleDarkTheme
     );
     const { layout } = useProjectLayoutStore() as setLayoutProps;
@@ -18,7 +18,7 @@ export default function Header() {
             className={`grid grid-cols-12 fixed left-0 bottom-0 w-full z-30 items-center px-2 py-2 text-m 
             `}
         >
-            <Logo setDarkTheme={setDarkTheme} darkTheme={darkTheme} />
+            <Logo toggleDarkTheme={toggleDarkTheme} darkTheme={darkTheme} />
             <Nav />
             {layout === "ICONS" && <ScaleIcons />}
         </header>

@@ -22,7 +22,6 @@ export default function Index() {
         (state: any) => state.isFavorite as string[]
     );
 
-    const [dummyData, setDummyData] = useState<ProjectItem[]>([]);
     const darkTheme = useColorThemeStore(
         (state: unknown) => (state as DarkTheme).darkTheme
     );
@@ -67,10 +66,10 @@ export default function Index() {
                     );
                 });
         }
-    }, [projectItem, dummyData]);
+    }, [projectItem, projects]);
 
     const onFilterFavorites = () => {
-        const filteredFavorites = dummyData.map((project) => {
+        const filteredFavorites = projects.map((project) => {
             const filteredItems = project.imagesCollection.items.filter(
                 (item) => isFavorite.includes(item.id)
             );
@@ -114,10 +113,15 @@ export default function Index() {
                 >
                     <Image
                         className="h-screen object-contain object-center"
-                        src={darkTheme ? "/logo-w.png" : "/logo-b.png"}
+                        src={
+                            darkTheme && hasLoaded
+                                ? "/logo-w.png"
+                                : "/logo-b.png"
+                        }
                         alt="logo"
                         width={3000}
                         height={1000}
+                        priority
                     />
                 </div>
                 {layout === "LIST" ? (
