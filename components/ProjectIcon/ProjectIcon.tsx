@@ -25,7 +25,7 @@ export default function ProjectIcon({
                 <AssetImage image={item} alt={item?.title} iconThumbnails />
             </div>
             <aside className="flex justify-between w-full items-center h-6">
-                <p>{item.title}</p>
+                <p>{item.title}.JPG</p>
                 <FavoriteButton id={item.id} iconEntry />
             </aside>
         </article>

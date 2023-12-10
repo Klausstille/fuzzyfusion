@@ -114,7 +114,9 @@ export default function ProjectIconEntry({
                                             projects[idx].imagesCollection.items
                                                 .length
                                         }{" "}
-                                        items
+                                        item
+                                        {projects[idx].imagesCollection.items
+                                            .length > 1 && "s"}
                                     </h1>
                                 </div>
                             </div>

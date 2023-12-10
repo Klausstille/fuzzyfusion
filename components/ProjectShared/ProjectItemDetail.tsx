@@ -63,7 +63,7 @@ export default function ProjectItemDetail({
                 </aside>
             )}
             <article className="px-2">
-                <h1 className="text-s-bold">{projectItem?.title}</h1>
+                <h1 className="text-s-bold">{projectItem?.title}.JPG</h1>
                 <h1 className="text-dark-gray pb-4 text-s-bold">JPEG image</h1>
                 <h1 className="text-s-bold flex justify-between">
                     Information
