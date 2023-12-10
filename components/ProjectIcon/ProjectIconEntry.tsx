@@ -101,7 +101,7 @@ export default function ProjectIconEntry({
                                 >
                                     <h1
                                         style={{
-                                            width: `${width}px`,
+                                            width: `${width - 10}px`,
                                             textOverflow: "ellipsis",
                                             whiteSpace: "nowrap",
                                             overflow: "hidden",
