@@ -21,7 +21,9 @@ export default function ProjectList({
                     thumbnails
                 />
             </aside>
-            <p className="min-w-[130px]">{item.title}.JPG</p>
+            <p className="min-w-[130px] max-desktop-s:min-w-[90px] max-desktop-s:text-xs">
+                {item.title}.JPG
+            </p>
             <FavoriteButton id={item.id} />
         </ProjectListItem>
     );

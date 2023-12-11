@@ -1,65 +1,94 @@
 import { ExifTags, FilteredExifTags } from "@/types";
-import ConvertDMSToDD from "./latLong";
+import getActualLatLong from "./latLong";
 
-export default function formatExifData(exifData: ExifTags): FilteredExifTags {
-    const formattedExifData: FilteredExifTags = {} as FilteredExifTags;
-    if (exifData?.DateTime) {
-        const dateTimeString = exifData.DateTime.replace(/:/g, "-");
-        const [datePart, timePart] = dateTimeString.split(" ");
-        const [year, month, day] = datePart.split("-");
-        const [hours, minutes, seconds] = timePart.split("-");
-        const originalDate = new Date(
-            parseInt(year, 10),
-            parseInt(month, 10) - 1,
-            parseInt(day, 10),
-            parseInt(hours, 10),
-            parseInt(minutes, 10),
-            parseInt(seconds, 10)
-        );
+interface DateTimeParts {
+    year: string;
+    month: string;
+    day: string;
+    hours: string;
+    minutes: string;
+}
 
-        formattedExifData["Created"] = originalDate.toLocaleString("en-US", {
+function parseDateTime(dateTime: string): DateTimeParts {
+    const dateTimeString = dateTime.replace(/:/g, "-");
+    const [datePart, timePart] = dateTimeString.split(" ");
+    const [year, month, day] = datePart.split("-");
+    const [hours, minutes] = timePart.split("-");
+    return { year, month, day, hours, minutes };
+}
+
+function formatDateTime(dateTime: string): string {
+    const { year, month, day, hours, minutes } = parseDateTime(dateTime);
+    const originalDate = new Date(
+        parseInt(year, 10),
+        parseInt(month, 10) - 1,
+        parseInt(day, 10),
+        parseInt(hours, 10),
+        parseInt(minutes, 10)
+    );
+
+    return originalDate
+        .toLocaleString("en-GB", {
             year: "numeric",
-            month: "long",
+            month: "numeric",
             day: "numeric",
             hour: "numeric",
             minute: "numeric",
-            second: "numeric",
-            hour12: false,
-        });
+        })
+        .toUpperCase();
+}
 
-        formattedExifData[
-            "Dimensions"
-        ] = `${exifData.PixelXDimension} x ${exifData.PixelYDimension}`;
+export default function formatExifData(exifData: ExifTags): FilteredExifTags {
+    const formattedExifData: any = {} as FilteredExifTags;
 
+    if (exifData?.DateTime) {
+        formattedExifData["Created"] = formatDateTime(exifData.DateTime);
+        formattedExifData["Dimensions"] = exifData.PixelXDimension
+            ? `${exifData.PixelXDimension} x ${
+                  exifData.PixelXDimension || "n/A"
+              }`
+            : "n/A";
         formattedExifData["Color Space"] =
             exifData.ColorSpace === 1 ? "sRGB" : "Uncalibrated";
-        formattedExifData["Device Make"] = exifData.Make;
-        formattedExifData["Device Model"] = exifData.Model;
-        formattedExifData["Exposure Time"] = `1/${
-            exifData.ExposureTime?.denominator /
-            exifData.ExposureTime?.numerator
-        } sec`;
-        formattedExifData["Focal Length"] = `${
-            exifData.FocalLength?.numerator / exifData.FocalLength?.denominator
-        } mm`;
-        formattedExifData["ISO Speed"] = exifData.ISOSpeedRatings;
-        formattedExifData["Aperture Value"] = `f${
-            exifData.ApertureValue?.numerator /
-            exifData.ApertureValue?.denominator
-        }`;
-        formattedExifData["Flash"] = exifData.Flash;
+        formattedExifData["Device Make"] = exifData.Make || "n/A";
+        formattedExifData["Device Model"] = exifData.Model || "n/A";
+        formattedExifData["Exposure Time"] = exifData.ExposureTime
+            ? `1/${
+                  exifData.ExposureTime.denominator /
+                  exifData.ExposureTime.numerator
+              } sec`
+            : "n/A";
+        formattedExifData["Focal Length"] = exifData.FocalLength
+            ? `${
+                  exifData.FocalLength.numerator /
+                  exifData.FocalLength.denominator
+              } mm`
+            : "n/A";
+        formattedExifData["ISO Speed"] = exifData.ISOSpeedRatings || "n/A";
+        formattedExifData["Aperture Value"] = exifData.ApertureValue
+            ? `f${
+                  exifData.ApertureValue.numerator /
+                  exifData.ApertureValue.denominator
+              }`
+            : "n/A";
+        formattedExifData["Flash"] = exifData.Flash || "n/A";
 
-        const latDetails = ConvertDMSToDD(
+        const { latitude, longitude } = getActualLatLong(
             exifData.GPSLatitude,
-            exifData.GPSLatitudeRef
-        );
-        const longDetails = ConvertDMSToDD(
+            exifData.GPSLatitudeRef,
             exifData.GPSLongitude,
             exifData.GPSLongitudeRef
-        );
+        ) as { latitude: string; longitude: string };
 
-        formattedExifData["Latitude"] = latDetails;
-        formattedExifData["Longitude"] = longDetails;
+        formattedExifData["Orientation"] = exifData.thumbnail.Orientation
+            ? exifData.thumbnail.Orientation === 6 ||
+              exifData.thumbnail.Orientation === 8
+                ? "Portrait"
+                : "Landscape"
+            : "n/A";
+        formattedExifData["Latitude"] = latitude || "n/A";
+        formattedExifData["Longitude"] = longitude || "n/A";
     }
+
     return formattedExifData;
 }
