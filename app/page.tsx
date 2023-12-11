@@ -6,7 +6,7 @@ import FilterProjects from "@/components/FilterProjects/FilterProjects";
 import ProjectListEntry from "@/components/ProjectList/ProjectListEntry";
 import ProjectIconEntry from "@/components/ProjectIcon/ProjectIconEntry";
 import { useProjectLayoutStore, setLayoutProps } from "@/stores/projectLayout";
-import { ImagesCollectionItem, ProjectItem } from "@/types";
+import { ImagesCollectionItem } from "@/types";
 import { useFavoritesStore } from "@/stores/favorites";
 import { useProjectStore, ProjectStore } from "@/stores/projects";
 import { useColorThemeStore, DarkTheme } from "@/stores/colorTheme";
@@ -26,8 +26,6 @@ export default function Index() {
         (state: any) => state.isFavorite as string[]
     );
 
-    const [filteredData, setFilteredData] = useState<ProjectItem[]>([]);
-    const [filterIsActive, setFilterIsActive] = useState(false);
     const [exifData, setExifData] = useState([]);
     const [projectItem, setProjectItem] = useState<ImagesCollectionItem | null>(
         null
@@ -74,32 +72,19 @@ export default function Index() {
         }
     }, [projectItem, projects]);
 
-    const onFilterFavorites = () => {
-        const filteredFavorites = projects.map((project) => {
-            const filteredItems = project.imagesCollection.items.filter(
-                (item) => isFavorite.includes(item.id)
-            );
-
-            return {
-                ...project,
-                imagesCollection: {
-                    items: filteredItems,
-                },
-            };
-        });
-        setFilterIsActive(true);
-        setFilteredData(filteredFavorites);
-    };
-
     useEffect(() => {
         if (activeFilters.length > 0) {
             const filteredProjects = projects.map((project) => {
                 const filteredItems = project.imagesCollection.items.filter(
                     (item) => {
-                        const values = Object.values(item.tags);
-                        return activeFilters.every((filter) =>
-                            values.includes(filter)
-                        );
+                        if (activeFilters.includes("Favorites")) {
+                            return isFavorite.includes(item.id);
+                        } else {
+                            const values = Object.values(item.tags);
+                            return activeFilters.every((filter) =>
+                                values.includes(filter)
+                            );
+                        }
                     }
                 );
                 return {
@@ -117,16 +102,7 @@ export default function Index() {
         }
     }, [activeFilters]);
 
-    useEffect(() => {
-        if (filterIsActive) {
-            onFilterFavorites();
-        }
-        if (isFavorite.length === 0) {
-            setProjectItem(null);
-        }
-    }, [isFavorite]);
-
-    if (isLoading || !projects) {
+    if (isLoading) {
         setTimeout(() => {
             return (
                 <div className="spinner">
@@ -161,20 +137,17 @@ export default function Index() {
                         exifData={exifData}
                         setProjectItem={setProjectItem}
                         projectItem={projectItem}
-                        projects={filterIsActive ? filteredData : projects}
+                        projects={projects}
                     />
                 ) : (
                     <ProjectIconEntry
                         exifData={exifData}
                         setProjectItem={setProjectItem}
                         projectItem={projectItem}
-                        projects={filterIsActive ? filteredData : projects}
+                        projects={projects}
                     />
                 )}
-                <FilterProjects
-                    onFilterFavorites={onFilterFavorites}
-                    setFilterIsActive={setFilterIsActive}
-                />
+                <FilterProjects />
             </>
         )
     );

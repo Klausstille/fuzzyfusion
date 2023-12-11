@@ -3,12 +3,8 @@ import { useFilterProjectStore } from "@/stores/filterProject";
 import { Fragment } from "react";
 
 export default function FilterEntryComponent({
-    onFilterFavorites,
-    setFilterIsActive,
     darkTheme,
 }: {
-    onFilterFavorites: () => void;
-    setFilterIsActive: (isActive: boolean) => void;
     darkTheme: boolean;
 }) {
     const tags = useFilterProjectStore((state: any) => state.tags);
@@ -20,6 +16,9 @@ export default function FilterEntryComponent({
     );
 
     const handleItemClick = (index: string) => {
+        if (activeFilters.includes("Favorites") && activeFilters.length === 1) {
+            return;
+        }
         const newActiveItems = [...activeFilters];
         const indexInArray = newActiveItems.indexOf(index);
         if (indexInArray === -1) {
@@ -53,19 +52,17 @@ export default function FilterEntryComponent({
                 "Clear All Filter",
                 () => {
                     setActiveFilters([]);
-                    setFilterIsActive(false);
                 },
                 null
             )}
-            <h2 className="text-m flex gap-1">
-                <span>↱</span> FILTER BY
+            <h2 className="text-m flex gap-1 mt-4">
+                <span>↱</span> Favorites
             </h2>
             <hr className="border-dark-gray opacity-50" />
-            <ul className="pb-4">
+            <ul className="pb-2">
                 {renderFilterEntryItem(
                     "Favorites",
                     () => {
-                        onFilterFavorites();
                         handleItemClick("Favorites");
                     },
                     null
@@ -78,7 +75,7 @@ export default function FilterEntryComponent({
                             <span>↱</span> {category}
                         </h2>
                         <hr className="border-dark-gray opacity-50" />
-                        <ul className="pb-4">
+                        <ul className="pb-2">
                             {subcategories.map(
                                 (subcategory: any, subIdx: number) =>
                                     renderFilterEntryItem(
