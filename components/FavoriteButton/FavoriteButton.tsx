@@ -1,4 +1,5 @@
 import { useFavoritesStore } from "@/stores/favorites";
+import { useColorThemeStore, DarkTheme } from "@/stores/colorTheme";
 import { useEffect, useState } from "react";
 
 export default function FavoriteButton({
@@ -13,6 +14,7 @@ export default function FavoriteButton({
     const isFavorite: boolean = useFavoritesStore((state: any) =>
         state.isFavorite.includes(id)
     );
+    const { darkTheme } = useColorThemeStore() as DarkTheme;
 
     useEffect(() => {
         setHasLoaded(true);
@@ -27,9 +29,14 @@ export default function FavoriteButton({
             >
                 <button
                     onClick={() => setFavorite(id)}
+                    style={{ boxSizing: "content-box" }}
                     className={`dot ${
                         isFavorite
-                            ? "bg-lime"
+                            ? darkTheme
+                                ? "bg-white"
+                                : "bg-black"
+                            : darkTheme
+                            ? "bg-black border-real-black border-[1px]"
                             : "bg-white border-gray border-[1px]"
                     }`}
                 />

@@ -3,15 +3,7 @@ import { useColorThemeStore } from "@/stores/colorTheme";
 import FilterEntryComponent from "./FilterEntryComponent";
 import MenuIcon from "./MenuIcon";
 
-export interface FilterProjectsProps {
-    onFilterFavorites: () => void;
-    setFilterIsActive: React.Dispatch<React.SetStateAction<boolean>>;
-}
-
-export default function FilterProjects({
-    onFilterFavorites,
-    setFilterIsActive,
-}: FilterProjectsProps) {
+export default function FilterProjects() {
     const [isOpen, setIsOpen] = useState(false);
     const handleClick = () => setIsOpen(!isOpen);
     const darkTheme = useColorThemeStore(
@@ -44,14 +36,14 @@ export default function FilterProjects({
                 className={`menu-button fixed bottom-0 right-0 py-2 px-2 z-40 text-m cursor-pointer`}
                 onClick={handleClick}
             >
-                MENU
+                FILTER
             </h1>
             <section
                 className={`${
                     isOpen ? "menu-open" : "menu-closed"
-                } transition-opacity duration-[.2s] ease-in-out fixed w-1/5 bottom-2 pr-2 right-2 py-2 px-2 ${
+                } transition-opacity duration-[.2s] ease-in-out fixed w-1/5 bottom-10 pr-2 right-2 py-2 px-2 ${
                     darkTheme ? "bg-real-black" : "bg-white"
-                } h-[calc(100vh-1rem)] overflow-scroll z-40 rounded-md`}
+                } h-[calc(100vh-3rem)] overflow-scroll z-40 rounded-md`}
                 ref={menuRef}
             >
                 <MenuIcon
@@ -59,11 +51,7 @@ export default function FilterProjects({
                     handleClick={handleClick}
                     darkTheme={darkTheme}
                 />
-                <FilterEntryComponent
-                    darkTheme={darkTheme}
-                    onFilterFavorites={onFilterFavorites}
-                    setFilterIsActive={setFilterIsActive}
-                />
+                <FilterEntryComponent darkTheme={darkTheme} />
             </section>
         </>
     );

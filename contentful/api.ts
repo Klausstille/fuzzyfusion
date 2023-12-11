@@ -94,26 +94,26 @@ function extractProjectEntries(fetchResponse: FetchResponse) {
 
 export function extractProjectTags(fetchResponse: FetchResponse) {
     const response = fetchResponse?.data?.projectCategoryCollection?.items;
-    const uniqueTagsSet = new Set();
-    const tagsArray = response.flatMap((project) =>
-        project.projectimagesCollection.items.flatMap((item) =>
+    const tagsObject: Record<string, string[]> = {};
+
+    response?.forEach((project) => {
+        project.projectimagesCollection.items.forEach((item) => {
             item.contentfulMetadata.tags
                 .filter((tag) => tag.name.trim() !== "")
-                .map((tag) => {
-                    const key = tag.name.split(":")[0];
-                    const value = tag.name.split(":")[1];
-                    const tagObject = { [key]: value };
-                    if (!uniqueTagsSet.has(JSON.stringify(tagObject))) {
-                        uniqueTagsSet.add(JSON.stringify(tagObject));
-                        return tagObject;
-                    } else {
-                        return null;
+                .forEach((tag) => {
+                    const [key, value] = tag.name.split(":");
+                    if (key && value) {
+                        if (!tagsObject[key]) {
+                            tagsObject[key] = [value];
+                        } else if (!tagsObject[key].includes(value)) {
+                            tagsObject[key].push(value);
+                        }
                     }
-                })
-        )
-    );
-    const filteredTagsArray = tagsArray.filter((tag) => tag !== null);
-    return filteredTagsArray || [];
+                });
+        });
+    });
+
+    return tagsObject;
 }
 
 export async function getProjects() {
