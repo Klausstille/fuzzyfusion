@@ -1,10 +1,11 @@
-import Image from "next/image";
 import { ExifTags } from "@/types";
 import ProjectItemDetail from "@/components/ProjectShared/ProjectItemDetail";
 import BackIcon from "./BackIcon";
 import { ImagesCollectionItem } from "@/types";
 import { useColorThemeStore, DarkTheme } from "@/stores/colorTheme";
 import { AssetImage } from "../shared/asset-image/AssetImage";
+import GetWindowDimensions from "../shared/getWindowDimensions";
+import { useState } from "react";
 
 interface ProjectItemImageDetailProps {
     projectItem: ImagesCollectionItem | null;
@@ -17,9 +18,12 @@ export default function ProjectIconImageDetail({
     setShowImageDetail,
     exifData,
 }: ProjectItemImageDetailProps) {
+    const { windowWidth } = GetWindowDimensions();
     const darkTheme = useColorThemeStore(
         (state: unknown) => (state as DarkTheme).darkTheme
     );
+    const [moreInfo, setMoreInfo] = useState<boolean>(false);
+    console.log("moreInfo", moreInfo);
     return (
         projectItem && (
             <section
@@ -31,7 +35,7 @@ export default function ProjectIconImageDetail({
                     <>
                         <aside
                             onClick={() => setShowImageDetail(false)}
-                            className="col-span-9"
+                            className="col-span-9 pr-2 max-desktop-s:col-span-8 max-tablet:col-span-12 max-tablet:pr-0"
                         >
                             <AssetImage
                                 image={projectItem}
@@ -40,19 +44,30 @@ export default function ProjectIconImageDetail({
                                 priority
                             />
                         </aside>
-                        <aside className="col-span-3">
+                        <aside className="col-span-3 max-desktop-s:col-span-4">
                             <h1
-                                className="fixed top-3 right-4 flex items-center gap-2 cursor-pointer font-bold "
+                                className="fixed top-3 right-4 flex items-center gap-2 cursor-pointer font-bold"
                                 onClick={() => setShowImageDetail(false)}
                             >
                                 <BackIcon darkTheme={darkTheme} /> BACK
                             </h1>
-                            <ProjectItemDetail
-                                projectItem={projectItem}
-                                exifData={exifData}
-                                projectIcon
-                            />
+                            {(windowWidth > 768 ||
+                                (moreInfo && windowWidth < 768)) && (
+                                <ProjectItemDetail
+                                    projectItem={projectItem}
+                                    exifData={exifData}
+                                    projectIcon
+                                />
+                            )}
                         </aside>
+                        {windowWidth < 768 && (
+                            <h1
+                                className="fixed top-3 left-4 cursor-pointer font-bold"
+                                onClick={() => setMoreInfo((toggle) => !toggle)}
+                            >
+                                {moreInfo ? "CLOSE" : "INFO"}
+                            </h1>
+                        )}
                     </>
                 </aside>
             </section>

@@ -1,4 +1,3 @@
-import Image from "next/image";
 import React, { useEffect, useState } from "react";
 import formatExifData from "@/helpers/formatExifData";
 import { FilteredExifTags, ExifTags } from "@/types";
@@ -42,26 +41,26 @@ export default function ProjectItemDetail({
     const isFavorite: boolean = useFavoritesStore((state: any) =>
         state.isFavorite.includes(projectItem?.id)
     );
+    const { Latitude, Longitude } = filteredExifData;
     return (
         <section
             className={`${
                 projectIcon
-                    ? "h-screen pt-2"
+                    ? "h-screen max-tablet:fixed max-tablet:top-2 max-tablet:left-2 max-tablet:w-[calc(100vw-1rem)] max-tablet:h-[calc(100vh-1rem)] rounded-md"
                     : "h-[calc(100vh-3rem)] rounded-md"
-            } overflow-scroll col-span-3 ${
+            } overflow-scroll col-span-3 max-desktop:col-span-4 max-tablet:col-span-7 ${
                 darkTheme ? "bg-real-black" : "bg-white"
-            }`}
+            } pb-8`}
         >
-            {!projectIcon && (
-                <aside className="pb-2">
-                    <AssetImage
-                        image={projectItem}
-                        alt={projectItem?.title}
-                        quality="cover"
-                        thumbnails
-                    />
-                </aside>
-            )}
+            <aside className="pb-2">
+                <AssetImage
+                    image={projectItem}
+                    alt={projectItem?.title}
+                    quality="cover"
+                    thumbnails
+                />
+            </aside>
+
             <article className="px-2">
                 <h1 className="text-s-bold">{projectItem?.title}.JPG</h1>
                 <h1 className="text-dark-gray pb-4 text-s-bold">JPEG image</h1>
@@ -78,8 +77,9 @@ export default function ProjectItemDetail({
                 <div className="card__content h-auto">
                     <dl className="card__info pb-2 my-2">
                         {Object.entries(filteredExifData).map(
-                            ([key, value], idx) =>
-                                (isOpen && idx >= 0) || (!isOpen && idx < 3) ? (
+                            ([key, value], idx) => {
+                                return (isOpen && idx >= 0) ||
+                                    (!isOpen && idx < 3) ? (
                                     <React.Fragment key={idx}>
                                         <dt className="card__info-title text-dark-gray">
                                             {key}
@@ -90,7 +90,27 @@ export default function ProjectItemDetail({
                                         <hr className="border-dark-gray opacity-50" />
                                         <hr className="border-dark-gray opacity-50" />
                                     </React.Fragment>
-                                ) : null
+                                ) : null;
+                            }
+                        )}
+                        {Latitude !== "n/A" && isOpen && (
+                            <>
+                                <dt className="card__info-description text-dark-gray">
+                                    Location
+                                </dt>
+                                <dd>
+                                    <a
+                                        href={`https://www.google.com/maps?q=${
+                                            Latitude + " " + Longitude
+                                        }`}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                    >
+                                        {" "}
+                                        ↳ view map
+                                    </a>
+                                </dd>
+                            </>
                         )}
                     </dl>
                 </div>
@@ -102,8 +122,8 @@ export default function ProjectItemDetail({
                     >
                         <p>
                             {hasLoaded && isFavorite
-                                ? "Remove from favorites"
-                                : "Mark as favorite"}
+                                ? "Remove favorite"
+                                : "Add to favorites"}
                         </p>
                         <FavoriteButton id={projectItem?.id} />
                     </span>

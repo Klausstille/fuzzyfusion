@@ -1,5 +1,3 @@
-import { latLongProps } from "./helpers/latLong";
-
 export interface ImagesCollectionItem {
     id: string;
     title: string;
@@ -46,8 +44,8 @@ export interface FilteredExifTags {
     "ISO Speed": string;
     "Aperture Value": string;
     Flash: string;
-    Latitude: number;
-    Longitude: number;
+    Latitude: string;
+    Longitude: string;
 }
 
 export interface ProjectItemProps {
@@ -81,6 +79,9 @@ export interface ExifTags {
     Flash: string;
     GPSLatitudeRef: string;
     GPSLongitudeRef: string;
-    GPSLatitude?: latLongProps[] | any;
-    GPSLongitude?: latLongProps[] | any;
+    thumbnail: {
+        Orientation: number;
+    };
+    GPSLatitude?: number[] | any;
+    GPSLongitude?: number[] | any;
 }

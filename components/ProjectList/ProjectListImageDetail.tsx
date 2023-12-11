@@ -54,7 +54,7 @@ export default function ProjectListImageDetail({
                 </section>
             )}
             <aside
-                className="col-span-7 h-[calc(100vh-3rem)] w-full object-cover object-left cursor-zoom-in rounded-md"
+                className="col-span-7 h-[calc(100vh-3rem)] w-full object-cover object-left cursor-zoom-in rounded-md max-desktop:col-span-5 max-tablet:hidden"
                 onClick={() => {
                     setIsShown(true);
                     setActiveIndex({

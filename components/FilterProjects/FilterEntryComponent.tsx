@@ -35,7 +35,10 @@ export default function FilterEntryComponent({
         key?: number | null
     ) => (
         <FilterEntryItem active={activeFilters.includes(text)} key={key}>
-            <li className="flex gap-2 items-center" onClick={onClick}>
+            <li
+                className="flex gap-2 items-center max-desktop:text-xs"
+                onClick={onClick}
+            >
                 {activeFilters.includes(text) && (
                     <button
                         className={`dot ${darkTheme ? "bg-gray" : "bg-black"}`}
@@ -55,7 +58,7 @@ export default function FilterEntryComponent({
                 },
                 null
             )}
-            <h2 className="text-m flex gap-1 mt-4">
+            <h2 className="text-m flex gap-1 mt-4 max-desktop:text-s">
                 <span>↱</span> Favorites
             </h2>
             <hr className="border-dark-gray opacity-50" />
@@ -71,7 +74,7 @@ export default function FilterEntryComponent({
             {Object.entries(tags).map(
                 ([category, subcategories]: [string, string[] | any], idx) => (
                     <Fragment key={idx}>
-                        <h2 className="text-m flex gap-1">
+                        <h2 className="text-m flex gap-1 max-desktop:text-s">
                             <span>↱</span> {category}
                         </h2>
                         <hr className="border-dark-gray opacity-50" />

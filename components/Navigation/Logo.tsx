@@ -13,7 +13,7 @@ export default function Logo({ toggleDarkTheme, darkTheme }: LogoProps) {
     }, [hasLoaded]);
 
     return (
-        <div className="col-span-2 flex items-center h-6">
+        <div className="col-span-2 max-desktop:col-span-3 max-tablet:col-span-12 flex items-center h-6">
             <Link
                 href="/"
                 className="text-sm-heading font-black focus:outline-none pr-2"
@@ -25,7 +25,14 @@ export default function Logo({ toggleDarkTheme, darkTheme }: LogoProps) {
                     height={10}
                 />
             </Link>
-            <span className="text-xs cursor-pointer" onClick={toggleDarkTheme}>
+            <span
+                className="text-xs cursor-pointer"
+                onClick={toggleDarkTheme}
+                style={{
+                    whiteSpace: "nowrap",
+                    overflow: "hidden",
+                }}
+            >
                 / {darkTheme && hasLoaded ? "LIGHT" : "DARK"}
             </span>
         </div>

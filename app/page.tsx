@@ -10,6 +10,7 @@ import { ImagesCollectionItem } from "@/types";
 import { useFavoritesStore } from "@/stores/favorites";
 import { useProjectStore, ProjectStore } from "@/stores/projects";
 import { useColorThemeStore, DarkTheme } from "@/stores/colorTheme";
+import GetWindowDimensions from "@/components/shared/getWindowDimensions";
 import {
     useFilterProjectStore,
     FilterProjectStore,
@@ -21,6 +22,7 @@ import EXIF from "exif-js";
 export default function Index() {
     const { data, isLoading, error } = useSWR("projects", getProjects);
     const [hasLoaded, setHasLoaded] = useState(false);
+    const { windowWidth } = GetWindowDimensions();
     const { layout } = useProjectLayoutStore() as setLayoutProps;
     const isFavorite = useFavoritesStore(
         (state: any) => state.isFavorite as string[]
@@ -132,13 +134,22 @@ export default function Index() {
                         priority
                     />
                 </div>
-                {layout === "LIST" ? (
-                    <ProjectListEntry
-                        exifData={exifData}
-                        setProjectItem={setProjectItem}
-                        projectItem={projectItem}
-                        projects={projects}
-                    />
+                {windowWidth > 768 ? (
+                    layout === "LIST" ? (
+                        <ProjectListEntry
+                            exifData={exifData}
+                            setProjectItem={setProjectItem}
+                            projectItem={projectItem}
+                            projects={projects}
+                        />
+                    ) : (
+                        <ProjectIconEntry
+                            exifData={exifData}
+                            setProjectItem={setProjectItem}
+                            projectItem={projectItem}
+                            projects={projects}
+                        />
+                    )
                 ) : (
                     <ProjectIconEntry
                         exifData={exifData}

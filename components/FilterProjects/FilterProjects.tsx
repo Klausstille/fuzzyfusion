@@ -33,7 +33,7 @@ export default function FilterProjects() {
     return (
         <>
             <h1
-                className={`menu-button fixed bottom-0 right-0 py-2 px-2 z-40 text-m cursor-pointer`}
+                className={`menu-button fixed bottom-0 right-0 pb-[10px] px-2 z-40 text-m cursor-pointer max-desktop:text-xs`}
                 onClick={handleClick}
             >
                 FILTER
@@ -41,7 +41,7 @@ export default function FilterProjects() {
             <section
                 className={`${
                     isOpen ? "menu-open" : "menu-closed"
-                } transition-opacity duration-[.2s] ease-in-out fixed w-1/5 bottom-10 pr-2 right-2 py-2 px-2 ${
+                } transition-opacity duration-[.2s] ease-in-out fixed w-1/5 max-desktop:w-1/3 max-tablet:w-1/2 bottom-10 pr-2 right-2 py-2 px-2 ${
                     darkTheme ? "bg-real-black" : "bg-white"
                 } h-[calc(100vh-3rem)] overflow-scroll z-40 rounded-md`}
                 ref={menuRef}

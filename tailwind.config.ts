@@ -1,5 +1,4 @@
 import type { Config } from "tailwindcss";
-
 const config: Config = {
     content: [
         "./pages/**/*.{js,ts,jsx,tsx,mdx}",
@@ -8,6 +7,7 @@ const config: Config = {
     ],
     theme: {
         screens: {
+            tablet: "768px",
             desktop: "1150px",
             "desktop-s": "1250px",
             "desktop-m": "1400px",
@@ -97,10 +97,7 @@ const config: Config = {
                 "0.85rem",
                 { letterSpacing: "0", lineHeight: "1.1rem", fontWeight: 400 },
             ], // 16px, 24px
-            xs: [
-                "0.7rem",
-                { letterSpacing: "0", lineHeight: "1.15rem", fontWeight: 400 },
-            ], // 14px, 20px
+            xs: ["0.7rem", { letterSpacing: "0", fontWeight: 400 }], // 14px, 20px
             "html-default": "16px",
             "html-xs": "12px",
             "html-s": "13px",
