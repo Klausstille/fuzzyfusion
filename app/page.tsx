@@ -10,6 +10,10 @@ import { ImagesCollectionItem, ProjectItem } from "@/types";
 import { useFavoritesStore } from "@/stores/favorites";
 import { useProjectStore, ProjectStore } from "@/stores/projects";
 import { useColorThemeStore, DarkTheme } from "@/stores/colorTheme";
+import {
+    useFilterProjectStore,
+    FilterProjectStore,
+} from "@/stores/filterProject";
 import { getProjects } from "@/contentful/api";
 import RingLoader from "react-spinners/RingLoader";
 import EXIF from "exif-js";
@@ -22,23 +26,25 @@ export default function Index() {
         (state: any) => state.isFavorite as string[]
     );
 
-    const darkTheme = useColorThemeStore(
-        (state: unknown) => (state as DarkTheme).darkTheme
-    );
     const [filteredData, setFilteredData] = useState<ProjectItem[]>([]);
     const [filterIsActive, setFilterIsActive] = useState(false);
     const [exifData, setExifData] = useState([]);
     const [projectItem, setProjectItem] = useState<ImagesCollectionItem | null>(
         null
     );
+
+    const { darkTheme } = useColorThemeStore() as DarkTheme;
     const { setProjects } = useProjectStore() as ProjectStore;
     const { projects } = useProjectStore() as ProjectStore;
+    const { setTags } = useFilterProjectStore() as FilterProjectStore;
+    const { activeFilters } = useFilterProjectStore() as FilterProjectStore;
 
     useEffect(() => {
         if (data) {
             setProjects(data.projects);
+            setTags(data.tags);
         }
-    }, [data]);
+    }, [data, activeFilters]);
 
     useEffect(() => {
         setHasLoaded(true);
@@ -84,6 +90,32 @@ export default function Index() {
         setFilterIsActive(true);
         setFilteredData(filteredFavorites);
     };
+
+    useEffect(() => {
+        if (activeFilters.length > 0) {
+            const filteredProjects = projects.map((project) => {
+                const filteredItems = project.imagesCollection.items.filter(
+                    (item) => {
+                        const values = Object.values(item.tags);
+                        return activeFilters.every((filter) =>
+                            values.includes(filter)
+                        );
+                    }
+                );
+                return {
+                    ...project,
+                    imagesCollection: {
+                        items: filteredItems,
+                    },
+                };
+            });
+            setProjects(filteredProjects);
+        } else {
+            if (data) {
+                setProjects(data.projects);
+            }
+        }
+    }, [activeFilters]);
 
     useEffect(() => {
         if (filterIsActive) {
