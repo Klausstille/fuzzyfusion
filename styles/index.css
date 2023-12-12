@@ -219,7 +219,7 @@ img.fixed-image.portrait {
 }
 
 .logo {
-    scale: 0.2;
+    scale: 0.5;
     animation-name: logo;
     animation-duration: 1s;
     animation-iteration-count: infinite;
@@ -241,5 +241,8 @@ img.fixed-image.portrait {
         width: 100%;
         height: auto;
         padding: 20px;
+    }
+    .logo {
+        scale: 1;
     }
 }

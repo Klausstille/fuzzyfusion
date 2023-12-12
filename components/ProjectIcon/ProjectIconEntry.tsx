@@ -44,7 +44,7 @@ export default function ProjectIconEntry({
                         />
                         {isOpen[idx] && (
                             <>
-                                <div className="fixed top-2 left-2 w-full flex items-center gap-6 max-tablet:justify-between">
+                                <div className="fixed max-tablet:top-3 top-2 left-2 w-full flex items-center gap-6 max-tablet:justify-between">
                                     <div
                                         className="flex gap-2 items-center font-bold cursor-pointer max-tablet:text-xs-heading"
                                         onClick={() => setIsOpen({})}
@@ -56,7 +56,7 @@ export default function ProjectIconEntry({
                                     </p>
                                 </div>
                                 <div
-                                    className="py-8 grid"
+                                    className="py-8 max-tablet:py-10 grid"
                                     style={{
                                         gridTemplateColumns: `repeat(auto-fill, minmax(${
                                             windowWidth > 768 ? width : 300

@@ -46,7 +46,7 @@ export default function ProjectIconImageDetail({
                     <aside className="fixed top-2 left-2 h-[calc(100vh-1rem)] w-[calc(100vw-1rem)] rounded-md overflow-hidden grid grid-cols-12">
                         <>
                             <aside
-                                className="col-span-9 pr-2 max-desktop-s:col-span-8 max-tablet:col-span-12 max-tablet:pr-0 cursor-zoom-in"
+                                className="col-span-9 pr-2 max-desktop-s:col-span-8 max-tablet:col-span-12 max-tablet:mt-10 max-tablet:pr-0 cursor-zoom-in"
                                 onClick={() => {
                                     setIsShown(true);
                                     setActiveIndex({
