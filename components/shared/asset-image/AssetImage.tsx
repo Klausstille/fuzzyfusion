@@ -21,7 +21,6 @@ export interface AssetImageProps {
     quality?: "cover" | "high" | "medium" | "low" | "small";
     preview?: string | "gray" | "transparent";
     onLoad?: () => void;
-    contentLayout?: "funky" | "classic" | "preview";
     thumbnails?: boolean;
     thumbnailPreview?: boolean;
     iconThumbnails?: boolean;

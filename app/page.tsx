@@ -20,23 +20,28 @@ import EXIF from "exif-js";
 
 export default function Index() {
     const { data, isLoading, error } = useSWR("projects", getProjects);
-    const [hasLoaded, setHasLoaded] = useState(false);
     const { windowWidth } = GetWindowDimensions();
     const { layout } = useProjectLayoutStore() as setLayoutProps;
     const isFavorite = useFavoritesStore(
         (state: any) => state.isFavorite as string[]
     );
-
     const [exifData, setExifData] = useState([]);
     const [projectItem, setProjectItem] = useState<ImagesCollectionItem | null>(
         null
     );
-
     const { darkTheme } = useColorThemeStore() as DarkTheme;
     const { setProjects } = useProjectStore() as ProjectStore;
     const { projects } = useProjectStore() as ProjectStore;
     const { setTags } = useFilterProjectStore() as FilterProjectStore;
     const { activeFilters } = useFilterProjectStore() as FilterProjectStore;
+    const [delayPassed, setDelayPassed] = useState(false);
+
+    useEffect(() => {
+        const delayTimer = setTimeout(() => {
+            setDelayPassed(true);
+        }, 2000);
+        return () => clearTimeout(delayTimer);
+    }, []);
 
     useEffect(() => {
         if (data) {
@@ -44,10 +49,6 @@ export default function Index() {
             setTags(data.tags);
         }
     }, [data, activeFilters]);
-
-    useEffect(() => {
-        setHasLoaded(true);
-    }, [hasLoaded]);
 
     useEffect(() => {
         if (projectItem) {
@@ -103,12 +104,12 @@ export default function Index() {
         }
     }, [activeFilters]);
 
-    if (isLoading) {
+    if (isLoading || !delayPassed) {
         return (
             <div className="spinner">
                 <Image
-                    className="logo h-screen object-contain object-center"
-                    src={darkTheme && hasLoaded ? "/logo-w.png" : "/logo-b.png"}
+                    className="logo object-contain object-center"
+                    src={"/logo-b.png"}
                     alt="logo"
                     width={1000}
                     height={1000}
@@ -117,43 +118,30 @@ export default function Index() {
             </div>
         );
     }
-
     if (error) return <div>Error fetching projects</div>;
+
     return (
-        hasLoaded && (
-            <>
-                <div
-                    className={`fixed -z-10 top-0 right-0 h-screen w-screen flex justify-center text-[black]`}
-                >
-                    <Image
-                        className="h-screen object-contain object-center"
-                        src={
-                            darkTheme && hasLoaded
-                                ? "/logo-w.png"
-                                : "/logo-b.png"
-                        }
-                        alt="logo"
-                        width={1000}
-                        height={1000}
-                        priority
+        <>
+            <div
+                className={`fixed -z-10 top-0 right-0 h-screen w-screen flex justify-center text-[black]`}
+            >
+                <Image
+                    className="h-screen object-contain object-center"
+                    src={darkTheme ? "/logo-w.png" : "/logo-b.png"}
+                    alt="logo"
+                    width={1000}
+                    height={1000}
+                    priority
+                />
+            </div>
+            {windowWidth > 768 ? (
+                layout === "LIST" ? (
+                    <ProjectListEntry
+                        exifData={exifData}
+                        setProjectItem={setProjectItem}
+                        projectItem={projectItem}
+                        projects={projects}
                     />
-                </div>
-                {windowWidth > 768 ? (
-                    layout === "LIST" ? (
-                        <ProjectListEntry
-                            exifData={exifData}
-                            setProjectItem={setProjectItem}
-                            projectItem={projectItem}
-                            projects={projects}
-                        />
-                    ) : (
-                        <ProjectIconEntry
-                            exifData={exifData}
-                            setProjectItem={setProjectItem}
-                            projectItem={projectItem}
-                            projects={projects}
-                        />
-                    )
                 ) : (
                     <ProjectIconEntry
                         exifData={exifData}
@@ -161,9 +149,16 @@ export default function Index() {
                         projectItem={projectItem}
                         projects={projects}
                     />
-                )}
-                <FilterProjects />
-            </>
-        )
+                )
+            ) : (
+                <ProjectIconEntry
+                    exifData={exifData}
+                    setProjectItem={setProjectItem}
+                    projectItem={projectItem}
+                    projects={projects}
+                />
+            )}
+            <FilterProjects />
+        </>
     );
 }

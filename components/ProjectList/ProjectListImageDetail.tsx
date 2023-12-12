@@ -69,7 +69,6 @@ export default function ProjectListImageDetail({
                     image={projectItem}
                     alt={projectItem?.title}
                     quality="cover"
-                    className=""
                     priority
                     thumbnailPreview
                 />
