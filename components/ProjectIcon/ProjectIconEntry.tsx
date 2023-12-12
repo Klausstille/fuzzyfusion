@@ -46,7 +46,7 @@ export default function ProjectIconEntry({
                             <>
                                 <div className="fixed top-2 left-2 w-full flex items-center gap-6">
                                     <div
-                                        className="flex gap-2 items-center font-bold cursor-pointer"
+                                        className="flex gap-2 items-center font-bold cursor-pointer max-tablet:text-xs-heading"
                                         onClick={() => setIsOpen({})}
                                     >
                                         <BackIcon darkTheme={darkTheme} /> BACK

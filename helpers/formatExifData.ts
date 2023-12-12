@@ -45,7 +45,7 @@ export default function formatExifData(exifData: ExifTags): FilteredExifTags {
         formattedExifData["Created"] = formatDateTime(exifData.DateTime);
         formattedExifData["Dimensions"] = exifData.PixelXDimension
             ? `${exifData.PixelXDimension} x ${
-                  exifData.PixelXDimension || "n/A"
+                  exifData.PixelYDimension || "n/A"
               }`
             : "n/A";
         formattedExifData["Color Space"] =
@@ -58,6 +58,7 @@ export default function formatExifData(exifData: ExifTags): FilteredExifTags {
                   exifData.ExposureTime.numerator
               } sec`
             : "n/A";
+        formattedExifData["Exposure Prgm."] = exifData.ExposureProgram || "n/A";
         formattedExifData["Focal Length"] = exifData.FocalLength
             ? `${
                   exifData.FocalLength.numerator /
@@ -72,6 +73,8 @@ export default function formatExifData(exifData: ExifTags): FilteredExifTags {
               }`
             : "n/A";
         formattedExifData["Flash"] = exifData.Flash || "n/A";
+        formattedExifData["White Balance"] = exifData.WhiteBalance || "n/A";
+        formattedExifData["Scene Type"] = exifData.SceneCaptureType || "n/A";
 
         const { latitude, longitude } = getActualLatLong(
             exifData.GPSLatitude,

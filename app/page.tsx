@@ -119,7 +119,7 @@ export default function Index() {
         hasLoaded && (
             <>
                 <div
-                    className={`fixed -z-10 top-0 right-0 h-screen w-screen text-[black]`}
+                    className={`fixed -z-10 top-0 right-0 h-screen w-screen flex justify-center text-[black]`}
                 >
                     <Image
                         className="h-screen object-contain object-center"
@@ -129,7 +129,7 @@ export default function Index() {
                                 : "/logo-b.png"
                         }
                         alt="logo"
-                        width={3000}
+                        width={1000}
                         height={1000}
                         priority
                     />

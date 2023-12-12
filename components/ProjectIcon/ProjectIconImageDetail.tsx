@@ -23,7 +23,6 @@ export default function ProjectIconImageDetail({
         (state: unknown) => (state as DarkTheme).darkTheme
     );
     const [moreInfo, setMoreInfo] = useState<boolean>(false);
-    console.log("moreInfo", moreInfo);
     return (
         projectItem && (
             <section
@@ -46,7 +45,7 @@ export default function ProjectIconImageDetail({
                         </aside>
                         <aside className="col-span-3 max-desktop-s:col-span-4">
                             <h1
-                                className="fixed top-3 right-4 flex items-center gap-2 cursor-pointer font-bold"
+                                className="fixed top-3 right-4 flex items-center gap-2 cursor-pointer font-bold max-tablet:text-xs-heading"
                                 onClick={() => setShowImageDetail(false)}
                             >
                                 <BackIcon darkTheme={darkTheme} /> BACK
@@ -62,7 +61,7 @@ export default function ProjectIconImageDetail({
                         </aside>
                         {windowWidth < 768 && (
                             <h1
-                                className="fixed top-3 left-4 cursor-pointer font-bold"
+                                className="fixed top-3 left-4 cursor-pointer font-bold max-tablet:text-xs-heading"
                                 onClick={() => setMoreInfo((toggle) => !toggle)}
                             >
                                 {moreInfo ? "CLOSE" : "INFO"}

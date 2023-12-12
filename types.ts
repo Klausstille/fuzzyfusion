@@ -40,9 +40,12 @@ export interface FilteredExifTags {
     "Device Make": string;
     "Device Model": string;
     "Exposure Time": string;
+    "Exposure Program": string;
     "Focal Length": string;
     "ISO Speed": string;
     "Aperture Value": string;
+    "Scene Type": string;
+    "White Balance": string;
     Flash: string;
     Latitude: string;
     Longitude: string;
@@ -67,6 +70,7 @@ export interface ExifTags {
         numerator: number;
         denominator: number;
     };
+    ExposureProgram: string;
     FocalLength: {
         numerator: number;
         denominator: number;
@@ -77,6 +81,8 @@ export interface ExifTags {
         denominator: number;
     };
     Flash: string;
+    SceneCaptureType: string;
+    WhiteBalance: string;
     GPSLatitudeRef: string;
     GPSLongitudeRef: string;
     thumbnail: {
