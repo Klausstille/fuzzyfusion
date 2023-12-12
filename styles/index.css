@@ -217,3 +217,20 @@ img.fixed-image.portrait {
     transform: translateX(100%);
     transition: opacity 0.2s ease-in-out, transform 0.1s ease-in-out;
 }
+
+.logo {
+    scale: 0.2;
+    animation-name: logo;
+    animation-duration: 1s;
+    animation-iteration-count: infinite;
+    animation-timing-function: ease-in-out;
+}
+
+@keyframes logo {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}

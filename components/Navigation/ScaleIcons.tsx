@@ -1,9 +1,11 @@
 import { useWidthContext } from "@/context/WidthContext";
 import { useColorThemeStore } from "@/stores/colorTheme";
+import GetWindowDimensions from "../shared/getWindowDimensions";
 
 export default function ScaleIcons() {
     const { onWidthChange } = useWidthContext();
     const { width } = useWidthContext();
+    const { windowWidth } = GetWindowDimensions();
     const isDarkMode = useColorThemeStore(
         (state: unknown) => (state as any).darkTheme
     );
@@ -18,9 +20,9 @@ export default function ScaleIcons() {
                 type="range"
                 defaultValue={width}
                 min="100"
-                max="800"
+                max={`${windowWidth > 1600 ? 1000 : 800}`}
             />{" "}
-            800px
+            {windowWidth > 1600 ? "1000" : "800"}px
         </div>
     );
 }

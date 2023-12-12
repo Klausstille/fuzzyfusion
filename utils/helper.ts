@@ -17,7 +17,7 @@ export const calculateDynamicGap = (width: number) => {
     const maxWidth = 800;
     const dynamicGap =
         40 - Math.pow((width - minWidth) / (maxWidth - minWidth), 2) * 35;
-    return Math.max(5, Math.min(40, dynamicGap));
+    return Math.max(10, Math.min(40, dynamicGap));
 };
 
 export function removeTrailingSlash(str: string) {

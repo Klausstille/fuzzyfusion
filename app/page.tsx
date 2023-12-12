@@ -16,7 +16,6 @@ import {
     FilterProjectStore,
 } from "@/stores/filterProject";
 import { getProjects } from "@/contentful/api";
-import RingLoader from "react-spinners/RingLoader";
 import EXIF from "exif-js";
 
 export default function Index() {
@@ -105,13 +104,18 @@ export default function Index() {
     }, [activeFilters]);
 
     if (isLoading) {
-        setTimeout(() => {
-            return (
-                <div className="spinner">
-                    <RingLoader color="white" />
-                </div>
-            );
-        }, 500);
+        return (
+            <div className="spinner">
+                <Image
+                    className="logo h-screen object-contain object-center"
+                    src={darkTheme && hasLoaded ? "/logo-w.png" : "/logo-b.png"}
+                    alt="logo"
+                    width={1000}
+                    height={1000}
+                    priority
+                />
+            </div>
+        );
     }
 
     if (error) return <div>Error fetching projects</div>;

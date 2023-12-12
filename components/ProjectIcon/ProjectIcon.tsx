@@ -22,7 +22,12 @@ export default function ProjectIcon({
                     setShowImageDetail(true);
                 }}
             >
-                <AssetImage image={item} alt={item?.title} iconThumbnails />
+                <AssetImage
+                    image={item}
+                    alt={item?.title}
+                    iconThumbnails
+                    priority
+                />
             </div>
             <aside className="flex justify-between w-full items-center h-6">
                 <p>{item.title}.JPG</p>

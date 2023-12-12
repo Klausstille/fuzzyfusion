@@ -107,6 +107,9 @@ export function AssetImage({
             height={height}
             fill={fill}
             sizes={sizes}
+            layout={
+                iconThumbnailPreview || thumbnailPreview ? "" : "responsive"
+            }
             {...blurProps}
         />
     );
