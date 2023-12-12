@@ -25,6 +25,7 @@ export default function Index() {
     const isFavorite = useFavoritesStore(
         (state: any) => state.isFavorite as string[]
     );
+    const [hasLoaded, setHasLoaded] = useState(false);
     const [exifData, setExifData] = useState([]);
     const [projectItem, setProjectItem] = useState<ImagesCollectionItem | null>(
         null
@@ -35,6 +36,10 @@ export default function Index() {
     const { setTags } = useFilterProjectStore() as FilterProjectStore;
     const { activeFilters } = useFilterProjectStore() as FilterProjectStore;
     const [delayPassed, setDelayPassed] = useState(false);
+
+    useEffect(() => {
+        setHasLoaded(true);
+    }, [hasLoaded]);
 
     useEffect(() => {
         const delayTimer = setTimeout(() => {
@@ -109,7 +114,7 @@ export default function Index() {
             <div className="spinner">
                 <Image
                     className="logo object-contain object-center"
-                    src={"/logo-b.png"}
+                    src={darkTheme ? "/logo-w.png" : "/logo-b.png"}
                     alt="logo"
                     width={1000}
                     height={1000}
@@ -121,27 +126,36 @@ export default function Index() {
     if (error) return <div>Error fetching projects</div>;
 
     return (
-        <>
-            <div
-                className={`fixed -z-10 top-0 right-0 h-screen w-screen flex justify-center text-[black]`}
-            >
-                <Image
-                    className="h-screen object-contain object-center"
-                    src={darkTheme ? "/logo-w.png" : "/logo-b.png"}
-                    alt="logo"
-                    width={1000}
-                    height={1000}
-                    priority
-                />
-            </div>
-            {windowWidth > 768 ? (
-                layout === "LIST" ? (
-                    <ProjectListEntry
-                        exifData={exifData}
-                        setProjectItem={setProjectItem}
-                        projectItem={projectItem}
-                        projects={projects}
+        hasLoaded && (
+            <>
+                <div
+                    className={`fixed -z-10 top-0 right-0 h-screen w-screen flex justify-center text-[black]`}
+                >
+                    <Image
+                        className="h-screen object-contain object-center"
+                        src={darkTheme ? "/logo-w.png" : "/logo-b.png"}
+                        alt="logo"
+                        width={1000}
+                        height={1000}
+                        priority
                     />
+                </div>
+                {windowWidth > 768 ? (
+                    layout === "LIST" ? (
+                        <ProjectListEntry
+                            exifData={exifData}
+                            setProjectItem={setProjectItem}
+                            projectItem={projectItem}
+                            projects={projects}
+                        />
+                    ) : (
+                        <ProjectIconEntry
+                            exifData={exifData}
+                            setProjectItem={setProjectItem}
+                            projectItem={projectItem}
+                            projects={projects}
+                        />
+                    )
                 ) : (
                     <ProjectIconEntry
                         exifData={exifData}
@@ -149,16 +163,9 @@ export default function Index() {
                         projectItem={projectItem}
                         projects={projects}
                     />
-                )
-            ) : (
-                <ProjectIconEntry
-                    exifData={exifData}
-                    setProjectItem={setProjectItem}
-                    projectItem={projectItem}
-                    projects={projects}
-                />
-            )}
-            <FilterProjects />
-        </>
+                )}
+                <FilterProjects />
+            </>
+        )
     );
 }

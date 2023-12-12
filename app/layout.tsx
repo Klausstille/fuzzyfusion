@@ -5,6 +5,7 @@ import { Inter } from "next/font/google";
 import Header from "@/components/Navigation/Header";
 import { WidthProvider } from "@/context/WidthContext";
 import { useColorThemeStore, DarkTheme } from "@/stores/colorTheme";
+import { useEffect, useState } from "react";
 import "../styles/index.css";
 
 const metadata: Metadata = {
@@ -19,9 +20,13 @@ export default function RootLayout({
 }: {
     children: React.ReactNode;
 }) {
-    const darkTheme = useColorThemeStore(
-        (state: unknown) => (state as DarkTheme).darkTheme
+    const [hasLoaded, setHasLoaded] = useState(false);
+    const { darkTheme } = useColorThemeStore(
+        (state: unknown) => state as DarkTheme
     );
+    useEffect(() => {
+        setHasLoaded(true);
+    }, [hasLoaded]);
     return (
         <html lang="en">
             <Head>
@@ -33,7 +38,7 @@ export default function RootLayout({
             </Head>
             <body
                 className={`flex flex-col h-screen ${inter.className} ${
-                    darkTheme
+                    hasLoaded && darkTheme
                         ? "bg-black text-white "
                         : "bg-light-gray text-black "
                 }`}
