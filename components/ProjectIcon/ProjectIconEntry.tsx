@@ -44,14 +44,14 @@ export default function ProjectIconEntry({
                         />
                         {isOpen[idx] && (
                             <>
-                                <div className="fixed top-2 left-2 w-full flex items-center gap-6">
+                                <div className="fixed top-2 left-2 w-full flex items-center gap-6 max-tablet:justify-between">
                                     <div
                                         className="flex gap-2 items-center font-bold cursor-pointer max-tablet:text-xs-heading"
                                         onClick={() => setIsOpen({})}
                                     >
                                         <BackIcon darkTheme={darkTheme} /> BACK
                                     </div>
-                                    <p className="text-dark-gray">
+                                    <p className="text-dark-gray max-tablet:self-end max-tablet:pb-[2px] max-tablet:pr-4">
                                         ../{projects[idx].title}
                                     </p>
                                 </div>

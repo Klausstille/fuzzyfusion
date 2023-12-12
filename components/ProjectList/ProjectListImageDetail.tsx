@@ -1,14 +1,8 @@
 import { useState } from "react";
-import { ImagesCollectionItem } from "@/types";
-import { CommonImageModule } from "@/components/ProjectShared/CommonImageModule";
+import { ImagesCollectionItem, ActiveIndex } from "@/types";
+import CommonImageModuleComponent from "../ProjectShared/CommonImageModuleComponent";
 import { AssetImage } from "../shared/asset-image/AssetImage";
 
-export interface ActiveIndex {
-    url: string;
-    alt: string;
-    width: number;
-    height: number;
-}
 interface ProjectListItemDetailProps {
     projectItem: ImagesCollectionItem;
 }
@@ -22,36 +16,11 @@ export default function ProjectListImageDetail({
     return (
         <>
             {isShown && (
-                <section
-                    className="z-50"
-                    onClick={() => {
-                        setIsShown(false);
-                        setActiveIndex && setActiveIndex(-1);
-                    }}
-                >
-                    <CommonImageModule
-                        srcUrl={
-                            typeof activeIndex === "object"
-                                ? activeIndex.url
-                                : ""
-                        }
-                        altText={
-                            typeof activeIndex === "object"
-                                ? activeIndex.alt
-                                : ""
-                        }
-                        width={
-                            typeof activeIndex === "object"
-                                ? activeIndex.width
-                                : 0
-                        }
-                        height={
-                            typeof activeIndex === "object"
-                                ? activeIndex.height
-                                : 0
-                        }
-                    />
-                </section>
+                <CommonImageModuleComponent
+                    setIsShown={setIsShown}
+                    activeIndex={activeIndex}
+                    setActiveIndex={setActiveIndex}
+                />
             )}
             <aside
                 className="col-span-7 h-[calc(100vh-3rem)] w-full object-cover object-left cursor-zoom-in rounded-md max-desktop:col-span-5 max-tablet:hidden"

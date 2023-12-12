@@ -12,7 +12,7 @@ export default function ProjectList({
 }) {
     return (
         <ProjectListItem active={active}>
-            <aside className="mt-[-3px] h-4 aspect-16/9 object-cover mr-4">
+            <aside className="h-3 aspect-16/9 object-cover mr-4">
                 <Image
                     className="aspect-16/9 object-cover"
                     src={item.url}

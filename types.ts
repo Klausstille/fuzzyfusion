@@ -91,3 +91,10 @@ export interface ExifTags {
     GPSLatitude?: number[] | any;
     GPSLongitude?: number[] | any;
 }
+
+export interface ActiveIndex {
+    url: string;
+    alt: string;
+    width: number;
+    height: number;
+}

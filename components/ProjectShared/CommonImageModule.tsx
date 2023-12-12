@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import GetWindowDimensions from "../shared/getWindowDimensions";
+import { useColorThemeStore } from "@/stores/colorTheme";
 import { useMouse } from "@/utils/helper";
 import { useRef } from "react";
 import Image from "next/image";
@@ -17,6 +18,7 @@ export const CommonImageModule = ({
     width,
     height,
 }: CommonImageModuleProps) => {
+    const { darkTheme } = useColorThemeStore((state: unknown) => state as any);
     const [isTransitionActive, setIsTransitionActive] = useState(false);
     const { windowWidth, windowHeight } = GetWindowDimensions();
     const [className, setClassName] = useState("");
@@ -68,7 +70,13 @@ export const CommonImageModule = ({
         <div
             className={`img-module ${
                 isTransitionActive ? "show" : "hide"
-            } z-[9999]`}
+            } z-[9999] ${
+                windowWidth < 768 && darkTheme
+                    ? "bg-black"
+                    : windowWidth < 768 && !darkTheme
+                    ? "bg-white"
+                    : ""
+            } opacity-90 mix-blend-saturation`}
             style={{ cursor: "crosshair" }}
         >
             <Image

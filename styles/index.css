@@ -234,3 +234,12 @@ img.fixed-image.portrait {
         transform: rotate(360deg);
     }
 }
+
+@media screen and (max-width: 768px) {
+    img.fixed-image.portrait,
+    img.fixed-image.landscape {
+        width: 100%;
+        height: auto;
+        padding: 20px;
+    }
+}
