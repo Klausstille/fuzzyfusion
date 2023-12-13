@@ -6,32 +6,33 @@ interface useFetchExifDataProps {
     projectItem: ImagesCollectionItem | null;
     setExifData: React.Dispatch<React.SetStateAction<any>>;
 }
-
-export const useFetchExifData = ({
+export const useFetchExifData = async ({
     projectItem,
     setExifData,
 }: useFetchExifDataProps) => {
     useEffect(() => {
-        if (projectItem) {
-            const url: string = projectItem.url.split("?")[0];
-            fetch(url)
-                .then((response) => response.blob())
-                .then((blob: any) => {
-                    EXIF.getData(blob, function (this: any) {
-                        const exifData = EXIF.getAllTags(this);
-                        if (exifData && Object.keys(exifData).length > 0) {
-                            setExifData(exifData);
-                        } else {
-                            console.warn("No EXIF data found in the image.");
-                        }
+        const fetchData = async () => {
+            try {
+                if (projectItem) {
+                    const url = projectItem.url.split("?")[0];
+                    const response = await fetch(url);
+                    const blob: any = await response.blob();
+                    const exifData = await new Promise((resolve) => {
+                        EXIF.getData(blob, function (this: any) {
+                            resolve(EXIF.getAllTags(this));
+                        });
                     });
-                })
-                .catch((error) => {
-                    console.error(
-                        "Error fetching or processing the image:",
-                        error
-                    );
-                });
-        }
+                    if (exifData && Object.keys(exifData).length > 0) {
+                        setExifData(exifData);
+                    } else {
+                        console.warn("No EXIF data found in the image.");
+                    }
+                }
+            } catch (error) {
+                console.error("Error fetching or processing the image:", error);
+            }
+        };
+
+        fetchData();
     }, [projectItem, setExifData]);
 };

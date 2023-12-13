@@ -143,7 +143,7 @@ export async function getProjects() {
 //       projectimagesCollection {
 //         items {
 //           title
-//           url
+//           url(transform: {width: 1920})
 //           width
 //           height
 //           contentfulMetadata {
@@ -207,67 +207,79 @@ export async function getProjects() {
 //     const [hours, minutes, seconds] = timePart.split(":").map(Number);
 //     return new Date(year, month - 1, day, hours, minutes, seconds);
 // };
+// const imageCache: Record<string, string> = {};
 
 // async function extractTimeOfDay(projectItem: any) {
 //     if (projectItem) {
-//         const url: string = projectItem.url;
+//         const url: string = projectItem.url.split("?")[0];
+//         if (imageCache[url]) {
+//             return imageCache[url];
+//         }
 //         try {
 //             const response = await fetch(url);
 //             const blob: any = await response.blob();
-//             return new Promise<string>((resolve) => {
+//             const exifData = await new Promise<any>((resolve) => {
 //                 EXIF.getData(blob, function (this: any) {
-//                     const exifData = EXIF.getAllTags(this);
-//                     if (exifData && Object.keys(exifData).length > 0) {
-//                         const dateTime = parseDateTimeString(exifData.DateTime);
-//                         const hours = dateTime.getHours();
-//                         let timeOfDay;
-//                         if (hours >= 5 && hours < 12) {
-//                             timeOfDay = "Morning";
-//                         } else if (hours >= 12 && hours < 17) {
-//                             timeOfDay = "Afternoon";
-//                         } else if (hours >= 17 && hours < 20) {
-//                             timeOfDay = "Evening";
-//                         } else {
-//                             timeOfDay = "Night";
-//                         }
-//                         resolve(timeOfDay);
-//                     } else {
-//                         console.warn("No EXIF data found in the image.");
-//                         resolve("");
-//                     }
+//                     resolve(EXIF.getAllTags(this));
 //                 });
 //             });
+
+//             if (exifData && Object.keys(exifData).length > 0) {
+//                 const dateTime = parseDateTimeString(exifData.DateTime);
+//                 const hours = dateTime.getHours();
+//                 let timeOfDay;
+
+//                 if (hours >= 5 && hours < 12) {
+//                     timeOfDay = "Morning";
+//                 } else if (hours >= 12 && hours < 17) {
+//                     timeOfDay = "Afternoon";
+//                 } else if (hours >= 17 && hours < 20) {
+//                     timeOfDay = "Evening";
+//                 } else {
+//                     timeOfDay = "Night";
+//                 }
+//                 imageCache[url] = timeOfDay;
+//                 return timeOfDay;
+//             } else {
+//                 console.warn("No EXIF data found in the image.");
+//                 return "";
+//             }
 //         } catch (error) {
 //             console.error("Error fetching or processing the image:", error);
 //             return "";
 //         }
 //     }
+
 //     return "";
 // }
 
-// export async function extractProjectTags(fetchResponse: FetchResponse) {
+// async function extractProjectTags(fetchResponse: FetchResponse) {
 //     const response = fetchResponse?.data?.projectCategoryCollection?.items;
 //     const tagsObject: Record<string, string[]> = {};
 //     const timeOfDayPromises: Promise<string>[] = [];
 
-//     response?.forEach((project) => {
-//         project.projectimagesCollection.items.forEach((item) => {
-//             const timeOfDayPromise = extractTimeOfDay(item);
-//             timeOfDayPromises.push(timeOfDayPromise);
-//             item.contentfulMetadata.tags
-//                 .filter((tag) => tag.name.trim() !== "")
-//                 .forEach((tag) => {
-//                     const [key, value] = tag.name.split(":");
-//                     if (key && value) {
-//                         if (!tagsObject[key]) {
-//                             tagsObject[key] = [value];
-//                         } else if (!tagsObject[key].includes(value)) {
-//                             tagsObject[key].push(value);
-//                         }
-//                     }
-//                 });
-//         });
-//     });
+//     await Promise.all(
+//         response?.map(async (project) => {
+//             await Promise.all(
+//                 project.projectimagesCollection.items.map(async (item) => {
+//                     const timeOfDayPromise = extractTimeOfDay(item);
+//                     timeOfDayPromises.push(timeOfDayPromise);
+//                     item.contentfulMetadata.tags
+//                         .filter((tag) => tag.name.trim() !== "")
+//                         .forEach((tag) => {
+//                             const [key, value] = tag.name.split(":");
+//                             if (key && value) {
+//                                 if (!tagsObject[key]) {
+//                                     tagsObject[key] = [value];
+//                                 } else if (!tagsObject[key].includes(value)) {
+//                                     tagsObject[key].push(value);
+//                                 }
+//                             }
+//                         });
+//                 })
+//             );
+//         })
+//     );
 
 //     const resolvedTimeOfDays = await Promise.all(timeOfDayPromises);
 //     const uniqueTimeOfDaysSet = new Set(resolvedTimeOfDays);
