@@ -88,23 +88,24 @@ export function AssetImage({
                 thumbnails
                     ? "aspect-16/9 object-cover"
                     : thumbnailPreview
-                    ? "h-full object-cover rounded-md"
-                    : iconThumbnails
-                    ? "w-full hover:object-contain aspect-6/4 object-cover transition-all duration-500 ease-in-out"
-                    : iconThumbnailPreview
-                    ? "h-[calc(100vh-1rem)] w-full object-cover object-left rounded-md max-tablet:object-center"
-                    : ""
+                      ? "h-full object-cover rounded-md"
+                      : iconThumbnails
+                        ? "w-full hover:object-contain aspect-6/4 object-cover transition-all duration-500 ease-in-out"
+                        : iconThumbnailPreview
+                          ? "h-[calc(100vh-1rem)] w-full object-cover object-left rounded-md max-tablet:object-center"
+                          : ""
             }
             draggable="false"
             onLoad={onLoad}
-            priority={priority}
+            // priority={priority}
             key={imageSrc}
             src={imageSrc as string}
             alt={alt as string}
             width={width}
-            quality={quality === "high" ? 85 : 75}
+            // quality={quality === "cover" ? 85 : 25}
             height={height}
             fill={fill}
+            loading="lazy"
             sizes={sizes}
             layout={
                 iconThumbnailPreview || thumbnailPreview ? "" : "responsive"
