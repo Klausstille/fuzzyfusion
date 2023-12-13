@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import ProjectItemDetail from "@/components/ProjectShared/ProjectItemDetail";
 import ProjectListImageDetail from "@/components/ProjectList/ProjectListImageDetail";
 import ProjectList from "@/components/ProjectList/ProjectList";
@@ -6,7 +6,6 @@ import { ProjectEntryProps } from "@/types";
 import ToggleIcon from "@/components/ProjectList/ToggleIcon";
 import FolderIcon from "@/components/ProjectShared/folderIcon";
 import { useColorThemeStore, DarkTheme } from "@/stores/colorTheme";
-import Image from "next/image";
 
 export default function ProjectListEntry({
     setProjectItem,
@@ -24,6 +23,7 @@ export default function ProjectListEntry({
             [idx]: !prev[idx],
         }));
     };
+
     return (
         <section className="px-2 py-2 grid grid-cols-12 gap-2">
             <div
@@ -56,18 +56,20 @@ export default function ProjectListEntry({
                             </h1>
                         </div>
                         {!isOpen[idx] &&
-                            item.imagesCollection.items.map((item, idx) => (
-                                <section
-                                    key={idx}
-                                    onClick={() => setProjectItem(item)}
-                                >
-                                    <ProjectList
-                                        active={item.id === projectItem?.id}
-                                        key={idx}
-                                        item={item}
-                                    />
-                                </section>
-                            ))}
+                            item.imagesCollection.items.map(
+                                (item, innerIdx) => (
+                                    <section
+                                        key={innerIdx}
+                                        onClick={() => setProjectItem(item)}
+                                    >
+                                        <ProjectList
+                                            active={item.id === projectItem?.id}
+                                            key={innerIdx}
+                                            item={item}
+                                        />
+                                    </section>
+                                )
+                            )}
                     </div>
                 ))}
             </div>

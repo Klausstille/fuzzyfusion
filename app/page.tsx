@@ -16,7 +16,8 @@ import {
     FilterProjectStore,
 } from "@/stores/filterProject";
 import { getProjects } from "@/contentful/api";
-import EXIF from "exif-js";
+import { useFetchExifData } from "@/helpers/useFetchExifData";
+import { useKeyboardEvents } from "@/helpers/useKeyboardEvents";
 
 export default function Index() {
     const { data, isLoading, error } = useSWR("projects", getProjects);
@@ -76,29 +77,8 @@ export default function Index() {
         }
     }, [data, activeFilters, setProjects, setTags]);
 
-    useEffect(() => {
-        if (projectItem) {
-            const url: string = projectItem.url;
-            fetch(url)
-                .then((response) => response.blob())
-                .then((blob: any) => {
-                    EXIF.getData(blob, function (this: any) {
-                        const exifData = EXIF.getAllTags(this);
-                        if (exifData && Object.keys(exifData).length > 0) {
-                            setExifData(exifData);
-                        } else {
-                            console.warn("No EXIF data found in the image.");
-                        }
-                    });
-                })
-                .catch((error) => {
-                    console.error(
-                        "Error fetching or processing the image:",
-                        error
-                    );
-                });
-        }
-    }, [projectItem, projects]);
+    useFetchExifData({ projectItem, setExifData });
+    useKeyboardEvents({ projectItem, setProjectItem, projects });
 
     useEffect(() => {
         if (activeFilters.length > 0) {
