@@ -66,7 +66,7 @@ export default function ProjectIconImageDetail({
                             </aside>
                             <aside className="col-span-3 max-desktop-s:col-span-4">
                                 <div
-                                    className="fixed bottom-3 max-tablet:top-3 max-tablet:bottom-[auto] right-4 flex items-center gap-2 cursor-pointer text-xs-heading"
+                                    className="fixed bottom-3 max-tablet:top-3 max-tablet:bottom-[auto] right-4 flex items-center gap-2 cursor-pointer font-light max-tablet:font-normal text-xs-heading"
                                     onClick={() => setShowImageDetail(false)}
                                 >
                                     <BackIcon darkTheme={darkTheme} /> BACK
