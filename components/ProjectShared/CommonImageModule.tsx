@@ -72,9 +72,9 @@ export const CommonImageModule = ({
                 isTransitionActive ? "show" : "hide"
             } z-[9999] ${
                 windowWidth < 768 && darkTheme
-                    ? "bg-black opacity-90"
+                    ? "bg-[rgba(0,0,0,0.9)]"
                     : windowWidth < 768 && !darkTheme
-                    ? "bg-white opacity-90"
+                    ? "bg-[rgba(255,255,255,0.9)]"
                     : ""
             }`}
             style={{ cursor: "crosshair" }}
