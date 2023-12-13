@@ -7,7 +7,7 @@ const PROJECT_GRAPHQL_FIELDS = `
       projectimagesCollection {
         items {
           title
-          url
+          url(transform: {width: 1920})
           width
           height
           contentfulMetadata {

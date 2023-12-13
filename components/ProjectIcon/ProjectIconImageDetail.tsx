@@ -61,7 +61,7 @@ export default function ProjectIconImageDetail({
                                     image={projectItem}
                                     alt={projectItem.title}
                                     iconThumbnailPreview
-                                    priority
+                                    quality="cover"
                                 />
                             </aside>
                             <aside className="col-span-3 max-desktop-s:col-span-4">

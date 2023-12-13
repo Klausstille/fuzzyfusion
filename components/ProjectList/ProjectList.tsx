@@ -20,7 +20,8 @@ export default function ProjectList({
                     layout="responsive"
                     width={item.width}
                     height={item.height}
-                    priority
+                    quality={20}
+                    loading="lazy"
                 />
             </aside>
             <p className="min-w-[130px] max-desktop-s:min-w-[90px] max-desktop-s:text-xs">

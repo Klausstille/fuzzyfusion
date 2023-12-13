@@ -13,7 +13,7 @@ export const useFetchExifData = ({
 }: useFetchExifDataProps) => {
     useEffect(() => {
         if (projectItem) {
-            const url: string = projectItem.url;
+            const url: string = projectItem.url.split("?")[0];
             fetch(url)
                 .then((response) => response.blob())
                 .then((blob: any) => {

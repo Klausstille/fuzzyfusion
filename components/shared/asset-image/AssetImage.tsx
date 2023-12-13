@@ -35,6 +35,14 @@ const WidthQualityMap = {
     small: 100,
 };
 
+const QualityMap = {
+    cover: 100,
+    high: 85,
+    medium: 65,
+    low: 45,
+    small: 20,
+};
+
 const PreviewBase64Map = {
     gray: "data:image/gif;base64,R0lGODlhAQABAIAAAMLCwgAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==",
     transparent:
@@ -45,7 +53,7 @@ export function AssetImage({
     image,
     imageSrc,
     alt,
-    quality = "cover",
+    quality = "high",
     priority = false,
     className = "",
     style,
@@ -97,15 +105,14 @@ export function AssetImage({
             }
             draggable="false"
             onLoad={onLoad}
-            // priority={priority}
+            priority={priority}
             key={imageSrc}
             src={imageSrc as string}
             alt={alt as string}
             width={width}
-            // quality={quality === "cover" ? 85 : 25}
+            quality={QualityMap[quality]}
             height={height}
             fill={fill}
-            loading="lazy"
             sizes={sizes}
             layout={
                 iconThumbnailPreview || thumbnailPreview ? "" : "responsive"

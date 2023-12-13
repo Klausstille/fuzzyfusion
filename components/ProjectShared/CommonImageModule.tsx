@@ -74,8 +74,8 @@ export const CommonImageModule = ({
                 windowWidth < 768 && darkTheme
                     ? "bg-[rgba(0,0,0,0.9)]"
                     : windowWidth < 768 && !darkTheme
-                    ? "bg-[rgba(255,255,255,0.9)]"
-                    : ""
+                      ? "bg-[rgba(255,255,255,0.9)]"
+                      : ""
             }`}
             style={{ cursor: "crosshair" }}
         >
@@ -87,6 +87,7 @@ export const CommonImageModule = ({
                 style={windowWidth > 768 ? properties : {}}
                 width={width}
                 height={height}
+                quality={100}
             />
         </div>
     );

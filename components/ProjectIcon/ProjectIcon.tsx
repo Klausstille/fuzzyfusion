@@ -2,6 +2,7 @@ import Image from "next/image";
 import FavoriteButton from "../FavoriteButton/FavoriteButton";
 import { ImagesCollectionItem } from "@/types";
 import { AssetImage } from "@/components/shared/asset-image/AssetImage";
+import { useWidthContext } from "@/context/WidthContext";
 
 interface ProjectIconProps {
     item: ImagesCollectionItem;
@@ -14,6 +15,7 @@ export default function ProjectIcon({
     setProjectItem,
     setShowImageDetail,
 }: ProjectIconProps) {
+    const { width } = useWidthContext();
     return (
         <article>
             <div
@@ -26,7 +28,17 @@ export default function ProjectIcon({
                     image={item}
                     alt={item?.title}
                     iconThumbnails
-                    priority
+                    quality={
+                        width > 700
+                            ? "cover"
+                            : width > 500
+                              ? "high"
+                              : width > 300
+                                ? "medium"
+                                : width > 200
+                                  ? "low"
+                                  : "small"
+                    }
                 />
             </div>
             <aside className="flex justify-between w-full items-center h-6">
