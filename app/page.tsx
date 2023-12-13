@@ -50,10 +50,31 @@ export default function Index() {
 
     useEffect(() => {
         if (data) {
-            setProjects(data.projects);
+            const sortedProjects = data.projects.map((project) => {
+                const sortedItems = project.imagesCollection.items.sort(
+                    (a, b) => {
+                        const aTitle = a.title.toLowerCase();
+                        const bTitle = b.title.toLowerCase();
+                        if (aTitle < bTitle) {
+                            return -1;
+                        }
+                        if (aTitle > bTitle) {
+                            return 1;
+                        }
+                        return 0;
+                    }
+                );
+                return {
+                    ...project,
+                    imagesCollection: {
+                        items: sortedItems,
+                    },
+                };
+            });
+            setProjects(sortedProjects);
             setTags(data.tags);
         }
-    }, [data, activeFilters]);
+    }, [data, activeFilters, setProjects, setTags]);
 
     useEffect(() => {
         if (projectItem) {
