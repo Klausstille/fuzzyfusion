@@ -4,9 +4,7 @@ export interface ImagesCollectionItem {
     url: string;
     width: number;
     height: number;
-    tags: {
-        [k: string]: string;
-    };
+    tags: (string[] | null)[];
 }
 export interface ImagesCollection {
     items: {
@@ -15,9 +13,7 @@ export interface ImagesCollection {
         url: string;
         width: number;
         height: number;
-        tags: {
-            [k: string]: string;
-        };
+        tags: (string[] | null)[];
     }[];
 }
 export interface ProjectItem {

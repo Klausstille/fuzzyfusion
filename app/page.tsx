@@ -88,9 +88,9 @@ export default function Index() {
                         if (activeFilters.includes("Favorites")) {
                             return isFavorite.includes(item.id);
                         } else {
-                            const values = Object.values(item.tags);
+                            const tagArrays = item.tags.flat();
                             return activeFilters.every((filter) =>
-                                values.includes(filter)
+                                tagArrays.includes(filter)
                             );
                         }
                     }

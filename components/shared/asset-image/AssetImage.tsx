@@ -7,9 +7,7 @@ export interface AssetImageProps {
         width: number;
         height: number;
         title: string;
-        tags: {
-            [k: string]: string;
-        };
+        tags: (string[] | null)[];
     };
     imageSrc?: string;
     alt?: string;

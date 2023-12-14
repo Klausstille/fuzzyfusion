@@ -73,18 +73,19 @@ function extractProjectEntries(fetchResponse: FetchResponse) {
             id: project.sys.id,
             imagesCollection: {
                 items: project.projectimagesCollection.items.map((item) => {
+                    const tags = item.contentfulMetadata.tags.map((tag) => {
+                        const splitTag = tag.name.split(":");
+                        return splitTag.length === 2
+                            ? [splitTag[0], splitTag[1]]
+                            : null;
+                    });
                     return {
                         id: item.sys.id,
                         title: item.title,
                         url: item.url,
                         width: item.width,
                         height: item.height,
-                        tags: Object.fromEntries(
-                            item.contentfulMetadata.tags.map((tag) => [
-                                tag.name.split(":")[0],
-                                tag.name.split(":")[1],
-                            ])
-                        ),
+                        tags: tags,
                     };
                 }),
             },

@@ -14,7 +14,6 @@ export default function FilterEntryComponent({
     const activeFilters = useFilterProjectStore(
         (state: any) => state.activeFilters
     );
-
     const handleItemClick = (index: string) => {
         const newActiveItems = [...activeFilters];
         const indexInArray = newActiveItems.indexOf(index);
