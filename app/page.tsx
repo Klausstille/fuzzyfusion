@@ -135,7 +135,7 @@ export default function Index() {
         <>
             {activeFilters.length > 0 && (
                 <div
-                    className="menu-button fixed top-0 right-0 py-6 px-6 max-tablet:right-[50%] max-tablet:translate-x-[50%] opacity-50 hover:opacity-100 transition-all duration-200 ease-in-out max-tablet:py-4"
+                    className="menu-button fixed top-0 right-0 py-6 px-6 max-tablet:right-[50%] max-tablet:translate-x-[50%] opacity-50 hover:opacity-100 transition-all duration-200 ease-in-out max-tablet:py-4 z-40"
                     onClick={() => setActiveFilters([])}
                 >
                     <Button>CLEAR FILTERS</Button>
