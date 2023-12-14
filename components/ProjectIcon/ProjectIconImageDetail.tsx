@@ -26,7 +26,6 @@ export default function ProjectIconImageDetail({
     const [moreInfo, setMoreInfo] = useState<boolean>(false);
     const [isShown, setIsShown] = useState(false);
     const [activeIndex, setActiveIndex] = useState<ActiveIndex | number>(-1);
-    console.log(activeIndex);
 
     return (
         projectItem && (
