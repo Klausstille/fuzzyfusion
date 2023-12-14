@@ -76,6 +76,8 @@ export default function Index() {
             });
             setProjects(sortedProjects);
             setTags(data.tags);
+
+            setProjectItem(sortedProjects[0].imagesCollection.items[0]);
         }
     }, [data, activeFilters, setProjects, setTags]);
 
@@ -143,18 +145,6 @@ export default function Index() {
             )}
             {hasLoaded && (
                 <>
-                    <div
-                        className={`fixed -z-10 top-0 right-0 h-screen w-screen flex justify-center text-[black]`}
-                    >
-                        <Image
-                            className="h-screen object-contain object-center"
-                            src={darkTheme ? "/logo-w.png" : "/logo-b.png"}
-                            alt="logo"
-                            width={1000}
-                            height={1000}
-                            priority
-                        />
-                    </div>
                     {windowWidth > 768 ? (
                         layout === "LIST" ? (
                             <ProjectListEntry

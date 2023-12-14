@@ -8,6 +8,7 @@ import BackIcon from "./BackIcon";
 import { useColorThemeStore, DarkTheme } from "@/stores/colorTheme";
 import GetWindowDimensions from "../shared/getWindowDimensions";
 import DraggableItem from "./DraggableItem";
+import Image from "next/image";
 
 export default function ProjectIconEntry({
     setProjectItem,
@@ -22,7 +23,7 @@ export default function ProjectIconEntry({
     const darkTheme = useColorThemeStore(
         (state: unknown) => (state as DarkTheme).darkTheme
     );
-
+    console.log("isOpen!!!", isOpen);
     return (
         <>
             <section
@@ -34,6 +35,18 @@ export default function ProjectIconEntry({
                         : "grid",
                 }}
             >
+                <div
+                    className={`fixed -z-10 top-0 right-0 h-screen w-screen flex justify-center text-[black]`}
+                >
+                    <Image
+                        className="h-screen object-contain object-center"
+                        src={darkTheme ? "/logo-w.png" : "/logo-b.png"}
+                        alt="logo"
+                        width={1000}
+                        height={1000}
+                        priority
+                    />
+                </div>
                 {projects.map((item, idx) => (
                     <div key={idx}>
                         <DraggableItem
@@ -56,7 +69,9 @@ export default function ProjectIconEntry({
                                     </p>
                                 </div>
                                 <div
-                                    className="py-8 max-tablet:py-10 grid"
+                                    className={`${
+                                        darkTheme ? "bg-black" : "bg-light-gray"
+                                    } py-8 max-tablet:py-10 grid h-screen`}
                                     style={{
                                         gridTemplateColumns: `repeat(auto-fill, minmax(${
                                             windowWidth > 768 ? width : 300
