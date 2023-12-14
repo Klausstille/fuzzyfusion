@@ -133,7 +133,7 @@ export async function getProjects() {
     };
 }
 
-// import EXIF from "exif-js";
+// import ExifReader from "exifreader";
 
 // const PROJECT_GRAPHQL_FIELDS = `
 //       title
@@ -216,17 +216,15 @@ export async function getProjects() {
 //         if (imageCache[url]) {
 //             return imageCache[url];
 //         }
+
 //         try {
 //             const response = await fetch(url);
-//             const blob: any = await response.blob();
-//             const exifData = await new Promise<any>((resolve) => {
-//                 EXIF.getData(blob, function (this: any) {
-//                     resolve(EXIF.getAllTags(this));
-//                 });
-//             });
+//             const arrayBuffer = await response.arrayBuffer();
+//             const tags = ExifReader.load(arrayBuffer);
 
-//             if (exifData && Object.keys(exifData).length > 0) {
-//                 const dateTime = parseDateTimeString(exifData.DateTime);
+//             if (tags && tags.DateTimeOriginal) {
+//                 const dateTimeString = tags.DateTimeOriginal.description;
+//                 const dateTime = parseDateTimeString(dateTimeString);
 //                 const hours = dateTime.getHours();
 //                 let timeOfDay;
 
@@ -239,7 +237,9 @@ export async function getProjects() {
 //                 } else {
 //                     timeOfDay = "Night";
 //                 }
+
 //                 imageCache[url] = timeOfDay;
+//                 console.log("timeOfDay", timeOfDay);
 //                 return timeOfDay;
 //             } else {
 //                 console.warn("No EXIF data found in the image.");
@@ -259,28 +259,25 @@ export async function getProjects() {
 //     const tagsObject: Record<string, string[]> = {};
 //     const timeOfDayPromises: Promise<string>[] = [];
 
-//     await Promise.all(
-//         response?.map(async (project) => {
-//             await Promise.all(
-//                 project.projectimagesCollection.items.map(async (item) => {
-//                     const timeOfDayPromise = extractTimeOfDay(item);
-//                     timeOfDayPromises.push(timeOfDayPromise);
-//                     item.contentfulMetadata.tags
-//                         .filter((tag) => tag.name.trim() !== "")
-//                         .forEach((tag) => {
-//                             const [key, value] = tag.name.split(":");
-//                             if (key && value) {
-//                                 if (!tagsObject[key]) {
-//                                     tagsObject[key] = [value];
-//                                 } else if (!tagsObject[key].includes(value)) {
-//                                     tagsObject[key].push(value);
-//                                 }
-//                             }
-//                         });
-//                 })
-//             );
-//         })
-//     );
+//     response?.forEach((project) => {
+//         project.projectimagesCollection.items.forEach((item) => {
+//             timeOfDayPromises.push(extractTimeOfDay(item));
+//         });
+
+//         project.projectimagesCollection.items.forEach((item) => {
+//             item.contentfulMetadata.tags
+//                 .filter((tag) => tag.name.trim() !== "")
+//                 .forEach((tag) => {
+//                     const [key, value] = tag.name.split(":");
+//                     if (key && value) {
+//                         tagsObject[key] = tagsObject[key] || [];
+//                         if (!tagsObject[key].includes(value)) {
+//                             tagsObject[key].push(value);
+//                         }
+//                     }
+//                 });
+//         });
+//     });
 
 //     const resolvedTimeOfDays = await Promise.all(timeOfDayPromises);
 //     const uniqueTimeOfDaysSet = new Set(resolvedTimeOfDays);

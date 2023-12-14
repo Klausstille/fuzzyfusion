@@ -56,36 +56,25 @@ export interface ProjectItemProps {
 }
 
 export interface ExifTags {
-    DateTime: string;
-    PixelXDimension: number;
-    PixelYDimension: number;
-    ColorSpace: number;
-    Make: string;
-    Model: string;
-    ExposureTime: {
-        numerator: number;
-        denominator: number;
-    };
-    ExposureProgram: string;
-    FocalLength: {
-        numerator: number;
-        denominator: number;
-    };
-    ISOSpeedRatings: string;
-    ApertureValue: {
-        numerator: number;
-        denominator: number;
-    };
-    Flash: string;
-    SceneCaptureType: string;
-    WhiteBalance: string;
-    GPSLatitudeRef: string;
-    GPSLongitudeRef: string;
-    thumbnail: {
-        Orientation: number;
-    };
-    GPSLatitude?: number[] | any;
-    GPSLongitude?: number[] | any;
+    DateTime: { description: string };
+    PixelXDimension: { description: string };
+    PixelYDimension: { description: string };
+    ColorSpace: { description: string };
+    Make: { description: string };
+    Model: { description: string };
+    ExposureTime: { description: string };
+    ExposureProgram: { description: string };
+    FocalLength: { description: string };
+    ISOSpeedRatings: { description: string };
+    ApertureValue: { description: string };
+    Flash: { description: string };
+    SceneCaptureType: { description: string };
+    WhiteBalance: { description: string };
+    GPSLatitudeRef: { description: string };
+    GPSLongitudeRef: { description: string };
+    Orientation: { value: number };
+    GPSLatitude: { description: number };
+    GPSLongitude: { description: number };
 }
 
 export interface ActiveIndex {

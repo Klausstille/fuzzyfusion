@@ -1,4 +1,4 @@
-import EXIF from "exif-js";
+import ExifReader from "exifreader";
 import { useEffect } from "react";
 import { ImagesCollectionItem } from "@/types";
 
@@ -16,14 +16,10 @@ export const useFetchExifData = async ({
                 if (projectItem) {
                     const url = projectItem.url.split("?")[0];
                     const response = await fetch(url);
-                    const blob: any = await response.blob();
-                    const exifData = await new Promise((resolve) => {
-                        EXIF.getData(blob, function (this: any) {
-                            resolve(EXIF.getAllTags(this));
-                        });
-                    });
-                    if (exifData && Object.keys(exifData).length > 0) {
-                        setExifData(exifData);
+                    const arrayBuffer = await response.arrayBuffer();
+                    const tags = ExifReader.load(arrayBuffer);
+                    if (tags && Object.keys(tags).length > 0) {
+                        setExifData(tags);
                     } else {
                         console.warn("No EXIF data found in the image.");
                     }
@@ -32,7 +28,6 @@ export const useFetchExifData = async ({
                 console.error("Error fetching or processing the image:", error);
             }
         };
-
         fetchData();
     }, [projectItem, setExifData]);
 };

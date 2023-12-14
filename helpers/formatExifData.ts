@@ -1,5 +1,4 @@
 import { ExifTags, FilteredExifTags } from "@/types";
-import getActualLatLong from "./latLong";
 
 interface DateTimeParts {
     year: string;
@@ -40,57 +39,49 @@ function formatDateTime(dateTime: string): string {
 
 export default function formatExifData(exifData: ExifTags): FilteredExifTags {
     const formattedExifData: any = {} as FilteredExifTags;
-
     if (exifData?.DateTime) {
-        formattedExifData["Created"] = formatDateTime(exifData.DateTime);
-        formattedExifData["Dimensions"] = exifData.PixelXDimension
-            ? `${exifData.PixelXDimension} x ${
-                  exifData.PixelYDimension || "n/A"
+        formattedExifData["Created"] = formatDateTime(
+            exifData.DateTime.description
+        );
+        formattedExifData["Dimensions"] = exifData.PixelXDimension.description
+            ? `${exifData.PixelXDimension.description} x ${
+                  exifData.PixelYDimension.description || "n/A"
               }`
             : "n/A";
         formattedExifData["Color Space"] =
-            exifData.ColorSpace === 1 ? "sRGB" : "Uncalibrated";
-        formattedExifData["Device Make"] = exifData.Make || "n/A";
-        formattedExifData["Device Model"] = exifData.Model || "n/A";
-        formattedExifData["Exposure Time"] = exifData.ExposureTime
-            ? `1/${
-                  exifData.ExposureTime.denominator /
-                  exifData.ExposureTime.numerator
-              } sec`
+            exifData.ColorSpace.description || "n/A";
+        formattedExifData["Device Make"] = exifData.Make.description || "n/A";
+        formattedExifData["Device Model"] = exifData.Model.description || "n/A";
+        formattedExifData["Exposure Time"] = exifData.ExposureTime.description
+            ? `${exifData.ExposureTime.description} sec`
             : "n/A";
-        formattedExifData["Exposure Prgm."] = exifData.ExposureProgram || "n/A";
+        formattedExifData["Exposure Prgm."] =
+            exifData.ExposureProgram.description || "n/A";
         formattedExifData["Focal Length"] = exifData.FocalLength
-            ? `${
-                  exifData.FocalLength.numerator /
-                  exifData.FocalLength.denominator
-              } mm`
+            ? `${exifData.FocalLength.description}`
             : "n/A";
-        formattedExifData["ISO Speed"] = exifData.ISOSpeedRatings || "n/A";
+        formattedExifData["ISO Speed"] =
+            exifData.ISOSpeedRatings.description || "n/A";
         formattedExifData["Aperture Value"] = exifData.ApertureValue
-            ? `f${
-                  exifData.ApertureValue.numerator /
-                  exifData.ApertureValue.denominator
-              }`
+            ? `f${exifData.ApertureValue.description}`
             : "n/A";
-        formattedExifData["Flash"] = exifData.Flash || "n/A";
-        formattedExifData["White Balance"] = exifData.WhiteBalance || "n/A";
-        formattedExifData["Scene Type"] = exifData.SceneCaptureType || "n/A";
-
-        const { latitude, longitude } = getActualLatLong(
-            exifData.GPSLatitude,
-            exifData.GPSLatitudeRef,
-            exifData.GPSLongitude,
-            exifData.GPSLongitudeRef
-        ) as { latitude: string; longitude: string };
-
-        formattedExifData["Orientation"] = exifData.thumbnail.Orientation
-            ? exifData.thumbnail.Orientation === 6 ||
-              exifData.thumbnail.Orientation === 8
+        formattedExifData["Flash"] = exifData.Flash.description || "n/A";
+        formattedExifData["White Balance"] =
+            exifData.WhiteBalance.description || "n/A";
+        formattedExifData["Scene Type"] =
+            exifData.SceneCaptureType.description || "n/A";
+        formattedExifData["Orientation"] = exifData.Orientation
+            ? exifData.Orientation.value === 6 ||
+              exifData.Orientation.value === 8
                 ? "Portrait"
                 : "Landscape"
             : "n/A";
-        formattedExifData["Latitude"] = latitude || "n/A";
-        formattedExifData["Longitude"] = longitude || "n/A";
+        formattedExifData["Latitude"] = exifData.GPSLatitude
+            ? `${exifData.GPSLatitude.description.toFixed(6)}°`
+            : "n/A";
+        formattedExifData["Longitude"] = exifData.GPSLongitude
+            ? `${exifData.GPSLongitude.description.toFixed(6)}°`
+            : "n/A";
     }
 
     return formattedExifData;
