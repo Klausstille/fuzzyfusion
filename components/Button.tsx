@@ -6,11 +6,11 @@ const Button: React.FC<ButtonProps> = ({ children }) => {
     const { darkTheme } = useColorThemeStore() as DarkTheme;
     return (
         <button
-            className={`${
+            className={`menu-button ${
                 darkTheme
-                    ? "hover:bg-gray bg-black hover:text-black text-white"
-                    : "hover:bg-black bg-gray text-black hover:text-white"
-            } py-1 px-10 my-2 rounded-3xl transition-colors duration-200 text-sm-heading font-black`}
+                    ? "hover:bg-black bg-[#2b2b2b] text-white"
+                    : "hover:bg-gray bg-[#f0f0f0] text-black"
+            } py-1 px-6 rounded-3xl transition-colors duration-200 text-sm-heading font-black`}
         >
             {children}
         </button>

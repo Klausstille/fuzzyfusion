@@ -18,6 +18,7 @@ import {
 import { getProjects } from "@/contentful/api";
 import { useFetchExifData } from "@/helpers/useFetchExifData";
 import { useKeyboardEvents } from "@/helpers/useKeyboardEvents";
+import Button from "@/components/Button";
 
 export default function Index() {
     const { data, isLoading, error } = useSWR("projects", getProjects);
@@ -36,6 +37,7 @@ export default function Index() {
     const { projects } = useProjectStore() as ProjectStore;
     const { setTags } = useFilterProjectStore() as FilterProjectStore;
     const { activeFilters } = useFilterProjectStore() as FilterProjectStore;
+    const { setActiveFilters } = useFilterProjectStore((state: any) => state);
     const [delayPassed, setDelayPassed] = useState(false);
 
     useEffect(() => {
@@ -130,28 +132,45 @@ export default function Index() {
     if (error) return <div>Error fetching projects</div>;
 
     return (
-        hasLoaded && (
-            <>
+        <>
+            {activeFilters.length > 0 && (
                 <div
-                    className={`fixed -z-10 top-0 right-0 h-screen w-screen flex justify-center text-[black]`}
+                    className="menu-button fixed top-0 right-0 py-6 px-6 max-tablet:right-[50%] max-tablet:translate-x-[50%] opacity-50 hover:opacity-100 transition-all duration-200 ease-in-out"
+                    onClick={() => setActiveFilters([])}
                 >
-                    <Image
-                        className="h-screen object-contain object-center"
-                        src={darkTheme ? "/logo-w.png" : "/logo-b.png"}
-                        alt="logo"
-                        width={1000}
-                        height={1000}
-                        priority
-                    />
+                    <Button>CLEAR FILTERS</Button>
                 </div>
-                {windowWidth > 768 ? (
-                    layout === "LIST" ? (
-                        <ProjectListEntry
-                            exifData={exifData}
-                            setProjectItem={setProjectItem}
-                            projectItem={projectItem}
-                            projects={projects}
+            )}
+            {hasLoaded && (
+                <>
+                    <div
+                        className={`fixed -z-10 top-0 right-0 h-screen w-screen flex justify-center text-[black]`}
+                    >
+                        <Image
+                            className="h-screen object-contain object-center"
+                            src={darkTheme ? "/logo-w.png" : "/logo-b.png"}
+                            alt="logo"
+                            width={1000}
+                            height={1000}
+                            priority
                         />
+                    </div>
+                    {windowWidth > 768 ? (
+                        layout === "LIST" ? (
+                            <ProjectListEntry
+                                exifData={exifData}
+                                setProjectItem={setProjectItem}
+                                projectItem={projectItem}
+                                projects={projects}
+                            />
+                        ) : (
+                            <ProjectIconEntry
+                                exifData={exifData}
+                                setProjectItem={setProjectItem}
+                                projectItem={projectItem}
+                                projects={projects}
+                            />
+                        )
                     ) : (
                         <ProjectIconEntry
                             exifData={exifData}
@@ -159,17 +178,10 @@ export default function Index() {
                             projectItem={projectItem}
                             projects={projects}
                         />
-                    )
-                ) : (
-                    <ProjectIconEntry
-                        exifData={exifData}
-                        setProjectItem={setProjectItem}
-                        projectItem={projectItem}
-                        projects={projects}
-                    />
-                )}
-                <FilterProjects />
-            </>
-        )
+                    )}
+                    <FilterProjects />
+                </>
+            )}
+        </>
     );
 }

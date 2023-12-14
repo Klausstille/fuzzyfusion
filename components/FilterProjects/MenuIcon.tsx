@@ -11,7 +11,7 @@ export default function MenuIcon({
 }: MenuIconProps) {
     return (
         <div
-            className={`menu-icon fixed top-0 right-0 py-2 px-2`}
+            className={`menu-icon fixed top-0 right-0 py-1 px-1`}
             onClick={handleClick}
         >
             <div className={isOpen ? "is-opened" : "hamburger"}>

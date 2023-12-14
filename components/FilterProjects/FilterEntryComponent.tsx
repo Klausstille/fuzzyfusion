@@ -1,6 +1,7 @@
 import FilterEntryItem from "./FilterEntryItem";
 import { useFilterProjectStore } from "@/stores/filterProject";
 import { Fragment } from "react";
+import Button from "../Button";
 
 export default function FilterEntryComponent({
     darkTheme,
@@ -50,46 +51,49 @@ export default function FilterEntryComponent({
 
     return (
         <>
-            {renderFilterEntryItem(
-                "Clear All Filter",
-                () => {
-                    setActiveFilters([]);
-                },
-                null
+            {activeFilters.length > 0 && (
+                <span onClick={(e) => setActiveFilters([])}>
+                    <Button>CLEAR FILTERS</Button>
+                </span>
             )}
-            <h2 className="text-m flex gap-1 mt-4 max-desktop:text-s">
-                <span>↱</span> Favorites
-            </h2>
-            <hr className="border-dark-gray opacity-50" />
-            <ul className="pb-2">
-                {renderFilterEntryItem(
-                    "Favorites",
-                    () => {
-                        handleItemClick("Favorites");
-                    },
-                    null
+            <section className="absolute top-6 w-full">
+                <h2 className="text-m flex gap-1 mt-4 max-desktop:text-s">
+                    <span>↱</span> Favorites
+                </h2>
+                <hr className="border-dark-gray opacity-50" />
+                <ul className="pb-2">
+                    {renderFilterEntryItem(
+                        "Favorites",
+                        () => {
+                            handleItemClick("Favorites");
+                        },
+                        null
+                    )}
+                </ul>
+                {Object.entries(tags).map(
+                    (
+                        [category, subcategories]: [string, string[] | any],
+                        idx
+                    ) => (
+                        <Fragment key={idx}>
+                            <h2 className="text-m flex gap-1 max-desktop:text-s">
+                                <span>↱</span> {category}
+                            </h2>
+                            <hr className="border-dark-gray opacity-50" />
+                            <ul className="pb-2">
+                                {subcategories.map(
+                                    (subcategory: any, subIdx: number) =>
+                                        renderFilterEntryItem(
+                                            subcategory,
+                                            () => handleItemClick(subcategory),
+                                            subIdx
+                                        )
+                                )}
+                            </ul>
+                        </Fragment>
+                    )
                 )}
-            </ul>
-            {Object.entries(tags).map(
-                ([category, subcategories]: [string, string[] | any], idx) => (
-                    <Fragment key={idx}>
-                        <h2 className="text-m flex gap-1 max-desktop:text-s">
-                            <span>↱</span> {category}
-                        </h2>
-                        <hr className="border-dark-gray opacity-50" />
-                        <ul className="pb-2">
-                            {subcategories.map(
-                                (subcategory: any, subIdx: number) =>
-                                    renderFilterEntryItem(
-                                        subcategory,
-                                        () => handleItemClick(subcategory),
-                                        subIdx
-                                    )
-                            )}
-                        </ul>
-                    </Fragment>
-                )
-            )}
+            </section>
         </>
     );
 }
