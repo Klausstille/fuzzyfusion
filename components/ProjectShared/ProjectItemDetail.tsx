@@ -42,6 +42,9 @@ export default function ProjectItemDetail({
         state.isFavorite.includes(projectItem?.id)
     );
     const { Latitude, Longitude } = filteredExifData;
+    const tagCategory: string[] = Object.keys(projectItem?.tags);
+    const tagValues: (string[] | null)[] = Object.values(projectItem?.tags);
+
     return (
         <section
             className={`${
@@ -50,7 +53,7 @@ export default function ProjectItemDetail({
                     : "h-[calc(100vh-3rem)] rounded-md"
             } overflow-scroll col-span-3 max-desktop:col-span-4 max-tablet:col-span-7 ${
                 darkTheme ? "bg-real-black" : "bg-white"
-            } pb-8 max-tablet:pb-20 max-tablet:pt-10`}
+            } pb-20 max-tablet:pb-20 max-tablet:pt-10`}
         >
             <aside className="pb-2">
                 <AssetImage
@@ -64,7 +67,35 @@ export default function ProjectItemDetail({
             <article className="px-2">
                 <h1 className="text-s-bold">{projectItem?.title}.JPG</h1>
                 <h1 className="text-dark-gray pb-4 text-s-bold">JPEG image</h1>
-                <span>{projectItem.tags.map((tag) => tag)}</span>
+                <h1 className="text-s-bold flex justify-between">Tags</h1>
+                <dl className="card__info pb-2 my-2">
+                    {tagCategory.map((category, idx) => {
+                        return (
+                            <>
+                                <dt
+                                    key={idx}
+                                    className="card__info-title text-dark-gray"
+                                >
+                                    {category}
+                                </dt>
+                                <dd className="card__info-description">
+                                    {tagValues[idx]?.map(
+                                        (value, index, array) => {
+                                            return (
+                                                <React.Fragment key={index}>
+                                                    <span>{value}</span>
+                                                    {index !==
+                                                        array.length - 1 &&
+                                                        ", "}
+                                                </React.Fragment>
+                                            );
+                                        }
+                                    )}
+                                </dd>
+                            </>
+                        );
+                    })}
+                </dl>
                 <h1 className="text-s-bold flex justify-between">
                     Information
                     <span

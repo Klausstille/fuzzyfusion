@@ -79,13 +79,22 @@ function extractProjectEntries(fetchResponse: FetchResponse) {
                             ? [splitTag[0], splitTag[1]]
                             : null;
                     });
+                    const tagMap = new Map();
+                    tags.forEach(([tag, value]: any) => {
+                        if (!tagMap.has(tag)) {
+                            tagMap.set(tag, [value]);
+                        } else {
+                            tagMap.get(tag).push(value);
+                        }
+                    });
+                    const formattedTags = Object.fromEntries(tagMap);
                     return {
                         id: item.sys.id,
                         title: item.title,
                         url: item.url,
                         width: item.width,
                         height: item.height,
-                        tags: tags,
+                        tags: formattedTags,
                     };
                 }),
             },
