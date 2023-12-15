@@ -53,7 +53,18 @@ export default function Index() {
 
     useEffect(() => {
         if (data) {
-            const sortedProjects = data.projects.map((project) => {
+            const sortedProjects = data.projects.sort((a, b) => {
+                const bTitle = b.title.toLowerCase();
+                const aTitle = a.title.toLowerCase();
+                if (bTitle < aTitle) {
+                    return -1;
+                }
+                if (bTitle > aTitle) {
+                    return 1;
+                }
+                return 0;
+            });
+            const sortedProjectsAndItems = sortedProjects.map((project) => {
                 const sortedItems = project.imagesCollection.items.sort(
                     (a, b) => {
                         const aTitle = a.title.toLowerCase();
@@ -74,10 +85,9 @@ export default function Index() {
                     },
                 };
             });
-            setProjects(sortedProjects);
+            setProjects(sortedProjectsAndItems);
             setTags(data.tags);
-
-            setProjectItem(sortedProjects[0].imagesCollection.items[0]);
+            setProjectItem(sortedProjectsAndItems[0].imagesCollection.items[0]);
         }
     }, [data, activeFilters, setProjects, setTags]);
 
