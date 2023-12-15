@@ -68,29 +68,36 @@ export default function FilterEntryComponent({
                         null
                     )}
                 </ul>
-                {Object.entries(tags).map(
-                    (
-                        [category, subcategories]: [string, string[] | any],
-                        idx
-                    ) => (
-                        <Fragment key={idx}>
-                            <h2 className="text-s flex gap-1 max-desktop:text-s">
-                                {category.toUpperCase()}
-                            </h2>
-                            <hr className="border-dark-gray opacity-50" />
-                            <ul className="pb-4 pt-[3px]">
-                                {subcategories.map(
-                                    (subcategory: any, subIdx: number) =>
-                                        renderFilterEntryItem(
-                                            subcategory,
-                                            () => handleItemClick(subcategory),
-                                            subIdx
-                                        )
-                                )}
-                            </ul>
-                        </Fragment>
+                {Object.entries(tags)
+                    .sort(([categoryA], [categoryB]) =>
+                        categoryA.localeCompare(categoryB)
                     )
-                )}
+                    .map(
+                        (
+                            [category, subcategories]: [string, string[] | any],
+                            idx
+                        ) => (
+                            <Fragment key={idx}>
+                                <h2 className="text-s flex gap-1 max-desktop:text-s">
+                                    {category.toUpperCase()}
+                                </h2>
+                                <hr className="border-dark-gray opacity-50" />
+                                <ul className="pb-4 pt-[3px]">
+                                    {subcategories.map(
+                                        (subcategory: any, subIdx: number) =>
+                                            renderFilterEntryItem(
+                                                subcategory,
+                                                () =>
+                                                    handleItemClick(
+                                                        subcategory
+                                                    ),
+                                                subIdx
+                                            )
+                                    )}
+                                </ul>
+                            </Fragment>
+                        )
+                    )}
             </section>
         </>
     );
