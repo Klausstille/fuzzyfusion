@@ -36,7 +36,7 @@ export default function FilterEntryComponent({
     ) => (
         <FilterEntryItem active={activeFilters.includes(text)} key={key}>
             <li
-                className="flex gap-2 items-center max-desktop:text-xs"
+                className="flex gap-2 items-center max-desktop:text-xs mt-[1px]"
                 onClick={onClick}
             >
                 {activeFilters.includes(text) && (
@@ -61,7 +61,7 @@ export default function FilterEntryComponent({
                     FAVORITES
                 </h2>
                 <hr className="border-dark-gray opacity-50" />
-                <ul className="pb-2">
+                <ul className="pb-4 pt-[3px]">
                     {renderFilterEntryItem(
                         "Favorites",
                         () => {
@@ -80,7 +80,7 @@ export default function FilterEntryComponent({
                                 {category.toUpperCase()}
                             </h2>
                             <hr className="border-dark-gray opacity-50" />
-                            <ul className="pb-2">
+                            <ul className="pb-4 pt-[3px]">
                                 {subcategories.map(
                                     (subcategory: any, subIdx: number) =>
                                         renderFilterEntryItem(
