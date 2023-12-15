@@ -18,9 +18,7 @@ export default function FilterEntryComponent({
     const handleItemClick = (index: string) => {
         const newActiveItems = [...activeFilters];
         const indexInArray = newActiveItems.indexOf(index);
-        if (activeFilters.includes("Favorites") && activeFilters.length === 1) {
-            newActiveItems.splice(indexInArray, 1);
-        }
+
         if (indexInArray === -1) {
             newActiveItems.push(index);
         } else {

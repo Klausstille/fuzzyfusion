@@ -71,7 +71,7 @@ export default function ProjectItemDetail({
                 <dl className="card__info pb-2 my-2">
                     {tagCategory.map((category, idx) => {
                         return (
-                            <>
+                            <React.Fragment key={idx}>
                                 <dt
                                     key={idx}
                                     className="card__info-title text-dark-gray"
@@ -92,7 +92,7 @@ export default function ProjectItemDetail({
                                         }
                                     )}
                                 </dd>
-                            </>
+                            </React.Fragment>
                         );
                     })}
                 </dl>

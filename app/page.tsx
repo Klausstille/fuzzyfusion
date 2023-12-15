@@ -6,7 +6,7 @@ import FilterProjects from "@/components/FilterProjects/FilterProjects";
 import ProjectListEntry from "@/components/ProjectList/ProjectListEntry";
 import ProjectIconEntry from "@/components/ProjectIcon/ProjectIconEntry";
 import { useProjectLayoutStore, setLayoutProps } from "@/stores/projectLayout";
-import { ImagesCollectionItem } from "@/types";
+import { ImagesCollectionItem, ProjectItem } from "@/types";
 import { useFavoritesStore } from "@/stores/favorites";
 import { useProjectStore, ProjectStore } from "@/stores/projects";
 import { useColorThemeStore, DarkTheme } from "@/stores/colorTheme";
@@ -85,30 +85,57 @@ export default function Index() {
     useKeyboardEvents({ projectItem, setProjectItem, projects });
 
     useEffect(() => {
-        if (activeFilters.length > 0) {
-            const filteredProjects = projects.map((project) => {
-                const filteredItems = project.imagesCollection.items.filter(
-                    (item) => {
-                        if (activeFilters.includes("Favorites")) {
-                            return isFavorite.includes(item.id);
-                        } else {
-                            const values = Object.values(item.tags);
-                            return activeFilters.every((filter) =>
-                                values.some(
-                                    (value: string[] | null) =>
-                                        value !== null && value.includes(filter)
-                                )
-                            );
+        if (activeFilters.length > 0 && data) {
+            const filteredProjects = data.projects.map(
+                (project: ProjectItem) => {
+                    const filteredItems = project.imagesCollection.items.filter(
+                        (item) => {
+                            if (
+                                activeFilters.includes("Favorites") &&
+                                activeFilters.length === 1
+                            ) {
+                                return isFavorite.includes(item.id);
+                            } else if (
+                                activeFilters.includes("Favorites") &&
+                                activeFilters.length > 1
+                            ) {
+                                return (
+                                    isFavorite.includes(item.id) &&
+                                    activeFilters
+                                        .filter(
+                                            (filter) => filter !== "Favorites"
+                                        )
+                                        .every((filter) => {
+                                            const values = Object.values(
+                                                item.tags
+                                            );
+                                            return values.some(
+                                                (value: string[] | null) =>
+                                                    value !== null &&
+                                                    value.includes(filter)
+                                            );
+                                        })
+                                );
+                            } else {
+                                const values = Object.values(item.tags);
+                                return activeFilters.every((filter) =>
+                                    values.some(
+                                        (value: string[] | null) =>
+                                            value !== null &&
+                                            value.includes(filter)
+                                    )
+                                );
+                            }
                         }
-                    }
-                );
-                return {
-                    ...project,
-                    imagesCollection: {
-                        items: filteredItems,
-                    },
-                };
-            });
+                    );
+                    return {
+                        ...project,
+                        imagesCollection: {
+                            items: filteredItems,
+                        },
+                    };
+                }
+            );
             setProjects(filteredProjects);
         } else {
             if (data) {
