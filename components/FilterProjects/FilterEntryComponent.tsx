@@ -56,9 +56,9 @@ export default function FilterEntryComponent({
                     <Button>CLEAR FILTERS</Button>
                 </span>
             )}
-            <section className="absolute top-6 w-full">
-                <h2 className="text-m flex gap-1 mt-4 max-desktop:text-s">
-                    <span>↱</span> Favorites
+            <section className="absolute top-6 w-[calc(100%-1rem)]">
+                <h2 className="text-s flex gap-1 mt-4 max-desktop:text-s">
+                    FAVORITES
                 </h2>
                 <hr className="border-dark-gray opacity-50" />
                 <ul className="pb-2">
@@ -76,8 +76,8 @@ export default function FilterEntryComponent({
                         idx
                     ) => (
                         <Fragment key={idx}>
-                            <h2 className="text-m flex gap-1 max-desktop:text-s">
-                                <span>↱</span> {category}
+                            <h2 className="text-s flex gap-1 max-desktop:text-s">
+                                {category.toUpperCase()}
                             </h2>
                             <hr className="border-dark-gray opacity-50" />
                             <ul className="pb-2">

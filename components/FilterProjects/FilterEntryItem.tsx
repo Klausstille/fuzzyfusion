@@ -18,7 +18,7 @@ export default function FilterEntryItem({
                           darkTheme
                               ? "bg-black hover:bg-black text-white"
                               : "bg-gray hover:bg-gray text-black"
-                      } pl-2 font-bold opacity-100`
+                      } pl-2 opacity-100`
                     : `${
                           darkTheme ? "hover:bg-black" : "hover:bg-gray"
                       } text-dark-gray hover:bg-opacity-30 cursor-pointer transition-colors duration-200 ease-in-out`
