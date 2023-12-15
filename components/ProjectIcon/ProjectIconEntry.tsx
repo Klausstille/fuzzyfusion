@@ -71,7 +71,7 @@ export default function ProjectIconEntry({
                                 <div
                                     className={`${
                                         darkTheme ? "bg-black" : "bg-light-gray"
-                                    } py-8 max-tablet:py-10 grid h-screen`}
+                                    } py-8 max-tablet:py-10 grid h-screen content-start`}
                                     style={{
                                         gridTemplateColumns: `repeat(auto-fill, minmax(${
                                             windowWidth > 768 ? width : 300
