@@ -20,10 +20,13 @@ export default function ProjectIconEntry({
     const { width } = useWidthContext();
     const [showImageDetail, setShowImageDetail] = useState<boolean>(false);
     const [isOpen, setIsOpen] = useState<{ [key: number]: boolean }>({});
+    const [showFolder, setShowFolder] = useState<{ [key: number]: boolean }>(
+        {}
+    );
     const darkTheme = useColorThemeStore(
         (state: unknown) => (state as DarkTheme).darkTheme
     );
-    console.log("isOpen!!!", isOpen);
+
     return (
         <>
             <section
@@ -34,6 +37,7 @@ export default function ProjectIconEntry({
                         ? "block"
                         : "grid",
                 }}
+                onClick={() => setShowFolder({})}
             >
                 <div
                     className={`fixed -z-10 top-0 right-0 h-screen w-screen flex justify-center text-[black]`}
@@ -54,6 +58,8 @@ export default function ProjectIconEntry({
                             idx={idx}
                             title={item.title}
                             isOpen={isOpen}
+                            setShowFolder={setShowFolder}
+                            showFolder={showFolder}
                         />
                         {isOpen[idx] && (
                             <>
@@ -71,7 +77,7 @@ export default function ProjectIconEntry({
                                 <div
                                     className={`${
                                         darkTheme ? "bg-black" : "bg-light-gray"
-                                    } py-8 max-tablet:py-10 grid h-screen content-start`}
+                                    } py-8 max-tablet:py-10 grid h-full min-h-screen content-start`}
                                     style={{
                                         gridTemplateColumns: `repeat(auto-fill, minmax(${
                                             windowWidth > 768 ? width : 300

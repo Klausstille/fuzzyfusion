@@ -13,6 +13,10 @@ interface DraggableItemProps {
     idx: number;
     title: string;
     isOpen: { [key: number]: boolean };
+    setShowFolder: React.Dispatch<
+        React.SetStateAction<{ [key: number]: boolean }>
+    >;
+    showFolder: { [key: number]: boolean };
 }
 
 export default function DraggableItem({
@@ -20,6 +24,8 @@ export default function DraggableItem({
     idx,
     title,
     isOpen,
+    setShowFolder,
+    showFolder,
 }: DraggableItemProps) {
     const { width } = useWidthContext();
     const { windowWidth } = GetWindowDimensions();
@@ -33,6 +39,12 @@ export default function DraggableItem({
         setIsOpen((prev: any) => ({
             ...prev,
             [idx]: !prev[idx],
+        }));
+    };
+
+    const toggleFolder = (idx: number) => {
+        setShowFolder((prev: any) => ({
+            [idx]: true,
         }));
     };
 
@@ -65,28 +77,42 @@ export default function DraggableItem({
             position={positions[idx]}
         >
             <div
-                className="active:cursor-grabbing hover:cursor-grab min-w-[50px]"
-                onDoubleClick={() => toggleProject(idx)}
+                className="py-2 px-2 max-w-[100px] flex flex-col justify-center items-center"
+                onClick={(e) => {
+                    e.stopPropagation();
+                    toggleFolder(idx);
+                }}
+                onDoubleClick={() => {
+                    toggleProject(idx);
+                    setShowFolder({});
+                }}
                 style={{
                     display: Object.values(isOpen).some((open) => open)
                         ? "none"
-                        : "block",
+                        : "flex",
                 }}
                 ref={nodeRefs.current[idx] as any}
             >
-                <FolderIcon darkTheme={darkTheme} />
+                <div className="w-[50px]">
+                    <FolderIcon darkTheme={darkTheme} />
+                </div>
                 <div
-                    className="w-[150px] pt-2"
+                    className="w-auto px-2 py-1 rounded-md mt-1"
                     style={{
                         lineHeight: "1rem",
                         textShadow: `0.5px 0.5px 1.5px ${
                             darkTheme ? "#303030" : "white"
                         }`,
+                        backgroundColor: showFolder[idx]
+                            ? darkTheme
+                                ? "#6d6d6d"
+                                : "#ebebeb"
+                            : "transparent",
                     }}
                 >
                     <h1
                         style={{
-                            width: `${width - 10}px`,
+                            maxWidth: "80px",
                             textOverflow: "ellipsis",
                             whiteSpace: "nowrap",
                             overflow: "hidden",

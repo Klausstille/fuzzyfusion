@@ -50,8 +50,11 @@ export default function FilterEntryComponent({
     return (
         <>
             {activeFilters.length > 0 && (
-                <span onClick={(e) => setActiveFilters([])}>
-                    <Button>CLEAR FILTERS</Button>
+                <span
+                    className="menu-button font-bold cursor-pointer"
+                    onClick={(e) => setActiveFilters([])}
+                >
+                    CLEAR FILTERS
                 </span>
             )}
             <section className="absolute top-6 w-[calc(100%-1rem)]">

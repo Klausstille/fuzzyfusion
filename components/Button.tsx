@@ -6,7 +6,7 @@ const Button: React.FC<ButtonProps> = ({ children }) => {
     const { darkTheme } = useColorThemeStore() as DarkTheme;
     return (
         <button
-            className={`menu-button ${
+            className={`${
                 darkTheme
                     ? "hover:bg-black bg-[#2b2b2b] text-white"
                     : "hover:bg-gray bg-[#f0f0f0] text-black"
