@@ -53,7 +53,7 @@ export default function ProjectItemDetail({
                     : "h-[calc(100vh-3rem)] rounded-md"
             } overflow-scroll col-span-3 max-desktop:col-span-4 max-tablet:col-span-7 ${
                 darkTheme ? "bg-real-black" : "bg-white"
-            } pb-20 max-tablet:pb-20 max-tablet:pt-10`}
+            } pb-10 max-tablet:pb-20 max-tablet:pt-10`}
         >
             <aside className="pb-2">
                 <AssetImage

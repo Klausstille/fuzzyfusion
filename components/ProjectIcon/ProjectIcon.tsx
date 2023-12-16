@@ -1,8 +1,8 @@
-import Image from "next/image";
 import FavoriteButton from "../FavoriteButton/FavoriteButton";
 import { ImagesCollectionItem } from "@/types";
 import { AssetImage } from "@/components/shared/asset-image/AssetImage";
 import { useWidthContext } from "@/context/WidthContext";
+import GetWindowDimensions from "../shared/getWindowDimensions";
 
 interface ProjectIconProps {
     item: ImagesCollectionItem;
@@ -16,6 +16,7 @@ export default function ProjectIcon({
     setShowImageDetail,
 }: ProjectIconProps) {
     const { width } = useWidthContext();
+    const { windowWidth } = GetWindowDimensions();
     return (
         <article>
             <div
@@ -37,7 +38,9 @@ export default function ProjectIcon({
                                 ? "medium"
                                 : width > 200
                                   ? "low"
-                                  : "small"
+                                  : width <= 300 && windowWidth < 600
+                                    ? "high"
+                                    : "small"
                     }
                 />
             </div>

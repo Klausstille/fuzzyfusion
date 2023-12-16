@@ -21,8 +21,10 @@ import { useKeyboardEvents } from "@/helpers/useKeyboardEvents";
 import Button from "@/components/Button";
 
 export default function Index() {
-    const { data, isLoading, error } = useSWR("projects", getProjects);
     const { windowWidth } = GetWindowDimensions();
+    const { data, isLoading, error } = useSWR("projects", () =>
+        getProjects(windowWidth)
+    );
     const { layout } = useProjectLayoutStore() as setLayoutProps;
     const isFavorite = useFavoritesStore(
         (state: any) => state.isFavorite as string[]

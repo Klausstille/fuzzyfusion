@@ -1,26 +1,3 @@
-const PROJECT_GRAPHQL_FIELDS = `
-      title
-      slug
-      sys {
-        id
-      }
-      projectimagesCollection {
-        items {
-          title
-          url(transform: {width: 1920})
-          width
-          height
-          contentfulMetadata {
-            tags {
-              name
-            }
-          }
-          sys {
-            id
-          }
-        }
-      }`;
-
 async function fetchGraphQL(query: string) {
     return fetch(
         `https://graphql.contentful.com/content/v1/spaces/${process.env.NEXT_PUBLIC_CONTENTFUL_SPACE_ID}`,
@@ -126,7 +103,40 @@ export function extractProjectTags(fetchResponse: FetchResponse) {
     return tagsObject;
 }
 
-export async function getProjects() {
+export async function getProjects(windowWidth: number) {
+    const calculateImageWidth = () => {
+        if (windowWidth < 600) {
+            return 920;
+        } else if (windowWidth <= 1440) {
+            return 1440;
+        } else {
+            return 1920;
+        }
+    };
+
+    const PROJECT_GRAPHQL_FIELDS = `
+      title
+      slug
+      sys {
+        id
+      }
+      projectimagesCollection {
+        items {
+          title
+          url(transform: {width: ${calculateImageWidth()}})
+          width
+          height
+          contentfulMetadata {
+            tags {
+              name
+            }
+          }
+          sys {
+            id
+          }
+        }
+      }`;
+
     const entries = await fetchGraphQL(
         `query {
         projectCategoryCollection(limit:50) {
@@ -136,6 +146,7 @@ export async function getProjects() {
       }
     }`
     );
+
     return {
         projects: extractProjectEntries(entries),
         tags: extractProjectTags(entries),
