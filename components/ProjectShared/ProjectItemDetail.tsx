@@ -2,8 +2,8 @@ import React, { useEffect, useState } from "react";
 import formatExifData from "@/helpers/formatExifData";
 import { FilteredExifTags, ExifTags } from "@/types";
 import FavoriteButton from "../FavoriteButton/FavoriteButton";
+import ShopComponent from "../ShopComponent/ShopComponent";
 import { useFavoritesStore } from "@/stores/favorites";
-import Button from "../Button";
 import { ImagesCollectionItem } from "@/types";
 import { useColorThemeStore, DarkTheme } from "@/stores/colorTheme";
 import { AssetImage } from "../shared/asset-image/AssetImage";
@@ -146,8 +146,7 @@ export default function ProjectItemDetail({
                         )}
                     </dl>
                 </div>
-                <div className="text-s-bold flex justify-between">
-                    <Button>BUY</Button>
+                <div className="text-s-bold flex justify-between pb-4">
                     <span
                         className="text-xs flex items-center gap-4 text-dark-gray"
                         style={{ whiteSpace: "nowrap" }}
@@ -160,6 +159,7 @@ export default function ProjectItemDetail({
                         <FavoriteButton id={projectItem?.id} />
                     </span>
                 </div>
+                <ShopComponent projectItem={projectItem} />
             </article>
         </section>
     );
