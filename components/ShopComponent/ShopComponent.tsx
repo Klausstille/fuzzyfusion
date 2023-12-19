@@ -93,13 +93,14 @@ export default function ShopComponent({ projectItem }: ShopComponentProps) {
                 <p>
                     To ensure the highest standards, we partner with WhiteWall,
                     a renowned printing service known for its excellence in
-                    craftsmanship. <br></br> <br></br>Printing with Fujiflex
-                    High-Gloss Paper<br></br> We exclusively use Fujiflex
-                    high-gloss paper for our prints, provided by WhiteWall.
-                    Fujiflex is a premium photographic paper that delivers
-                    stunning, vibrant colors and exceptional image clarity. Its
-                    high-gloss finish adds a luxurious touch to your prints,
-                    creating a visual masterpiece that captivates. <br></br>
+                    craftsmanship. <br></br> <br></br>Your Photo on Fuji Crystal
+                    DP II – Gallery-Quality Print<br></br>We exclusively print
+                    on Fuji Crystal DP II, a high-quality photo paper known for
+                    its exceptional characteristics. This premium paper ensures
+                    stunning, vibrant colors and remarkable image clarity,
+                    adding a touch of sophistication to your prints with its
+                    unique matte/light structure that minimizes reflections and
+                    enhances overall visual appeal. <br></br>
                     <br></br>Why WhiteWall?<br></br>WhiteWall is a trusted name
                     in the printing industry, known for its commitment to
                     precision and quality. With state-of-the-art technology and
