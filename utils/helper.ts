@@ -17,7 +17,7 @@ export const calculateDynamicGap = (width: number) => {
     const maxWidth = 800;
     const dynamicGap =
         40 - Math.pow((width - minWidth) / (maxWidth - minWidth), 2) * 35;
-    return Math.max(10, Math.min(40, dynamicGap));
+    return Math.max(10, Math.min(20, dynamicGap));
 };
 
 export function removeTrailingSlash(str: string) {
@@ -78,8 +78,8 @@ export function getCenteredClasses(centered?: boolean) {
         centered === undefined
             ? defaultCenteredClasses
             : centered
-            ? "text-center"
-            : "text-left";
+              ? "text-center"
+              : "text-left";
     return centeredClasses;
 }
 

@@ -129,7 +129,7 @@ export default function DraggableItem({
         </Draggable>
     ) : (
         <div
-            className="active:cursor-grabbing hover:cursor-grab min-w-[50px]"
+            className="min-w-[50px] px-2 py-2"
             onClick={() => toggleProject(idx)}
             style={{
                 display: Object.values(isOpen).some((open) => open)

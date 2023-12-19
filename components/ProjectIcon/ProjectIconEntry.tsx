@@ -30,12 +30,12 @@ export default function ProjectIconEntry({
     return (
         <>
             <section
-                className="px-2 py-2 grid grid-cols-12 gap-2 max-tablet:grid-cols-3 h-screen overflow-scroll overflow-x-hidden"
+                className="px-2 py-2 flex gap-2 content-start flex-wrap h-[calc(100vh-3rem)] overflow-scroll overflow-x-hidden"
                 style={{
                     gap: `${calculateDynamicGap(width)}px`,
                     display: Object.values(isOpen).some((open) => open)
                         ? "block"
-                        : "grid",
+                        : "flex",
                 }}
                 onClick={() => setShowFolder({})}
             >
@@ -50,6 +50,9 @@ export default function ProjectIconEntry({
                         height={1000}
                         priority
                     />
+                    <p className="fixed top-3 w-full flex justify-center text-[9px] pointer-events-none text-dark-gray max-tablet:hidden">
+                        Built with much 🩶 by Klaus Stille
+                    </p>
                 </div>
                 {projects.map((item, idx) => (
                     <div key={idx}>
