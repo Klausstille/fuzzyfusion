@@ -93,10 +93,10 @@ export default function ShopComponent({ projectItem }: ShopComponentProps) {
                 <p>
                     To ensure the highest standards, we partner with WhiteWall,
                     a renowned printing service known for its excellence in
-                    craftsmanship. <br></br> <br></br>Your Photo on Fuji Crystal
-                    DP II – Gallery-Quality Print<br></br>We exclusively print
-                    on Fuji Crystal DP II, a high-quality photo paper known for
-                    its exceptional characteristics. This premium paper ensures
+                    craftsmanship. <br></br> <br></br>Fuji Crystal DP II –
+                    Gallery-Quality Print<br></br>We exclusively print on Fuji
+                    Crystal DP II, a high-quality photo paper known for its
+                    exceptional characteristics. This premium paper ensures
                     stunning, vibrant colors and remarkable image clarity,
                     adding a touch of sophistication to your prints with its
                     unique matte/light structure that minimizes reflections and
