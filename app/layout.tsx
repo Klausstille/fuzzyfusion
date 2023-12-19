@@ -1,17 +1,10 @@
 "use client";
-import type { Metadata } from "next";
-import Head from "next/head";
 import { Inter } from "next/font/google";
 import Header from "@/components/Navigation/Header";
 import { WidthProvider } from "@/context/WidthContext";
 import { useColorThemeStore, DarkTheme } from "@/stores/colorTheme";
 import { useEffect, useState } from "react";
 import "../styles/index.css";
-
-const metadata: Metadata = {
-    title: "FUZZYFUSION",
-    description: "A FUZZY FUSION of art and technology",
-};
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -27,15 +20,15 @@ export default function RootLayout({
     useEffect(() => {
         setHasLoaded(true);
     }, [hasLoaded]);
+
+    useEffect(() => {
+        if (typeof document !== "undefined") {
+            document.title = "FUZZYFUSION";
+        }
+    }, []);
+
     return (
         <html lang="en">
-            <Head>
-                <title>{metadata.title as string}</title>
-                <meta
-                    name="description"
-                    content={metadata.description as string}
-                />
-            </Head>
             <body
                 className={`flex flex-col h-screen ${inter.className} ${
                     hasLoaded && darkTheme
