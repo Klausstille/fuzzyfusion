@@ -23,7 +23,6 @@ export default function ProjectIconImageDetail({
     const darkTheme = useColorThemeStore(
         (state: unknown) => (state as DarkTheme).darkTheme
     );
-    const [moreInfo, setMoreInfo] = useState<boolean>(false);
     const [isShown, setIsShown] = useState(false);
     const [activeIndex, setActiveIndex] = useState<ActiveIndex | number>(-1);
 
@@ -44,51 +43,40 @@ export default function ProjectIconImageDetail({
                 >
                     <aside className="fixed top-2 left-2 h-[calc(100vh-1rem)] w-[calc(100vw-1rem)] rounded-md overflow-hidden grid grid-cols-12">
                         <>
-                            <aside
-                                className="image_detail col-span-9 pr-2 max-desktop-s:col-span-8 max-tablet:col-span-12 max-tablet:mt-10 max-tablet:pr-0"
-                                onClick={() => {
-                                    setIsShown(true);
-                                    setActiveIndex({
-                                        url: projectItem.url,
-                                        alt: projectItem.title || "",
-                                        width: projectItem.width || 0,
-                                        height: projectItem.height || 0,
-                                    });
-                                }}
-                            >
-                                <AssetImage
-                                    image={projectItem}
-                                    alt={projectItem.title}
-                                    iconThumbnailPreview
-                                    quality="cover"
-                                />
-                            </aside>
+                            {windowWidth > 768 && (
+                                <aside
+                                    className="image_detail col-span-9 pr-2 max-desktop-s:col-span-8 max-tablet:col-span-12 max-tablet:mt-10 max-tablet:pr-0"
+                                    onClick={() => {
+                                        setIsShown(true);
+                                        setActiveIndex({
+                                            url: projectItem.url,
+                                            alt: projectItem.title || "",
+                                            width: projectItem.width || 0,
+                                            height: projectItem.height || 0,
+                                        });
+                                    }}
+                                >
+                                    <AssetImage
+                                        image={projectItem}
+                                        alt={projectItem.title}
+                                        iconThumbnailPreview
+                                        quality="cover"
+                                    />
+                                </aside>
+                            )}
                             <aside className="col-span-3 max-desktop-s:col-span-4">
                                 <div
-                                    className="fixed bottom-3 max-tablet:top-3 max-tablet:bottom-[auto] right-4 flex items-center gap-2 cursor-pointer font-light max-tablet:font-normal text-xs-heading"
+                                    className="fixed bottom-3 max-tablet:top-3 max-tablet:bottom-[auto] right-4 flex items-center gap-2 cursor-pointer font-light max-tablet:font-normal max-tablet:left-4 text-xs-heading z-50"
                                     onClick={() => setShowImageDetail(false)}
                                 >
                                     <BackIcon darkTheme={darkTheme} /> BACK
                                 </div>
-                                {(windowWidth > 768 ||
-                                    (moreInfo && windowWidth < 768)) && (
-                                    <ProjectItemDetail
-                                        projectItem={projectItem}
-                                        exifData={exifData}
-                                        projectIcon
-                                    />
-                                )}
+                                <ProjectItemDetail
+                                    projectItem={projectItem}
+                                    exifData={exifData}
+                                    projectIcon
+                                />
                             </aside>
-                            {windowWidth < 768 && (
-                                <h1
-                                    className="fixed top-3 left-4 cursor-pointer font-bold max-tablet:text-xs-heading"
-                                    onClick={() =>
-                                        setMoreInfo((toggle) => !toggle)
-                                    }
-                                >
-                                    {moreInfo ? "CLOSE" : "INFO"}
-                                </h1>
-                            )}
                         </>
                     </aside>
                 </section>
