@@ -1,5 +1,6 @@
 import { ImagesCollectionItem } from "@/types";
 import { useState, useEffect, use } from "react";
+import MoonLoader from "react-spinners/MoonLoader";
 import { loadStripe } from "@stripe/stripe-js";
 import {
     EmbeddedCheckoutProvider,
@@ -20,7 +21,7 @@ export default function ShopComponent({ projectItem }: ShopComponentProps) {
         { label: "30 x 20", value: "30 x 20" },
         { label: "45 x 30", value: "45 x 30" },
         { label: "60 x 40", value: "60 x 40" },
-        { label: "75 x 50", value: "75 x 50" },
+        { label: "75 x 50 🔥", value: "75 x 50" },
         { label: "90 x 60", value: "90 x 60" },
         { label: "105 x 70", value: "105 x 70" },
         { label: "120 x 80", value: "120 x 80" },
@@ -28,16 +29,17 @@ export default function ShopComponent({ projectItem }: ShopComponentProps) {
         { label: "180 x 120", value: "180 x 120" },
     ];
 
-    const [selectedFormat, setSelectedFormat] = useState(formats[0].value);
-    const { darkTheme } = useColorThemeStore() as DarkTheme;
     const handleFormatChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
         setSelectedFormat(e.target.value);
     };
-
+    const { darkTheme } = useColorThemeStore() as DarkTheme;
+    const [selectedFormat, setSelectedFormat] = useState(formats[0].value);
+    const [isLoading, setIsLoading] = useState(false);
     const [clientSecret, setClientSecret] = useState("");
     const [keyForRerender, setKeyForRerender] = useState(0);
 
     useEffect(() => {
+        setIsLoading(true);
         fetch("/api/checkout_sessions", {
             method: "POST",
             headers: {
@@ -53,8 +55,9 @@ export default function ShopComponent({ projectItem }: ShopComponentProps) {
             .then((data) => {
                 setClientSecret(data.clientSecret);
                 setKeyForRerender((prevKey) => prevKey + 1);
+                setIsLoading(false);
             });
-    }, [projectItem, selectedFormat]);
+    }, [selectedFormat, projectItem]);
 
     useEffect(() => {
         setSelectedFormat("");
@@ -63,9 +66,9 @@ export default function ShopComponent({ projectItem }: ShopComponentProps) {
     return (
         <div className="text-s">
             <aside className="flex justify-between py-4">
-                <h1>Buy this print</h1>
+                <h1 className="font-bold">Buy this print ➝</h1>
                 <select
-                    className={`focus:outline-none ${
+                    className={`focus:outline-none cursor-pointer ${
                         darkTheme ? "bg-real-black text-white" : "text-black"
                     }`}
                     value={selectedFormat}
@@ -78,6 +81,16 @@ export default function ShopComponent({ projectItem }: ShopComponentProps) {
                     ))}
                 </select>
             </aside>
+            {isLoading && selectedFormat && (
+                <div className="flex justify-center py-2">
+                    <MoonLoader
+                        color={darkTheme ? "white" : "#303030"}
+                        cssOverride={{
+                            scale: "0.5",
+                        }}
+                    />
+                </div>
+            )}
             {clientSecret && selectedFormat && (
                 <EmbeddedCheckoutProvider
                     stripe={stripePromise}
@@ -86,7 +99,7 @@ export default function ShopComponent({ projectItem }: ShopComponentProps) {
                     }}
                     key={keyForRerender}
                 >
-                    <EmbeddedCheckout />
+                    {!isLoading && <EmbeddedCheckout />}
                 </EmbeddedCheckoutProvider>
             )}
             <aside className={`text-dark-gray py-4`}>
