@@ -250,4 +250,10 @@ img.fixed-image.portrait {
     .logo {
         scale: 1;
     }
+    select {
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        appearance: none;
+        background-color: transparent;
+    }
 }

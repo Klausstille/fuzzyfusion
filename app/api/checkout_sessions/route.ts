@@ -14,7 +14,6 @@ export async function POST(req: NextRequest) {
             shipping_address_collection: {
                 allowed_countries: ["DE", "AT", "CH", "IT", "FR", "ES", "GB"],
             },
-
             custom_fields: [
                 {
                     key: "product_id",
@@ -40,9 +39,9 @@ export async function POST(req: NextRequest) {
                 },
             ],
             custom_text: {
-                shipping_address: {
+                submit: {
                     message:
-                        "Please note that we can't guarantee 2-day delivery for PO boxes at this time.",
+                        "Your photo will be manually inspected, provided with a protective cover, and placed in an art security packaging.",
                 },
             },
             line_items: [
@@ -51,7 +50,6 @@ export async function POST(req: NextRequest) {
                     quantity: 1,
                 },
             ],
-
             mode: "payment",
             return_url: `${req.headers.get(
                 "origin"

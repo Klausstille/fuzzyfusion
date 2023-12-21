@@ -1,7 +1,8 @@
 import { ImagesCollectionItem } from "@/types";
-import { useState, useEffect, use } from "react";
+import { useState, useEffect } from "react";
 import MoonLoader from "react-spinners/MoonLoader";
 import { loadStripe } from "@stripe/stripe-js";
+
 import {
     EmbeddedCheckoutProvider,
     EmbeddedCheckout,
