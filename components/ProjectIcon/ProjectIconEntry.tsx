@@ -32,7 +32,7 @@ export default function ProjectIconEntry({
     return (
         <>
             <section
-                className="px-2 py-2 flex gap-2 content-start flex-wrap h-[calc(100vh-3rem)] overflow-scroll overflow-x-hidden"
+                className="px-2 py-2 flex gap-2 content-start flex-wrap h-[calc(100vh-2rem)] overflow-scroll overflow-x-hidden"
                 style={{
                     gap: `${calculateDynamicGap(width)}px`,
                     display: Object.values(isOpen).some((open) => open)
@@ -84,7 +84,7 @@ export default function ProjectIconEntry({
                                 <div
                                     className={`${
                                         darkTheme ? "bg-black" : "bg-light-gray"
-                                    } py-8 max-tablet:py-10 grid h-full min-h-[calc(100vh-4rem)] content-start`}
+                                    } py-8 max-tablet:py-10 grid h-full min-h-[calc(100vh-3rem)] content-start`}
                                     style={{
                                         gridTemplateColumns: `repeat(auto-fill, minmax(${
                                             windowWidth > 768 ? width : 300
