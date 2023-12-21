@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { CommonImageModule } from "./CommonImageModule";
 import { ActiveIndex } from "@/types";
 
@@ -12,6 +13,20 @@ export default function CommonImageModuleComponent({
     activeIndex,
     setActiveIndex,
 }: CommonImageModuleComponentProps) {
+    useEffect(() => {
+        const handleKeyDown = (event: KeyboardEvent) => {
+            event.stopPropagation();
+            console.log("COMMON");
+            if (event.key === "Escape") {
+                setIsShown(false);
+                setActiveIndex && setActiveIndex(-1);
+            }
+        };
+        window.addEventListener("keydown", handleKeyDown);
+        return () => {
+            window.removeEventListener("keydown", handleKeyDown);
+        };
+    }, [setIsShown, setActiveIndex]);
     return (
         <section
             className="z-[999]"

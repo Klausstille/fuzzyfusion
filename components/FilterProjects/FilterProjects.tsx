@@ -33,7 +33,7 @@ export default function FilterProjects() {
     return (
         <>
             <h1
-                className={`menu-button fixed bottom-0 right-0 pb-[10px] px-2 z-40 text-m cursor-pointer max-desktop:text-xs max-tablet:text-xs-heading max-tablet:pb-1`}
+                className={`menu-button fixed bottom-0 right-0 pb-[10px] px-4 z-40 text-m cursor-pointer max-desktop:text-xs max-tablet:text-xs-heading max-tablet:pb-1`}
                 onClick={handleClick}
             >
                 FILTER

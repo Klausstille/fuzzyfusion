@@ -41,7 +41,7 @@ export default function ProjectIconImageDetail({
                         darkTheme ? "bg-black" : "bg-gray"
                     } z-50`}
                 >
-                    <aside className="fixed top-2 left-2 h-[calc(100vh-1rem)] w-[calc(100vw-1rem)] rounded-md overflow-hidden grid grid-cols-12">
+                    <aside className="fixed top-2 left-2 h-[calc(100vh-3rem)] w-[calc(100vw-1rem)] rounded-md overflow-hidden grid grid-cols-12">
                         <>
                             {windowWidth > 768 && (
                                 <aside
@@ -64,13 +64,13 @@ export default function ProjectIconImageDetail({
                                     />
                                 </aside>
                             )}
+                            <div
+                                className="fixed bottom-[10px] max-tablet:top-3 max-tablet:bottom-[auto] right-4 flex items-center gap-2 cursor-pointer max-tablet:text-xs-heading max-tablet:left-4 text-m z-[9999]"
+                                onClick={() => setShowImageDetail(false)}
+                            >
+                                <BackIcon darkTheme={darkTheme} /> BACK
+                            </div>
                             <aside className="col-span-3 max-desktop-s:col-span-4">
-                                <div
-                                    className="fixed bottom-3 max-tablet:top-3 max-tablet:bottom-[auto] right-4 flex items-center gap-2 cursor-pointer font-light max-tablet:font-normal max-tablet:left-4 text-xs-heading z-50"
-                                    onClick={() => setShowImageDetail(false)}
-                                >
-                                    <BackIcon darkTheme={darkTheme} /> BACK
-                                </div>
                                 <ProjectItemDetail
                                     projectItem={projectItem}
                                     exifData={exifData}
