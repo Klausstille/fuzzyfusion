@@ -49,7 +49,7 @@ export default function Index() {
     useEffect(() => {
         const delayTimer = setTimeout(() => {
             setDelayPassed(true);
-        }, 2000);
+        }, 1500);
         return () => clearTimeout(delayTimer);
     }, []);
 
@@ -167,7 +167,7 @@ export default function Index() {
         }
     }, [activeFilters]);
 
-    if (isLoading || !delayPassed) {
+    if (hasLoaded && !delayPassed) {
         return (
             <div className="spinner">
                 <Image
@@ -194,7 +194,13 @@ export default function Index() {
                 </div>
             )}
             {hasLoaded && (
-                <>
+                <section
+                    className={`h-screen ${
+                        darkTheme
+                            ? "bg-black text-white "
+                            : "bg-light-gray text-black "
+                    }`}
+                >
                     {windowWidth > 768 ? (
                         layout === "LIST" ? (
                             <ProjectListEntry
@@ -220,7 +226,7 @@ export default function Index() {
                         />
                     )}
                     <FilterProjects />
-                </>
+                </section>
             )}
         </>
     );

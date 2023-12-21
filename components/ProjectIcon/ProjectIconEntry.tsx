@@ -27,6 +27,8 @@ export default function ProjectIconEntry({
         (state: unknown) => (state as DarkTheme).darkTheme
     );
 
+    const isAnyProjectOpen = Object.values(isOpen).some((open) => open);
+
     return (
         <>
             <section
@@ -39,21 +41,23 @@ export default function ProjectIconEntry({
                 }}
                 onClick={() => setShowFolder({})}
             >
-                <div
-                    className={`fixed -z-10 top-0 right-0 h-screen w-screen flex justify-center text-[black]`}
-                >
-                    <Image
-                        className="h-screen object-contain object-center"
-                        src={darkTheme ? "/logo-w.png" : "/logo-b.png"}
-                        alt="logo"
-                        width={1000}
-                        height={1000}
-                        priority
-                    />
-                    <p className="fixed top-3 w-full flex justify-center text-[9px] pointer-events-none text-dark-gray max-tablet:hidden">
-                        Built with much 🩶 by Klaus Stille
-                    </p>
-                </div>
+                {!isAnyProjectOpen && (
+                    <div
+                        className={`fixed top-0 right-0 h-screen w-screen flex justify-center text-[black] pointer-events-none`}
+                    >
+                        <Image
+                            className="h-screen object-contain object-center"
+                            src={darkTheme ? "/logo-w.png" : "/logo-b.png"}
+                            alt="logo"
+                            width={1000}
+                            height={1000}
+                            priority
+                        />
+                        <p className="fixed top-3 w-full flex justify-center text-[9px] pointer-events-none text-dark-gray max-tablet:hidden">
+                            Built with much 🩶 by Klaus Stille
+                        </p>
+                    </div>
+                )}
                 {projects.map((item, idx) => (
                     <div key={idx}>
                         <DraggableItem
@@ -80,7 +84,7 @@ export default function ProjectIconEntry({
                                 <div
                                     className={`${
                                         darkTheme ? "bg-black" : "bg-light-gray"
-                                    } py-8 max-tablet:py-10 grid h-full min-h-screen content-start`}
+                                    } py-8 max-tablet:py-10 grid h-full min-h-[calc(100vh-4rem)] content-start`}
                                     style={{
                                         gridTemplateColumns: `repeat(auto-fill, minmax(${
                                             windowWidth > 768 ? width : 300
