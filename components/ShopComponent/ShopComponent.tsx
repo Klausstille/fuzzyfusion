@@ -103,11 +103,11 @@ export default function ShopComponent({ projectItem }: ShopComponentProps) {
                     {!isLoading && <EmbeddedCheckout />}
                 </EmbeddedCheckoutProvider>
             )}
-            <aside className={`text-dark-gray py-4`}>
-                <p>
+            <aside className="text-dark-gray py-4">
+                <p className="break-words">
                     To ensure the highest standards, we partner with WhiteWall,
                     a renowned printing service known for its excellence in
-                    craftsmanship. <br></br> <br></br>Fuji Crystal DP II –
+                    craftsmanship. <br></br> <br></br>Fuji Crystal DP II -
                     Gallery-Quality Print<br></br>We exclusively print on Fuji
                     Crystal DP II, a high-quality photo paper known for its
                     exceptional characteristics. This premium paper ensures
@@ -131,10 +131,10 @@ export default function ShopComponent({ projectItem }: ShopComponentProps) {
                     <br></br>
                     <br></br>Direct Shipping to Your Doorstep<br></br>Your
                     finished prints are then expertly packaged and shipped
-                    directly to your preferred address. Whether it`s a single
-                    print or a bulk order, we handle the logistics, so you can
-                    sit back and await the arrival of your carefully crafted
-                    pieces.
+                    directly to your preferred address. Whether it{"'"}s a
+                    single print or a bulk order, we handle the logistics, so
+                    you can sit back and await the arrival of your carefully
+                    crafted pieces.
                 </p>
             </aside>
         </div>

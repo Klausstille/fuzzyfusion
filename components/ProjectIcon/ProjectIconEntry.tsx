@@ -26,20 +26,6 @@ export default function ProjectIconEntry({
     const darkTheme = useColorThemeStore(
         (state: unknown) => (state as DarkTheme).darkTheme
     );
-    useEffect(() => {
-        const handleKeyDown = (event: KeyboardEvent) => {
-            event.stopPropagation();
-            console.log("PROJECT ICON");
-            if (event.key === "Escape") {
-                setShowImageDetail(false);
-            }
-        };
-
-        window.addEventListener("keydown", handleKeyDown);
-        return () => {
-            window.removeEventListener("keydown", handleKeyDown);
-        };
-    }, []);
 
     return (
         <>

@@ -16,7 +16,6 @@ export default function CommonImageModuleComponent({
     useEffect(() => {
         const handleKeyDown = (event: KeyboardEvent) => {
             event.stopPropagation();
-            console.log("COMMON");
             if (event.key === "Escape") {
                 setIsShown(false);
                 setActiveIndex && setActiveIndex(-1);
