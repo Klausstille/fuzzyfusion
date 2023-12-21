@@ -39,7 +39,7 @@ export default function ProjectIconImageDetail({
                 <section
                     className={`fixed top-0 left-0 h-screen w-screen ${
                         darkTheme ? "bg-black" : "bg-gray"
-                    } z-50`}
+                    } z-40`}
                 >
                     <aside className="fixed top-2 left-2 h-[calc(100vh-3rem)] w-[calc(100vw-1rem)] rounded-md overflow-hidden grid grid-cols-12">
                         <>

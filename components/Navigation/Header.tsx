@@ -16,7 +16,7 @@ export default function Header() {
     return (
         <header
             className={`${
-                darkTheme ? "bg-black" : "bg-light-gray"
+                darkTheme ? "bg-black text-white" : "bg-light-gray text-black"
             } grid grid-cols-12 fixed left-0 bottom-0 w-full z-30 items-center px-2 py-2 text-m 
             `}
         >

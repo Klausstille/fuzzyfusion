@@ -28,7 +28,6 @@ export default function CommonImageModuleComponent({
     }, [setIsShown, setActiveIndex]);
     return (
         <section
-            className="z-[999]"
             onClick={() => {
                 setIsShown(false);
                 setActiveIndex && setActiveIndex(-1);
