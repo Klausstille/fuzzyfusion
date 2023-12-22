@@ -67,7 +67,9 @@ export default function ShopComponent({ projectItem }: ShopComponentProps) {
     return (
         <div className="text-s">
             <aside className="flex justify-between py-4">
-                <h1 className="font-bold">Buy this print ➝</h1>
+                <h1 className="font-bold">
+                    Buy this print <span className="pl-2">➝</span>
+                </h1>
                 <select
                     className={`focus:outline-none cursor-pointer w-[120px] ${
                         darkTheme ? "bg-real-black text-white" : "text-black"
