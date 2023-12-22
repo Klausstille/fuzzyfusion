@@ -69,11 +69,19 @@ export default function ShopComponent({ projectItem }: ShopComponentProps) {
             <aside className="flex justify-between py-4">
                 <h1 className="font-bold">Buy this print ➝</h1>
                 <select
-                    className={`focus:outline-none cursor-pointer ${
+                    className={`focus:outline-none cursor-pointer w-[120px] ${
                         darkTheme ? "bg-real-black text-white" : "text-black"
                     }`}
                     value={selectedFormat}
                     onChange={handleFormatChange}
+                    style={{
+                        background: `url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='10' height='5' fill='${
+                            darkTheme ? "white" : "black"
+                        }'><polygon points='0,0 10,0 5,5'/></svg>") no-repeat right`,
+                        MozAppearance: "none",
+                        WebkitAppearance: "none",
+                        appearance: "none",
+                    }}
                 >
                     {formats.map((format) => (
                         <option key={format.value} value={format.value}>

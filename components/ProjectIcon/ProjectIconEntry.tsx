@@ -54,7 +54,8 @@ export default function ProjectIconEntry({
                             priority
                         />
                         <p className="fixed top-3 w-full flex justify-center text-[9px] pointer-events-none text-dark-gray max-tablet:hidden">
-                            Built with much 🩶 by Klaus Stille
+                            Built with much {darkTheme ? "🤍" : "🖤"} by Klaus
+                            Stille
                         </p>
                     </div>
                 )}
