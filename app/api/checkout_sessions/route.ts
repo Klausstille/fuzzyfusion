@@ -51,6 +51,7 @@ export async function POST(req: NextRequest) {
                 },
             ],
             mode: "payment",
+            allow_promotion_codes: true,
             return_url: `${req.headers.get(
                 "origin"
             )}/return?session_id={CHECKOUT_SESSION_ID}`,
