@@ -14,6 +14,11 @@ export async function POST(req: NextRequest) {
             shipping_address_collection: {
                 allowed_countries: ["DE", "AT", "CH", "IT", "FR", "ES", "GB"],
             },
+            shipping_options: [
+                {
+                    shipping_rate: "shr_1OQIvnCZQviKuQROa2JDyc6g",
+                },
+            ],
             custom_fields: [
                 {
                     key: "product_id",
