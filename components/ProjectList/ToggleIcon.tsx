@@ -14,7 +14,7 @@ export default function ToggleIcon({ isOpen, darkTheme }: ToggleIconProps) {
                 fill="none"
                 xmlns="http://www.w3.org/2000/svg"
             >
-                {isOpen ? (
+                {!isOpen ? (
                     <path
                         d="M2.33341 1.33357L6.00008 5.00024L2.33341 8.66691"
                         stroke={darkTheme ? "#F8F8F8" : "#303030"}

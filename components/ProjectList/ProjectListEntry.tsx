@@ -38,7 +38,11 @@ export default function ProjectListEntry({
                             onClick={() => toggleProject(idx)}
                         >
                             <ToggleIcon
-                                isOpen={isOpen[idx]}
+                                isOpen={
+                                    isOpen[idx] ||
+                                    projects[idx].imagesCollection.items
+                                        .length > 0
+                                }
                                 darkTheme={darkTheme}
                             />
                             <aside className="w-3">
