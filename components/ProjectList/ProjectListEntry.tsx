@@ -41,7 +41,7 @@ export default function ProjectListEntry({
                                 isOpen={
                                     isOpen[idx] ||
                                     projects[idx].imagesCollection.items
-                                        .length > 0
+                                        .length === 0
                                 }
                                 darkTheme={darkTheme}
                             />
