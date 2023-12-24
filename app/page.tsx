@@ -152,11 +152,13 @@ export default function Index() {
             const nonEmptyProjects = filteredProjects.filter(
                 (project) => project.imagesCollection.items.length > 0
             );
-            if (nonEmptyProjects.length > 0) {
-                const selectedProject = nonEmptyProjects[0];
-                setProjectItem(selectedProject.imagesCollection.items[0]);
-            } else {
-                setProjectItem(null);
+            if (isFavorite.length === 0) {
+                if (nonEmptyProjects.length > 0) {
+                    const selectedProject = nonEmptyProjects[0];
+                    setProjectItem(selectedProject.imagesCollection.items[0]);
+                } else {
+                    setProjectItem(null);
+                }
             }
         }
     }, [activeFilters, isFavorite]);
