@@ -129,7 +129,7 @@ export default function DraggableItem({
         </Draggable>
     ) : (
         <div
-            className="min-w-[50px] px-2 py-2"
+            className="min-w-[50px] px-2 py-2 max-tablet:w-[80px]"
             onClick={() => toggleProject(idx)}
             style={{
                 display: Object.values(isOpen).some((open) => open)
