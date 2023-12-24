@@ -152,20 +152,14 @@ export default function Index() {
             const nonEmptyProjects = filteredProjects.filter(
                 (project) => project.imagesCollection.items.length > 0
             );
-
             if (nonEmptyProjects.length > 0) {
                 const selectedProject = nonEmptyProjects[0];
                 setProjectItem(selectedProject.imagesCollection.items[0]);
             } else {
                 setProjectItem(null);
             }
-        } else {
-            if (data) {
-                setProjects(data.projects);
-                setProjectItem(data.projects[0].imagesCollection.items[0]);
-            }
         }
-    }, [activeFilters]);
+    }, [activeFilters, isFavorite]);
 
     if (hasLoaded && !delayPassed) {
         return (

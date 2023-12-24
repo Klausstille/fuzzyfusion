@@ -44,6 +44,7 @@ export default function ProjectItemDetail({
     const isFavorite: boolean = useFavoritesStore((state: any) =>
         state.isFavorite.includes(projectItem?.id)
     );
+    const setFavorite = useFavoritesStore((state: any) => state.setFavorite);
     const { Latitude, Longitude } = filteredExifData;
     const tagCategory: string[] = Object.keys(projectItem?.tags);
     const tagValues: (string[] | null)[] = Object.values(projectItem?.tags);
@@ -187,7 +188,10 @@ export default function ProjectItemDetail({
                             className="text-xs flex items-center gap-4 text-dark-gray"
                             style={{ whiteSpace: "nowrap" }}
                         >
-                            <p>
+                            <p
+                                onClick={() => setFavorite(projectItem?.id)}
+                                style={{ cursor: "pointer" }}
+                            >
                                 {hasLoaded && isFavorite
                                     ? "Remove favorite"
                                     : "Add to favorites"}

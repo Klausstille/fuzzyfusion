@@ -18,7 +18,7 @@ export default function ProjectIcon({
     const { width } = useWidthContext();
     const { windowWidth } = GetWindowDimensions();
     return (
-        <article>
+        <>
             <div
                 onClick={() => {
                     setProjectItem(item);
@@ -44,10 +44,10 @@ export default function ProjectIcon({
                     }
                 />
             </div>
-            <aside className="flex justify-between w-full items-center h-6">
+            <aside className="flex flex-row-reverse justify-center gap-2 w-full items-center h-6 text-s-bold max-desktop-s:text-xs pt-2">
                 <p>{item.title}.JPG</p>
                 <FavoriteButton id={item.id} iconEntry />
             </aside>
-        </article>
+        </>
     );
 }

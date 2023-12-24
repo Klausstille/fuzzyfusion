@@ -24,7 +24,7 @@ export default function ProjectList({
                     loading="lazy"
                 />
             </aside>
-            <p className="min-w-[130px] max-desktop-s:min-w-[90px] max-desktop-s:text-xs">
+            <p className="min-w-[100px] max-desktop-s:min-w-[90px] max-desktop-s:text-xs">
                 {item.title}.JPG
             </p>
             <FavoriteButton id={item.id} />

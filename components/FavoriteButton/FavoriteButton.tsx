@@ -21,24 +21,15 @@ export default function FavoriteButton({
     }, [hasLoaded]);
 
     return (
-        hasLoaded && (
+        hasLoaded &&
+        isFavorite && (
             <div
-                className={`w-full flex ${
-                    iconEntry ? "justify-end" : "justify-center"
-                }`}
+                className={`flex ${iconEntry ? "" : "w-full justify-end pr-2"}`}
             >
                 <button
                     onClick={() => setFavorite(id)}
                     style={{ boxSizing: "content-box" }}
-                    className={`dot ${
-                        isFavorite
-                            ? darkTheme
-                                ? "bg-white"
-                                : "bg-black"
-                            : darkTheme
-                            ? "bg-black border-real-black border-[1px]"
-                            : "bg-white border-gray border-[1px]"
-                    }`}
+                    className={`dot ${darkTheme ? "bg-white" : "bg-black"}`}
                 />
             </div>
         )
