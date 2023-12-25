@@ -46,7 +46,9 @@ export default function Return() {
                     Thanks, {customerFirstName}! <br></br> A confirmation email
                     will be sent to {customerEmail}. If you have any questions,
                     please email us at{" "}
-                    <a href="mailto:orders@example.com">mail@fuzzyfusion.com</a>
+                    <a href="mailto:love@fuzzyfusion.world">
+                        love@fuzzyfusion.world
+                    </a>
                     .
                 </p>
             </section>
