@@ -1,4 +1,4 @@
-import { dynamicBlurDataUrl } from "@/helpers/dynamicBlurDataURL";
+import { dynamicBlurDataUrl } from "../helpers/dynamicBlurDataURL";
 
 async function fetchGraphQL(query: string) {
     return fetch(
