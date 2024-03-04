@@ -1,7 +1,7 @@
 const baseUrl =
     process.env.NODE_ENV === "development"
         ? "http://localhost:3000/"
-        : "https://www.fuzzyfusion.world/";
+        : process.env.NEXT_PUBLIC_DOMAIN;
 
 export async function dynamicBlurDataUrl(url: string) {
     const base64str = await fetch(
