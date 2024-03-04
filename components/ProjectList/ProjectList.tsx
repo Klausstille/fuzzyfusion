@@ -17,11 +17,11 @@ export default function ProjectList({
                     className="aspect-16/9 object-cover"
                     src={item.url}
                     alt={item.title}
-                    layout="responsive"
                     width={item.width}
                     height={item.height}
-                    quality={20}
                     loading="lazy"
+                    placeholder={item?.blurDataURL ? "blur" : "empty"}
+                    blurDataURL={item?.blurDataURL || ""}
                 />
             </aside>
             <p className="min-w-[100px] max-desktop-s:min-w-[90px] max-desktop-s:text-xs">

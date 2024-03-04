@@ -1,3 +1,5 @@
+import { dynamicBlurDataUrl } from "@/helpers/dynamicBlurDataURL";
+
 async function fetchGraphQL(query: string) {
     return fetch(
         `https://graphql.contentful.com/content/v1/spaces/${process.env.NEXT_PUBLIC_CONTENTFUL_SPACE_ID}`,
@@ -42,14 +44,12 @@ interface FetchResponse {
     };
 }
 
-function extractProjectEntries(fetchResponse: FetchResponse) {
+async function extractProjectEntries(fetchResponse: FetchResponse) {
     const response = fetchResponse?.data?.projectCategoryCollection?.items;
-    return response.map((project) => {
-        return {
-            title: project.title,
-            id: project.sys.id,
-            imagesCollection: {
-                items: project.projectimagesCollection.items.map((item) => {
+    const projects = await Promise.all(
+        response.map(async (project) => {
+            const imagesCollection = await Promise.all(
+                project.projectimagesCollection.items.map(async (item) => {
                     const tags = item.contentfulMetadata.tags.map((tag) => {
                         const splitTag = tag.name.split(":");
                         return splitTag.length === 2
@@ -65,6 +65,8 @@ function extractProjectEntries(fetchResponse: FetchResponse) {
                         }
                     });
                     const formattedTags = Object.fromEntries(tagMap);
+                    const blurDataURL = await dynamicBlurDataUrl(item.url);
+
                     return {
                         id: item.sys.id,
                         title: item.title,
@@ -72,11 +74,20 @@ function extractProjectEntries(fetchResponse: FetchResponse) {
                         width: item.width,
                         height: item.height,
                         tags: formattedTags,
+                        blurDataURL: blurDataURL,
                     };
-                }),
-            },
-        };
-    });
+                })
+            );
+            return {
+                title: project.title,
+                id: project.sys.id,
+                imagesCollection: {
+                    items: imagesCollection,
+                },
+            };
+        })
+    );
+    return projects;
 }
 
 export function extractProjectTags(fetchResponse: FetchResponse) {
@@ -147,9 +158,12 @@ export async function getProjects(windowWidth: number) {
     }`
     );
 
+    const projects = await extractProjectEntries(entries);
+    const tags = extractProjectTags(entries);
+
     return {
-        projects: extractProjectEntries(entries),
-        tags: extractProjectTags(entries),
+        projects: projects,
+        tags: tags,
     };
 }
 
