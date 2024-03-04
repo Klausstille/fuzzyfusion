@@ -8,6 +8,7 @@ export interface AssetImageProps {
         height: number;
         title: string;
         tags: (string[] | null)[];
+        blurDataURL?: string;
     };
     imageSrc?: string;
     alt?: string;
@@ -115,7 +116,8 @@ export function AssetImage({
             layout={
                 iconThumbnailPreview || thumbnailPreview ? "" : "responsive"
             }
-            {...blurProps}
+            placeholder={image?.blurDataURL ? "blur" : "empty"}
+            blurDataURL={image?.blurDataURL || ""}
         />
     );
 }

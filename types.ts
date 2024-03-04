@@ -5,6 +5,7 @@ export interface ImagesCollectionItem {
     width: number;
     height: number;
     tags: (string[] | null)[];
+    blurDataURL?: string;
 }
 export interface ImagesCollection {
     items: {
@@ -14,6 +15,7 @@ export interface ImagesCollection {
         width: number;
         height: number;
         tags: (string[] | null)[];
+        blurDataURL?: string;
     }[];
 }
 export interface ProjectItem {
