@@ -8,8 +8,6 @@ Welcome to Fuzzy Fusion!
 ![Main Page](public/page-4.png)
 ![Main Page](public/page-5.png)
 ![Main Page](public/page-6.png)
-![Main Page](public/page-7.png)
-![Main Page](public/page-8.png)
 
 Just wrapped up programming the website, and I'm thrilled to introduce FuzzyFusion! ✨ Explore our captivating collection of top-notch prints available now at [www.fuzzyfusion.world](https://www.fuzzyfusion.world). Elevate your space with unique and raw prints.
 
