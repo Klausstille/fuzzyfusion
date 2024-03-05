@@ -1,36 +1,41 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Fuzzy Fusion
 
-## Getting Started
+Welcome to Fuzzy Fusion!
 
-First, run the development server:
+![Main Page](public/page-1.png)
+![Main Page](public/page-2.png)
+![Main Page](public/page-3.png)
+![Main Page](public/page-4.png)
+![Main Page](public/page-5.png)
+![Main Page](public/page-6.png)
+![Main Page](public/page-7.png)
+![Main Page](public/page-8.png)
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+Just wrapped up programming the website, and I'm thrilled to introduce FuzzyFusion! ✨ Explore our captivating collection of top-notch prints available now at [www.fuzzyfusion.world](https://www.fuzzyfusion.world). Elevate your space with unique and raw prints.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Features
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+-   **Captivating Prints:** Discover a captivating collection of top-notch prints that will elevate your space.
+-   **Raw and Authentic:** Each print is raw and authentic, capturing the essence of the moment.
+-   **Enhanced Filtering Options:** Easily find prints that match your preferences with our enhanced filtering options.
+-   **Image Information from EXIF Data:** Detailed image information available directly from the EXIF data of the image itself, providing valuable insights into each print's capture settings, such as camera model, exposure settings, and much more.
+-   **Built with Next.js, Tailwind, and TypeScript:** The website is developed using modern technologies including Next.js, Tailwind CSS, and TypeScript, ensuring performance and maintainability.
+-   **Content Delivery with Contentful and GraphQL:** Content is delivered seamlessly using Contentful and GraphQL, enabling efficient management and retrieval of content.
+-   **Secure Payment Method:** Purchase prints securely using Stripe, ensuring a smooth and reliable payment process.
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+## Technologies Used
 
-## Learn More
+-   Next.js
+-   Tailwind CSS
+-   TypeScript
+-   Contentful
+-   GraphQL
+-   Stripe
 
-To learn more about Next.js, take a look at the following resources:
+## Support
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+If you have any questions or need assistance, please reach out to our support team at [love@fuzzyfusion.world](mailto:love@fuzzyfusion.world).
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+## Feedback
 
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+We value your feedback! Please share your thoughts and suggestions by emailing [love@fuzzyfusion.world](mailto:love@fuzzyfusion.world).
