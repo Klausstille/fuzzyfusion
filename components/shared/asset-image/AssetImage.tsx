@@ -95,7 +95,7 @@ export function AssetImage({
                 thumbnails
                     ? "aspect-16/9 object-cover"
                     : thumbnailPreview
-                      ? "h-full object-cover rounded-md"
+                      ? "h-full object-cover w-full rounded-md"
                       : iconThumbnails
                         ? "w-full hover:object-contain aspect-6/4 object-cover transition-all duration-500 ease-in-out"
                         : iconThumbnailPreview
