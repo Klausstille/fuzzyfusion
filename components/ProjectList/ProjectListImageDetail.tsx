@@ -37,7 +37,6 @@ export default function ProjectListImageDetail({
                 <AssetImage
                     image={projectItem}
                     alt={projectItem?.title}
-                    quality="cover"
                     thumbnailPreview
                 />
             </aside>

@@ -87,7 +87,6 @@ export const CommonImageModule = ({
                 style={windowWidth > 768 ? properties : {}}
                 width={width}
                 height={height}
-                quality={100}
             />
         </div>
     );

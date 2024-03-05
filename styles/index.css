@@ -4,6 +4,8 @@
 
 * {
     box-sizing: border-box;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
     margin: 0;
     padding: 0;
 }

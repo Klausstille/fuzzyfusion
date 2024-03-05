@@ -64,7 +64,7 @@ export default function ProjectItemDetail({
                     projectIcon
                         ? "h-screen max-tablet:fixed max-tablet:top-2 max-tablet:left-2 max-tablet:w-[calc(100vw-1rem)] max-tablet:h-[calc(100vh-1rem)] rounded-md"
                         : "h-[calc(100vh-3rem)] rounded-md"
-                } overflow-scroll col-span-3 max-desktop:col-span-4 max-tablet:col-span-7 ${
+                } overflow-auto col-span-3 max-desktop:col-span-4 max-tablet:col-span-7 ${
                     darkTheme ? "bg-real-black" : "bg-white"
                 } pb-10 max-tablet:pb-20 max-tablet:pt-10`}
             >
@@ -73,7 +73,6 @@ export default function ProjectItemDetail({
                         <AssetImage
                             image={projectItem}
                             alt={projectItem?.title}
-                            quality="cover"
                             thumbnails
                         />
                     </aside>
@@ -93,7 +92,6 @@ export default function ProjectItemDetail({
                         <AssetImage
                             image={projectItem}
                             alt={projectItem?.title}
-                            quality="cover"
                             thumbnails
                         />
                     </aside>
