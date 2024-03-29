@@ -86,6 +86,7 @@ export default function ProjectListImageDetail({
                                     width: "100%",
                                     height: "auto",
                                 }}
+                                quality={90}
                                 ref={imageRef}
                                 src={projectItem?.url || ""}
                                 alt={projectItem?.title}

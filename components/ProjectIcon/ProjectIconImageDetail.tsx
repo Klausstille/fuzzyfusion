@@ -126,6 +126,7 @@ export default function ProjectIconImageDetail({
                                                             ""
                                                         }
                                                         alt={projectItem?.title}
+                                                        quality={90}
                                                         width={
                                                             projectItem?.width ||
                                                             0
