@@ -1,11 +1,13 @@
 interface ButtonProps {
     children: React.ReactNode;
+    onClick?: () => void;
 }
 import { useColorThemeStore, DarkTheme } from "@/stores/colorTheme";
-const Button: React.FC<ButtonProps> = ({ children }) => {
+const Button: React.FC<ButtonProps> = ({ children, onClick }) => {
     const { darkTheme } = useColorThemeStore() as DarkTheme;
     return (
         <button
+            onClick={onClick}
             className={`${
                 darkTheme
                     ? "hover:bg-black bg-[#2b2b2b] text-white"

@@ -29,7 +29,7 @@ export default function ProjectListEntry({
             <div
                 className={`${
                     darkTheme ? "bg-[#2b2b2b]" : "bg-[#f0f0f0]"
-                } col-span-2 max-desktop:col-span-3 max-tablet:col-span-5 h-[calc(100vh-3rem)] overflow-scroll rounded-md px-2 py-2`}
+                } col-span-2  max-tablet:col-span-5 h-[calc(100vh-3rem)] overflow-scroll rounded-md px-2 py-2`}
             >
                 {projects.map((item, idx) => (
                     <div key={idx} className="pb-2">

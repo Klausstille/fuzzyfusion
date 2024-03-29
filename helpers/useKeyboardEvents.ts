@@ -21,7 +21,6 @@ export const useKeyboardEvents = ({
                 e.key === "ArrowRight"
             ) {
                 e.preventDefault();
-
                 const projectIdx = projects.findIndex((item) =>
                     item.imagesCollection.items.some(
                         (imageItem) => imageItem.id === projectItem?.id

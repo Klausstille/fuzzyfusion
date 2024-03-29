@@ -68,32 +68,9 @@ export default function ProjectItemDetail({
                     darkTheme ? "bg-real-black" : "bg-white"
                 } pb-10 max-tablet:pb-20 max-tablet:pt-10`}
             >
-                {windowWidth > 768 ? (
-                    <aside className="pb-2">
-                        <AssetImage
-                            image={projectItem}
-                            alt={projectItem?.title}
-                        />
-                    </aside>
-                ) : (
-                    <aside
-                        className="pb-2"
-                        onClick={() => {
-                            setIsShown(true);
-                            setActiveIndex({
-                                url: projectItem.url,
-                                alt: projectItem.title || "",
-                                width: projectItem.width || 0,
-                                height: projectItem.height || 0,
-                            });
-                        }}
-                    >
-                        <AssetImage
-                            image={projectItem}
-                            alt={projectItem?.title}
-                        />
-                    </aside>
-                )}
+                <aside className="pb-2">
+                    <AssetImage image={projectItem} alt={projectItem?.title} />
+                </aside>
 
                 <article className="px-2">
                     <h1 className="text-s-bold">{projectItem?.title}.JPG</h1>

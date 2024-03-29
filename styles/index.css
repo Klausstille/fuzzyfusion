@@ -176,8 +176,9 @@ input[type="range"]:focus::-moz-range-thumb {
 button:focus {
     outline: none;
 }
+
 .image_detail {
-    cursor: url("../public/zoom.svg"), auto;
+    cursor: move;
 }
 
 .img-module {

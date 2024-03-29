@@ -93,7 +93,7 @@ export function AssetImage({
         <Image
             className={
                 thumbnailPreview
-                    ? "h-full object-cover w-full rounded-md"
+                    ? "h-full object-contain object-center w-full rounded-md"
                     : iconThumbnails
                       ? "w-full hover:object-contain aspect-6/4 object-cover transition-all duration-500 ease-in-out"
                       : iconThumbnailPreview
