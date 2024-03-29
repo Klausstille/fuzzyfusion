@@ -73,7 +73,6 @@ export default function ProjectItemDetail({
                         <AssetImage
                             image={projectItem}
                             alt={projectItem?.title}
-                            thumbnails
                         />
                     </aside>
                 ) : (
@@ -92,7 +91,6 @@ export default function ProjectItemDetail({
                         <AssetImage
                             image={projectItem}
                             alt={projectItem?.title}
-                            thumbnails
                         />
                     </aside>
                 )}
