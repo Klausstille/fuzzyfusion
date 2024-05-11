@@ -28,7 +28,7 @@ export default function ProjectListEntry({
         <section className="px-2 py-2 grid grid-cols-12 gap-2">
             <div
                 className={`${
-                    darkTheme ? "bg-[#2b2b2b]" : "bg-[#f0f0f0]"
+                    darkTheme ? "bg-[#2b2b2b]" : "bg-[#ffffff]"
                 } col-span-2 max-desktop:col-span-3 max-tablet:col-span-5 h-[calc(100vh-3rem)] overflow-scroll rounded-md px-2 py-2`}
             >
                 {projects.map((item, idx) => (
