@@ -1,10 +1,19 @@
 import { ImagesCollectionItem } from "@/types";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import MoonLoader from "react-spinners/MoonLoader";
+import { loadStripe } from "@stripe/stripe-js";
+
+import {
+    EmbeddedCheckoutProvider,
+    EmbeddedCheckout,
+} from "@stripe/react-stripe-js";
 import { useColorThemeStore, DarkTheme } from "@/stores/colorTheme";
 
 interface ShopComponentProps {
     projectItem: ImagesCollectionItem;
 }
+
+const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_API_KEY || "");
 
 export default function ShopComponent({ projectItem }: ShopComponentProps) {
     const formats = [
@@ -21,36 +30,39 @@ export default function ShopComponent({ projectItem }: ShopComponentProps) {
         { label: "180 x 120", value: "180 x 120" },
     ];
 
-    const { darkTheme } = useColorThemeStore() as DarkTheme;
-    const [selectedFormat, setSelectedFormat] = useState(formats[0].value);
-    const [message, setMessage] = useState("");
-
     const handleFormatChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
         setSelectedFormat(e.target.value);
     };
+    const { darkTheme } = useColorThemeStore() as DarkTheme;
+    const [selectedFormat, setSelectedFormat] = useState(formats[0].value);
+    const [isLoading, setIsLoading] = useState(false);
+    const [clientSecret, setClientSecret] = useState("");
+    const [keyForRerender, setKeyForRerender] = useState(0);
 
-    const handleMessageChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-        setMessage(e.target.value);
-    };
+    useEffect(() => {
+        setIsLoading(true);
+        fetch("/api/checkout_sessions", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                productId: `Photo print Fujiflex glossy, ${selectedFormat}`,
+                productTitle: projectItem?.title,
+                selectedFormat: selectedFormat,
+            }),
+        })
+            .then((res) => res.json())
+            .then((data) => {
+                setClientSecret(data.clientSecret);
+                setKeyForRerender((prevKey) => prevKey + 1);
+                setIsLoading(false);
+            });
+    }, [selectedFormat, projectItem]);
 
-    const handleSubmit = () => {
-        if (!selectedFormat) {
-            alert("Please select a format first");
-            return;
-        }
-
-        const subject = encodeURIComponent(
-            `Print Inquiry: ${projectItem?.title} - ${selectedFormat}`
-        );
-        const body = encodeURIComponent(
-            `Print Details:\n` +
-                `Title: ${projectItem?.title}\n` +
-                `Format: ${selectedFormat}\n\n` +
-                `Message:\n${message}\n`
-        );
-
-        window.location.href = `mailto:readme@stillestudio.com?subject=${subject}&body=${body}`;
-    };
+    useEffect(() => {
+        setSelectedFormat("");
+    }, [projectItem]);
 
     return (
         <div className="text-s">
@@ -80,30 +92,26 @@ export default function ShopComponent({ projectItem }: ShopComponentProps) {
                     ))}
                 </select>
             </aside>
-            {selectedFormat && (
-                <div className="py-4 flex flex-col">
-                    <textarea
-                        className={`w-full p-2 rounded-md border resize-none ${
-                            darkTheme
-                                ? "bg-real-black text-white border-gray-700"
-                                : "bg-white text-black border-gray-300"
-                        }`}
-                        rows={4}
-                        placeholder="Add any specific requirements or questions about your print..."
-                        value={message}
-                        onChange={handleMessageChange}
+            {isLoading && selectedFormat && (
+                <div className="flex justify-center py-2">
+                    <MoonLoader
+                        color={darkTheme ? "white" : "#303030"}
+                        cssOverride={{
+                            scale: "0.5",
+                        }}
                     />
-                    <button
-                        onClick={handleSubmit}
-                        className={`mt-2 px-4 py-2 rounded-md self-center w-full border ${
-                            darkTheme
-                                ? "border-white text-white hover:bg-white hover:text-black"
-                                : "border-black text-black hover:bg-black hover:text-white"
-                        } transition-colors`}
-                    >
-                        Send Inquiry Email
-                    </button>
                 </div>
+            )}
+            {clientSecret && selectedFormat && (
+                <EmbeddedCheckoutProvider
+                    stripe={stripePromise}
+                    options={{
+                        clientSecret,
+                    }}
+                    key={keyForRerender}
+                >
+                    {!isLoading && <EmbeddedCheckout />}
+                </EmbeddedCheckoutProvider>
             )}
             <aside className="text-dark-gray py-4">
                 <p className="break-words">

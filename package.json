@@ -10,33 +10,33 @@
         "lint": "next lint"
     },
     "dependencies": {
-        "@stripe/react-stripe-js": "^2.4.0",
-        "@stripe/stripe-js": "^2.2.1",
+        "@stripe/react-stripe-js": "^3.9.0",
+        "@stripe/stripe-js": "^7.8.0",
         "contentful": "^9.3.5",
-        "date-fns": "^2.30.0",
-        "dotenv": "^16.3.1",
+        "date-fns": "^4.1.0",
+        "dotenv": "^17.2.1",
         "exif-js": "^2.3.0",
-        "exifreader": "^4.17.0",
-        "next": "14.0.3",
-        "react": "^18",
-        "react-dom": "^18",
-        "react-draggable": "^4.4.6",
-        "react-spinners": "^0.13.8",
-        "stripe": "^14.9.0",
-        "swr": "^2.2.0",
-        "zustand": "^4.3.9"
+        "exifreader": "^4.31.1",
+        "next": "^15.4.5",
+        "react": "^19.1.1",
+        "react-dom": "^19.1.1",
+        "react-draggable": "^4.5.0",
+        "react-spinners": "^0.17.0",
+        "stripe": "^18.4.0",
+        "swr": "^2.3.4",
+        "zustand": "^5.0.7"
     },
     "devDependencies": {
-        "@types/node": "^20",
-        "@types/react": "^18",
-        "@types/react-dom": "^18",
-        "autoprefixer": "^10.0.1",
+        "@types/node": "^24.2.0",
+        "@types/react": "^19.1.9",
+        "@types/react-dom": "^19.1.7",
+        "autoprefixer": "^10.4.21",
         "contentful-management": "^10.31.5",
         "contentful-typescript-codegen": "^3.4.0",
         "eslint": "^8",
         "eslint-config-next": "14.0.3",
         "postcss": "^8",
         "tailwindcss": "^3.3.0",
-        "typescript": "^5"
+        "typescript": "^5.9.2"
     }
 }
