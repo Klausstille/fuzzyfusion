@@ -2,6 +2,9 @@
     "name": "fuzzyfusion",
     "version": "0.1.0",
     "private": true,
+    "engines": {
+        "node": "24.x"
+    },
     "scripts": {
         "dev": "next dev",
         "ctf:codegen": "contentful-typescript-codegen --output contentful/generated.ts",
